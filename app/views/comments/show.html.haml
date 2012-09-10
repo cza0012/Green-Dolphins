@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Content:
+  = @comment.content
+%p
+  %b Line:
+  = @comment.line
+%p
+  %b Code:
+  = @comment.code
+%p
+  %b Anonymous:
+  = @comment.anonymous
+
+= link_to 'Edit', edit_comment_path(@comment)
+\|
+= link_to 'Back', comments_path

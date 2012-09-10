@@ -20,6 +20,9 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string(255)
+#  school                 :string(255)
+#  sex                    :integer
+#  level                  :integer
 #
 
 require 'spec_helper'
@@ -31,7 +34,10 @@ describe User do
       :name => "Example User",
       :email => "user@example.com",
       :password => "foobar",
-      :password_confirmation => "foobar"
+      :password_confirmation => "foobar",
+      :school => "Auburn University",
+      :sex => 1,
+      :level => 1
     }
   end
   

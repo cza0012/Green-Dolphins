@@ -1,0 +1,10 @@
+= simple_form_for(@feedback) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :detail
+    = f.input :photo_link
+
+  .form-actions
+    = f.button :submit

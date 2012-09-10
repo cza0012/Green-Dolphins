@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @feedback.name
+%p
+  %b Detail:
+  = @feedback.detail
+%p
+  %b Photo link:
+  = @feedback.photo_link
+
+= link_to 'Edit', edit_feedback_path(@feedback)
+\|
+= link_to 'Back', feedbacks_path

@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @question.title
+%p
+  %b Content:
+  = @question.content
+%p
+  %b Code:
+  = @question.code
+%p
+  %b Error:
+  = @question.error
+%p
+  %b Anonymous:
+  = @question.anonymous
+%p
+  %b Timestamp:
+  = @question.timestamp
+
+= link_to 'Edit', edit_question_path(@question)
+\|
+= link_to 'Back', questions_path

@@ -11,7 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808044816) do
+ActiveRecord::Schema.define(:version => 20120909235253) do
+
+  create_table "courses", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "feedbacks", :force => true do |t|
+    t.string   "name"
+    t.text     "detail"
+    t.string   "photo_link"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.text     "code"
+    t.text     "error"
+    t.integer  "anonymous"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -42,6 +66,9 @@ ActiveRecord::Schema.define(:version => 20120808044816) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "school"
+    t.integer  "sex"
+    t.integer  "level"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
