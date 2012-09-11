@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120909235253) do
+ActiveRecord::Schema.define(:version => 20120911002343) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.integer  "line"
+    t.text     "code"
+    t.integer  "anonymous"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "courses", :force => true do |t|
     t.string   "name",       :null => false
@@ -35,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120909235253) do
     t.integer  "anonymous"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -47,6 +57,13 @@ ActiveRecord::Schema.define(:version => 20120909235253) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "usefuls", :force => true do |t|
+    t.integer  "usefulable_id"
+    t.string   "usefulable_type"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

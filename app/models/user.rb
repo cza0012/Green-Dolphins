@@ -37,4 +37,6 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at, 
                   :school, :sex, :level
   
+  has_many :questions, :inverse_of => :user
+  
 end

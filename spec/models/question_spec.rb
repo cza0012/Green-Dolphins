@@ -10,22 +10,40 @@
 #  anonymous  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer
 #
 
 require 'spec_helper'
 
 describe Question do
-  before(:each) do
-    @attr = { 
-      :title => "What is Ruby on Rails?",
-      :content => "I did not know what is Ruby on Rails",
-      :code => "<pre></pre>",
-      :error => "No error",
-      :anonymous => 1
-    }
-  end
+  let(:user) { FactoryGirl.create(:user) }
+  before(:each) do    
+      @attr = { 
+        :title => "What is Ruby on Rails?",
+        :content => "I did not know what is Ruby on Rails",
+        :code => "<pre></pre>",
+        :error => "No error",
+        :anonymous => 1,
+        :user_id => :user_id
+      }
+      
+      @question = user.questions.build(@attr) 
+    end
+  
+  subject { @question }
+  
+  it { should respond_to(:title)}
+  it { should respond_to(:content)}
+  it { should respond_to(:user_id)}
+  it { should respond_to(:user) }
+  it { @question.user_id.should == user.id }
   
   it "should create a new instance given a valid attribute" do
     Question.create!(@attr)
+  end
+  
+  describe "when user_id is not present" do
+      before { @question.user_id = nil}
+      it {should_not be_valid}
   end
 end

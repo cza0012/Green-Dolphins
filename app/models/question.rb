@@ -10,8 +10,15 @@
 #  anonymous  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer
 #
 
 class Question < ActiveRecord::Base
-  attr_accessible :anonymous, :code, :content, :error, :timestamp, :title
+  attr_accessible :anonymous, :code, :content, :error, :timestamp, :title, :user_id
+  
+  validates :user_id, presence: true
+  
+  belongs_to :user, :inverse_of => :questions
+  has_many :usefuls, :as => :usefulable
+  
 end

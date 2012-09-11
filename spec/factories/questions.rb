@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :question do
-    title "MyString"
-    content "MyText"
-    code "MyText"
-    error "MyText"
+    title "What is Ruby on Rails?"
+    content "I did not know what is Ruby on Rails"
+    code "<pre></pre>"
+    error "No error"
     anonymous 1
-    timestamp "2012-09-09 17:51:45"
+    user_id 1
   end
 end

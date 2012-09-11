@@ -1,0 +1,17 @@
+%h1 Listing usefuls
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @usefuls.each do |useful|
+    %tr
+      %td= link_to 'Show', useful
+      %td= link_to 'Edit', edit_useful_path(useful)
+      %td= link_to 'Destroy', useful, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Useful', new_useful_path
