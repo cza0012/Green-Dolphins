@@ -20,5 +20,6 @@ class Question < ActiveRecord::Base
   
   belongs_to :user, :inverse_of => :questions
   has_many :usefuls, :as => :usefulable
-  
+  has_many :comments, :inverse_of => :question
+  has_and_belongs_to_many :feedbacks
 end

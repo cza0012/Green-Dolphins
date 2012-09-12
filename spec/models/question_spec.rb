@@ -23,8 +23,7 @@ describe Question do
         :content => "I did not know what is Ruby on Rails",
         :code => "<pre></pre>",
         :error => "No error",
-        :anonymous => 1,
-        :user_id => :user_id
+        :anonymous => 1
       }
       
       @question = user.questions.build(@attr) 
@@ -39,7 +38,7 @@ describe Question do
   it { @question.user_id.should == user.id }
   
   it "should create a new instance given a valid attribute" do
-    Question.create!(@attr)
+    user.questions.create!(@attr)
   end
   
   describe "when user_id is not present" do

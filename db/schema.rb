@@ -11,19 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911002343) do
+ActiveRecord::Schema.define(:version => 20120912024554) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
     t.integer  "line"
     t.text     "code"
     t.integer  "anonymous"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+    t.integer  "question_id"
   end
 
   create_table "courses", :force => true do |t|
     t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "courses_users", :force => true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -34,6 +43,13 @@ ActiveRecord::Schema.define(:version => 20120911002343) do
     t.string   "photo_link"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "feedbacks_questions", :force => true do |t|
+    t.integer  "feedback_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -63,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20120911002343) do
     t.string   "usefulable_type"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

@@ -38,5 +38,7 @@ class User < ActiveRecord::Base
                   :school, :sex, :level
   
   has_many :questions, :inverse_of => :user
-  
+  has_many :usefuls, :inverse_of => :user
+  has_many :comments, :inverse_of => :user
+  has_and_belongs_to_many :courses
 end
