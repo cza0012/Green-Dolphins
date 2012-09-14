@@ -13,6 +13,8 @@
 require 'spec_helper'
 
 describe Feedback do
+  let(:question) { FactoryGirl.create(:question) }
+  let(:feedback){ Feedback.create!(@attr) }
   before(:each) do
     @attr = { 
       :name => "Good test",
@@ -20,8 +22,9 @@ describe Feedback do
       :photo_link => "www.google.com"
     }
   end
+ 
   
   it "should create a new instance given a valid attribute" do
-    Feedback.create!(@attr)
+    question.feedbacks.create!(@attr)
   end
 end
