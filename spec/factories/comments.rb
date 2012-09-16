@@ -5,6 +5,6 @@ FactoryGirl.define do
     content "MyText"
     line 1
     code "MyText"
-    anonymous 1
+    anonymous 0
   end
 end

@@ -31,14 +31,14 @@ describe Question do
   
   subject { @question }
   
-  it { should respond_to(:title)}
-  it { should respond_to(:content)}
-  it { should respond_to(:user_id)}
+  it { should respond_to(:title) }
+  it { should respond_to(:content) }
+  it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   it { @question.user_id.should == user.id }
   
   it "should create a new instance given a valid attribute" do
-    user.questions.create!(@attr)
+    expect { user.questions.create!(@attr) }.to change{ Question.count }.by (1)
   end
   
   describe "when user_id is not present" do

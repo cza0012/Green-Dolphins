@@ -14,17 +14,27 @@ require 'spec_helper'
 
 describe Feedback do
   let(:question) { FactoryGirl.create(:question) }
-  let(:feedback){ Feedback.create!(@attr) }
   before(:each) do
-    @attr = { 
-      :name => "Good test",
-      :detail => "Users has a good test.",
-      :photo_link => "www.google.com"
-    }
+        @attr = { 
+          :name => "Good test",
+          :detail => "Users has a good test.",
+          :photo_link => "www.google.com"
+        }
+        @feedback = question.feedbacks.build(@attr)
   end
- 
-  
+    
+  subject { @feedback }
+  it { should respond_to(:name) }
+  it { should respond_to(:detail) }
+  it { should respond_to(:photo_link) }
+          
   it "should create a new instance given a valid attribute" do
-    question.feedbacks.create!(@attr)
+      expect { question.feedbacks.create!(@attr) }.to change{ Feedback.count }.by (1)
   end
+  
+  it "should be got by its questions" do
+      question.feedbacks.create!(@attr)
+      question.should have(3).feedbacks
+  end
+  
 end

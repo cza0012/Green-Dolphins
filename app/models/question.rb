@@ -14,7 +14,7 @@
 #
 
 class Question < ActiveRecord::Base
-  attr_accessible :anonymous, :code, :content, :error, :timestamp, :title, :user_id
+  attr_accessible :anonymous, :code, :content, :error, :title, :user_id
   
   validates :user_id, presence: true
   

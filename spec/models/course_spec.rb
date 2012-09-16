@@ -11,13 +11,25 @@
 require 'spec_helper'
 
 describe Course do
+  let(:user){ FactoryGirl.create(:user) }
   before(:each) do
     @attr = { 
       :name => "ENGR Test"
     }
+    @course = user.courses.build(@attr)
   end
   
+  subject{ @course }
+  
+  it{ should be_valid(:name) }
+  
   it "should create a new instance given a valid attribute" do
-    Course.create!(@attr)
+    expect{ user.courses.create!(@attr) }.to change{ Course.count }.by(1) 
   end
+  
+  it "should be got by its questions" do
+      user.courses.create!(@attr)
+      user.should have(3).courses
+  end
+  
 end
