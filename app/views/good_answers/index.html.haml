@@ -1,0 +1,21 @@
+%h1 Listing good_answers
+
+%table
+  %tr
+    %th Question
+    %th User
+    %th
+    %th
+    %th
+
+  - @good_answers.each do |good_answer|
+    %tr
+      %td= good_answer.question_id
+      %td= good_answer.user_id
+      %td= link_to 'Show', good_answer
+      %td= link_to 'Edit', edit_good_answer_path(good_answer)
+      %td= link_to 'Destroy', good_answer, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Good answer', new_good_answer_path

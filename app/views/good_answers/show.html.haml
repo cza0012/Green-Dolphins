@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Question:
+  = @good_answer.question_id
+%p
+  %b User:
+  = @good_answer.user_id
+
+= link_to 'Edit', edit_good_answer_path(@good_answer)
+\|
+= link_to 'Back', good_answers_path

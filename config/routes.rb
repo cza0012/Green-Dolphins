@@ -1,4 +1,6 @@
 GreenDophins::Application.routes.draw do
+  resources :good_answers
+
   resources :usefuls
 
   resources :comments

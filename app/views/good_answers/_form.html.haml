@@ -1,0 +1,9 @@
+= simple_form_for(@good_answer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :question_id
+    = f.input :comment_id
+
+  .form-actions
+    = f.button :submit

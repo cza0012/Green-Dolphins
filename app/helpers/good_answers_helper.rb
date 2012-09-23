@@ -1,0 +1,2 @@
+module GoodAnswersHelper
+end
