@@ -16,8 +16,8 @@
   %b Anonymous:
   = @question.anonymous
 %p
-  %b Timestamp:
-  = @question.timestamp
+  %b User_id:
+  = User.find(@question.user_id).name
 
 = link_to 'Edit', edit_question_path(@question)
 \|

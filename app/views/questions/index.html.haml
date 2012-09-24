@@ -7,7 +7,7 @@
     %th Code
     %th Error
     %th Anonymous
-    %th Timestamp
+    %th User_id
     %th
     %th
     %th
@@ -19,7 +19,7 @@
       %td= question.code
       %td= question.error
       %td= question.anonymous
-      %td= question.timestamp
+      %td= User.find(question.user_id).name
       %td= link_to 'Show', question
       %td= link_to 'Edit', edit_question_path(question)
       %td= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete
