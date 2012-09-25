@@ -14,7 +14,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-
+    @comment = @question.comments.build
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -40,7 +41,6 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    # @question = Question.new(params[:question])
     @question = current_user.questions.build(params[:question])
 
     respond_to do |format|

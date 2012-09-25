@@ -6,6 +6,8 @@
     %th Line
     %th Code
     %th Anonymous
+    %th User_id
+    %th Question_id
     %th
     %th
     %th
@@ -16,6 +18,8 @@
       %td= comment.line
       %td= comment.code
       %td= comment.anonymous
+      %td= comment.user_id
+      %td= comment.question_id
       %td= link_to 'Show', comment
       %td= link_to 'Edit', edit_comment_path(comment)
       %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete

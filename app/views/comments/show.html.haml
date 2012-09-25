@@ -5,13 +5,20 @@
   = @comment.content
 %p
   %b Line:
-  = @comment.line
+  %p
+    = @comment.line
 %p
   %b Code:
   = @comment.code
 %p
   %b Anonymous:
   = @comment.anonymous
+%p
+  %b User_id:
+  = @comment.user_id
+%p
+  Question_id:
+  = @comment.question_id
 
 = link_to 'Edit', edit_comment_path(@comment)
 \|
