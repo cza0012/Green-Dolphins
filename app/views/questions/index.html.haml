@@ -20,6 +20,7 @@
       %td= question.error
       %td= question.anonymous
       %td= User.find(question.user_id).name
+      %td= pluralize(question.comments.count, "Answers")
       %td= link_to 'Show', question
       %td= link_to 'Edit', edit_question_path(question)
       %td= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete

@@ -1,6 +1,9 @@
 %p#notice= notice
 
 %p
+  %b id
+  = @question.id
+%p
   %b Title:
   = @question.title
 %p
@@ -18,6 +21,8 @@
 %p
   %b User_id:
   = User.find(@question.user_id).name
+%p 
+  %b= pluralize(@question.comments.count, "Answers")
 
 = link_to 'Edit', edit_question_path(@question)
 \|

@@ -40,4 +40,18 @@ describe "Questions" do
     end
   end
   
+  describe "GET /questions" do
+    before{ 
+      @question2Answers = FactoryGirl.create(:question, user_id: @user.id)
+      2.times {
+        FactoryGirl.create(:comment, question_id: @question2Answers.id, user_id: @user.id)
+      }
+      visit question_path(@question2Answers) 
+    }
+
+    it "is created" do
+      should have_selector('b',  text: '2 Answers')
+    end
+  end
+  
 end
