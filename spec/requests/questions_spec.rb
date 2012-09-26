@@ -26,7 +26,7 @@ describe "Questions" do
     end 
   end
   
-  describe "GET /questions" do
+  describe "Post /questions/new" do
     before{ visit new_question_path 
       fill_in "question_title", with: 'Hello'
       fill_in "question_content", with: 'Hello information'
@@ -40,7 +40,7 @@ describe "Questions" do
     end
   end
   
-  describe "GET /questions" do
+  describe "GET 2 answers of a question" do
     before{ 
       @question2Answers = FactoryGirl.create(:question, user_id: @user.id)
       2.times {
@@ -51,6 +51,31 @@ describe "Questions" do
 
     it "is created" do
       should have_selector('b',  text: '2 Answers')
+      should have_selector('p',  text: '' + @question2Answers.id.to_s)
+    end
+  end
+  
+  describe "GET an owner of a question" do
+    before{ 
+      @question = FactoryGirl.create(:question, user_id: @user.id)
+      visit question_path(@question) 
+    }
+
+    it "is created" do
+      # save_and_open_page
+      should have_selector('p',  text: '' + User.find(@question.user_id).name)
+    end
+  end
+  
+  describe "GET an anonymous owner of a question" do
+    before{ 
+      @question = FactoryGirl.create(:question, user_id: @user.id, anonymous: 1)
+      visit question_path(@question) 
+    }
+
+    it "is created" do
+      # save_and_open_page
+      should have_selector('p',  text: 'An anonymous user')
     end
   end
   

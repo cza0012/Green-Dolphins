@@ -20,7 +20,7 @@
   = @question.anonymous
 %p
   %b User_id:
-  = User.find(@question.user_id).name
+  = anonymous_user?( @question )
 %p 
   %b= pluralize(@question.comments.count, "Answers")
 

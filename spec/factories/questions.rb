@@ -6,7 +6,7 @@ FactoryGirl.define do
     content "I did not know what is Ruby on Rails"
     code "<pre></pre>"
     error "No error"
-    anonymous 1
+    anonymous 0
     user_id 1
   end
 end
