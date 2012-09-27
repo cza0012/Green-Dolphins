@@ -14,8 +14,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    @comment = @question.comments.build
-    @good_answer = @question.build_good_answer
+    @comments = @question.comments.all
+    @good_answer = @question.good_answer
     
     respond_to do |format|
       format.html # show.html.erb

@@ -23,7 +23,33 @@
   = anonymous_user?( @question )
 %p 
   %b= pluralize(@question.comments.count, "Answers")
-= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: 3} ), method: :post
 = link_to 'Edit', edit_question_path(@question)
 \|
 = link_to 'Back', questions_path
+%table
+  %tr
+    %th ID
+    %th Content
+    %th Line
+    %th Code
+    %th Anonymous
+    %th User_id
+    %th Question_id
+    %th
+    %th
+    %th
+- @comments.each do |comment|
+  %tr
+    %td= comment.id
+    %td= comment.content
+    %td= comment.line
+    %td= comment.code
+    %td= comment.anonymous
+    %td= anonymous_user?( comment )
+    %td= comment.question_id
+    %td= link_to 'Show', comment
+    %td= link_to 'Edit', edit_comment_path(comment)
+    %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
+    %td= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
+    %td= good_answer?(@good_answer, comment)
+  %br

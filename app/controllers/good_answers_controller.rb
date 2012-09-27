@@ -40,7 +40,8 @@ class GoodAnswersController < ApplicationController
   # POST /good_answers
   # POST /good_answers.json
   def create
-    @good_answer = GoodAnswer.new(params[:good_answer])
+    @question = Question.find(params[:good_answer][:question_id])
+    @good_answer = @question.build_good_answer(params[:good_answer])
 
     respond_to do |format|
       if @good_answer.save
