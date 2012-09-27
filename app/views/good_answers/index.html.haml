@@ -11,7 +11,7 @@
   - @good_answers.each do |good_answer|
     %tr
       %td= good_answer.question_id
-      %td= good_answer.user_id
+      %td= good_answer.comment_id
       %td= link_to 'Show', good_answer
       %td= link_to 'Edit', edit_good_answer_path(good_answer)
       %td= link_to 'Destroy', good_answer, :confirm => 'Are you sure?', :method => :delete

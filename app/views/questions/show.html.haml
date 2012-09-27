@@ -23,7 +23,7 @@
   = anonymous_user?( @question )
 %p 
   %b= pluralize(@question.comments.count, "Answers")
-
+= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: 3} ), method: :post
 = link_to 'Edit', edit_question_path(@question)
 \|
 = link_to 'Back', questions_path

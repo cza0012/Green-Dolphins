@@ -2,6 +2,7 @@
 
 %table
   %tr
+    %th ID
     %th Content
     %th Line
     %th Code
@@ -14,11 +15,12 @@
 
   - @comments.each do |comment|
     %tr
+      %td= comment.id
       %td= comment.content
       %td= comment.line
       %td= comment.code
       %td= comment.anonymous
-      %td= comment.user_id
+      %td= anonymous_user?( comment )
       %td= comment.question_id
       %td= link_to 'Show', comment
       %td= link_to 'Edit', edit_comment_path(comment)

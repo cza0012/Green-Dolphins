@@ -13,11 +13,10 @@ require 'spec_helper'
 
 describe GoodAnswer do
   let(:question) { FactoryGirl.create(:question) }
-  let(:comment) { FactoryGirl.create(:comment)}
+  let(:comment) { FactoryGirl.create(:comment, question_id: 1, user_id: 1)}
   before(:each) do    
       @attr = { 
-        :comment_id => comment.id,
-        :question_id => question.id
+        :comment_id => comment.id
       }
                              
       @goodAnswer = question.build_good_answer(@attr) 

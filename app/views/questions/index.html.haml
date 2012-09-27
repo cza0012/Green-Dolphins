@@ -19,7 +19,7 @@
       %td= question.code
       %td= question.error
       %td= question.anonymous
-      %td= User.find(question.user_id).name
+      %td= anonymous_user?( question )
       %td= pluralize(question.comments.count, "Answers")
       %td= link_to 'Show', question
       %td= link_to 'Edit', edit_question_path(question)

@@ -1,6 +1,9 @@
 %p#notice= notice
 
 %p
+  %b ID
+  = @comment.id
+%p
   %b Content:
   = @comment.content
 %p
@@ -15,11 +18,11 @@
   = @comment.anonymous
 %p
   %b User_id:
-  = @comment.user_id
+  = anonymous_user?( @comment )
 %p
   Question_id:
   = @comment.question_id
 
-= link_to 'Edit', edit_comment_path(@comment)
+= link_to 'Edit', edit_comment_path( @comment )
 \|
 = link_to 'Back', comments_path
