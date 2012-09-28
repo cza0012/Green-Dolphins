@@ -12,6 +12,6 @@
 class GoodAnswer < ActiveRecord::Base
   attr_accessible :question_id, :comment_id
   validates_uniqueness_of :question_id, :comment_id
-  belongs_to :question
-  belongs_to :comment 
+  belongs_to :question, :inverse_of => :good_answer
+  belongs_to :comment, :inverse_of => :good_answer 
 end

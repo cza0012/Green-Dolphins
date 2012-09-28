@@ -1,7 +1,7 @@
 module QuestionsHelper
-  def good_answer? (good_answer, comment)
+  def best_answer? (good_answer, comment)
       if ! good_answer.nil?
-        good_answer.comment_id == comment.id ? highlight('Here!', 'Here!') : ''
+        good_answer.comment_id == comment.id ? highlight('The best answer here!', 'here!') : ''
       end
   end
 end

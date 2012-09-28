@@ -41,4 +41,9 @@ class User < ActiveRecord::Base
   has_many :usefuls, :inverse_of => :user
   has_many :comments, :inverse_of => :user
   has_and_belongs_to_many :courses
+  
+  def z_score ( number_of_answer, number_of_question )
+    different_between_answer_question = ( number_of_answer+1 ) - ( number_of_question+1 )
+    @z_score = (( different_between_answer_question ) / Math.sqrt( different_between_answer_question )).round(5)
+  end
 end

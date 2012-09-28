@@ -129,5 +129,17 @@ describe User do
     end
 
   end
+  
+  describe "z-score" do
+    
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+    
+    it "should have an encrypted password attribute" do
+      @user.z_score( 100, 10 ).should == 9.48683
+    end
+    
+  end
 
 end

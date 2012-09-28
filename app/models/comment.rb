@@ -22,5 +22,5 @@ class Comment < ActiveRecord::Base
   has_many :usefuls, :as => :usefulable
   belongs_to :user, :inverse_of => :comments
   belongs_to :question, :inverse_of => :comments
-  has_one :good_answer
+  has_one :good_answer, :inverse_of => :comment
 end

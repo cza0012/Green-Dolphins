@@ -51,5 +51,5 @@
     %td= link_to 'Edit', edit_comment_path(comment)
     %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
     %td= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
-    %td= good_answer?(@good_answer, comment)
+    %td= best_answer?(@good_answer, comment)
   %br
