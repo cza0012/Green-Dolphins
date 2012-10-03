@@ -130,15 +130,51 @@ describe User do
 
   end
   
-  describe "z-score" do
-    
-    before(:each) do
-      @user = User.create!(@attr)
+  describe "has z-score equals" do
+    let(:question) { FactoryGirl.create(:question) }
+    before{
+      @question_attr = { 
+        :title => "What is Ruby on Rails?",
+        :content => "I did not know what is Ruby on Rails",
+        :code => "<pre></pre>",
+        :error => "No error",
+        :anonymous => 1
+      }
+      @comment_attr = { 
+        :content  => "Good job",
+        :line  => 9,
+        :code => "<b>hi</b>",
+        :anonymous => 0,
+        :question_id => question.id
+      }
+    }
+    context "1 point by 0 question and 0 answer" do
+      before{
+        @user1 = User.create!(@attr)
+      }
+      it{@user1.z_score().should == 1}
     end
     
-    it "should have an encrypted password attribute" do
-      @user.z_score( 100, 10 ).should == 9.48683
+    context "-1 point by 1 question and 0 answer" do
+    
+      before{
+        @user2 = User.create!(@attr)
+        @user2.questions.create!(@question_attr)
+      }
+      
+        it{@user2.z_score().should == -1} 
     end
+    
+    context "1 point by 0 question and 1 answer" do
+
+      before{
+        @user3 = User.create!(@attr)
+        @user3.comments.create!(@comment_attr)
+      }
+      
+        it{@user3.z_score().should == 1} 
+    end
+    
     
   end
 
