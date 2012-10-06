@@ -53,3 +53,14 @@
     %td= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
     %td= best_answer?(@good_answer, comment)
   %br
+= simple_form_for(@comment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :content
+    = f.input :code
+    = f.input :anonymous
+    = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 
+    = f.input :line, :as => :hidden, :input_html => { :value => 0 }
+  .form-actions
+    = f.button :submit

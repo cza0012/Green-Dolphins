@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @comments = @question.comments.all
     @good_answer = @question.good_answer
+    @comment = Comment.new
     
     respond_to do |format|
       format.html # show.html.erb

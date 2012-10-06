@@ -5,6 +5,7 @@
     = f.input :content
     = f.input :code
     = f.input :anonymous
-
+    = f.input :question_id, :as => :hidden, :input_html => { :value => 2 }
+    = f.input :line, :as => :hidden, :input_html => { :value => 0 }
   .form-actions
     = f.button :submit

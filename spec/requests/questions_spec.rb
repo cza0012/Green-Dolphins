@@ -23,6 +23,9 @@ describe "Questions" do
       should have_selector('label',  text: 'Code')
       should have_selector('label',  text: 'Error')
       should have_selector('label',  text: 'Anonymous')
+      should have_selector('label',  text: 'Content')
+      should have_selector('label',  text: 'Code')
+      should have_selector('label',  text: 'Anonymous')
     end 
   end
   
@@ -74,7 +77,7 @@ describe "Questions" do
   describe "GET an owner of a question" do
     before{ 
       @question = FactoryGirl.create(:question, user_id: @user.id)
-      visit question_path(@question) 
+      visit question_path(@question.id) 
     }
 
     it "is created" do
@@ -86,7 +89,7 @@ describe "Questions" do
   describe "GET an anonymous owner of a question" do
     before{ 
       @question = FactoryGirl.create(:question, user_id: @user.id, anonymous: 1)
-      visit question_path(@question) 
+      visit question_path(@question.id) 
     }
 
     it "is created" do

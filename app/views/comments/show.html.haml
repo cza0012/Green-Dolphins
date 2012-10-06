@@ -8,8 +8,7 @@
   = @comment.content
 %p
   %b Line:
-  %p
-    = @comment.line
+  = @comment.line
 %p
   %b Code:
   = @comment.code
@@ -17,11 +16,9 @@
   %b Anonymous:
   = @comment.anonymous
 %p
-  %b User_id:
-  = anonymous_user?( @comment )
+  User_id: #{anonymous_user?( @comment )}
 %p
-  Question_id:
-  = @comment.question_id
+  Question_id: #{@comment.question_id}
 
 = link_to 'Edit', edit_comment_path( @comment )
 \|

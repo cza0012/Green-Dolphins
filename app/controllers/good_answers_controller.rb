@@ -40,9 +40,12 @@ class GoodAnswersController < ApplicationController
   # POST /good_answers
   # POST /good_answers.json
   def create
-    @question = Question.find(params[:good_answer][:question_id])
-    @good_answer = @question.build_good_answer(params[:good_answer])
-
+    @comment = Comment.find(params[:good_answer][:comment_id])
+    @good_answer = @comment.build_good_answer(params[:good_answer])
+    current_user.add_points(5)
+    @answer_owner = User.find(@comment.user_id)
+    @answer_owner.add_points(10)
+    
     respond_to do |format|
       if @good_answer.save
         format.html { redirect_to @good_answer, notice: 'Good answer was successfully created.' }
