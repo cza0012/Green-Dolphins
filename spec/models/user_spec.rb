@@ -23,6 +23,8 @@
 #  school                 :string(255)
 #  sex                    :integer
 #  level                  :integer
+#  points                 :integer
+#  z_scores               :integer
 #
 
 require 'spec_helper'
@@ -152,7 +154,7 @@ describe User do
       before{
         @user1 = User.create!(@attr)
       }
-      it{@user1.z_score().should == 1}
+      it{@user1.z_score().should == 0}
     end
     
     context "-1 point by 1 question and 0 answer" do
@@ -175,6 +177,48 @@ describe User do
         it{@user3.z_score().should == 1} 
     end
     
+    context "1 point by 0 question and 1 answer" do
+
+      before{
+        @user3 = User.create!(@attr)
+        @user3.comments.create!(@comment_attr)
+      }
+      
+        it{@user3.z_score().should == 1} 
+    end
+    
+    context "3 point by 5 question and 20 answer" do
+
+      before{
+        @user4 = User.create!(@attr)
+        5.times do 
+          @user4.questions.create!(@question_attr)
+        end
+        20.times do
+          @user4.comments.create!(@comment_attr)
+        end
+      }
+      
+        it{@user4.z_score().should == 3} 
+    end
+    
+  end
+  
+  describe "has points" do 
+    before{
+      @user = User.create!(@attr)
+    }
+    
+    context "A user has 0 point after initialized." do
+      it{@user.points.should == 0}
+    end
+    
+    context "A user has been added 5 points." do
+      before{
+        @user.add_points(5)
+      }
+      it{@user.points.should == 5}
+    end
     
   end
 

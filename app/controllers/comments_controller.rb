@@ -40,8 +40,9 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
+    # It fixs to the first line and the second question.
     @comment = current_user.comments.build(params[:comment].merge(question_id: 2, line: 1))
-
+    current_user.add_points(10)
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }

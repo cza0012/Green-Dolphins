@@ -23,6 +23,8 @@
 #  school                 :string(255)
 #  sex                    :integer
 #  level                  :integer
+#  points                 :integer
+#  z_scores               :integer
 #
 
 class User < ActiveRecord::Base
@@ -35,20 +37,32 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at, 
-                  :school, :sex, :level
+                  :school, :sex, :level, :points, :z_scores
   
   has_many :questions, :inverse_of => :user
   has_many :usefuls, :inverse_of => :user
   has_many :comments, :inverse_of => :user
   has_and_belongs_to_many :courses
+  after_initialize :init
   
-  def z_score()
-    number_of_answer = self.comments.all.count
-    number_of_question = self.questions.all.count
+  def init
+    self.points ||= 0
+    self.z_scores ||= 0
+  end
+  
+  def z_score
+    number_of_answer = comments.all.count
+    number_of_question = questions.all.count
     if number_of_answer == 0 && number_of_question == 0
-      @z_score = 1
+      @z_score = 0
     else
       @z_score = (( number_of_answer - number_of_question ) / Math.sqrt( number_of_answer + number_of_question )).round(5)
     end
+  end
+  
+  def add_points(new_points)
+    self.lock!
+    self.points += new_points
+    self.save
   end
 end

@@ -41,7 +41,7 @@ class UsefulsController < ApplicationController
   # POST /usefuls.json
   def create
     @useful = Useful.new(params[:useful])
-
+    current_user.add_points(2)
     respond_to do |format|
       if @useful.save
         format.html { redirect_to @useful, notice: 'Useful was successfully created.' }

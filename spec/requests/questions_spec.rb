@@ -40,6 +40,22 @@ describe "Questions" do
     end
   end
   
+  describe "Post /questions/new" do
+     before{ visit new_question_path 
+       fill_in "question_title", with: 'Hello'
+       fill_in "question_content", with: 'Hello information'
+       fill_in "question_code", with: '<h1>Hello</h1>'
+       fill_in "question_error", with: 'Hello error'
+       fill_in "question_anonymous", with: '0'
+       click_button "Create Question" 
+       visit user_path(@user.id)
+     }
+
+     it "makes a user gets points." do
+       should have_selector('p',  text: 'Points: 5')
+     end
+   end
+  
   describe "GET 2 answers of a question" do
     before{ 
       @question2Answers = FactoryGirl.create(:question, user_id: @user.id)

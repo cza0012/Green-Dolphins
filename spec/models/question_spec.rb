@@ -25,7 +25,6 @@ describe Question do
         :error => "No error",
         :anonymous => 1
       }
-      
       @question = user.questions.build(@attr) 
     end
   
