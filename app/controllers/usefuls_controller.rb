@@ -40,7 +40,8 @@ class UsefulsController < ApplicationController
   # POST /usefuls
   # POST /usefuls.json
   def create
-    @useful = Useful.new(params[:useful])
+    @usefulable_obj = Useful.create_useful(params)
+    @useful = @usefulable_obj.usefuls.build(params[:useful])
     current_user.add_points(2)
     respond_to do |format|
       if @useful.save

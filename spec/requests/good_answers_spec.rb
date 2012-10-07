@@ -13,6 +13,7 @@ describe "GoodAnswers" do
             FactoryGirl.create(:comment, question_id: @question2Answers.id, user_id: @userAnswer.id)
             visit question_path(@question2Answers) 
   end
+  
   describe "Post /good_answers" do
     it "saves in the database." do
       expect { click_link "The best answer" }.to change(GoodAnswer, :count).by(1)

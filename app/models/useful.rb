@@ -17,4 +17,13 @@ class Useful < ActiveRecord::Base
   
   belongs_to :usefulable, :polymorphic => true
   belongs_to :user, :inverse_of => :usefuls
+  
+  def self.create_useful(params)
+    if params[:type] == "Comment"
+      @usefulable_obj = Comment.find(params[:comment_id])
+    elsif params[:type] == "Question"
+      @usefulable_obj = Question.find(params[:question_id])
+    end
+  end
+  
 end

@@ -23,6 +23,10 @@
   = anonymous_user?( @question )
 %p 
   %b= pluralize(@question.comments.count, "Answers")
+%p 
+  %b= pluralize(@question.usefuls.count, "Useful vote")
+= link_to 'Useful question', useful_path(id: '', type: 'Question', question_id: @question.id, useful: {user_id: current_user.id}), method: :post
+\|
 = link_to 'Edit', edit_question_path(@question)
 \|
 = link_to 'Back', questions_path
@@ -35,24 +39,41 @@
     %th Anonymous
     %th User_id
     %th Question_id
+    %th Useful
     %th
     %th
     %th
-- @comments.each do |comment|
-  %tr
-    %td= comment.id
-    %td= comment.content
-    %td= comment.line
-    %td= comment.code
-    %td= comment.anonymous
-    %td= anonymous_user?( comment )
-    %td= comment.question_id
-    %td= link_to 'Show', comment
-    %td= link_to 'Edit', edit_comment_path(comment)
-    %td= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
-    %td= link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
-    %td= best_answer?(@good_answer, comment)
-  %br
+    %th
+    %th
+  - @comments.each do |comment|
+    %tr
+      %td= comment.id
+      %td= comment.content
+      %td= comment.line
+      %td= comment.code
+      %td= comment.anonymous
+      %td= anonymous_user?( comment )
+      %td= comment.question_id
+      %td= comment.usefuls.count
+      %td
+        = link_to 'Show', comment 
+        \|
+      %td
+        = link_to 'Edit', edit_comment_path(comment)
+        \|
+      %td
+        = link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete
+        \|
+      %td
+        = link_to 'Useful comment', useful_path( id: '', comment_id: comment.id, type: 'Comment' , useful: {user_id: current_user.id}), method: :post
+        \|
+      %td
+        / = link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
+        = good_answer_button(@good_answer, comment)
+        \|
+      %td
+        = best_answer(@good_answer, comment)
+    %br
 = simple_form_for(@comment) do |f|
   = f.error_notification
 
