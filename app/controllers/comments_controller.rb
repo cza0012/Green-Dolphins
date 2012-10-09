@@ -42,9 +42,11 @@ class CommentsController < ApplicationController
   def create
     # It fixs to the first line and the second question.
     @comment = current_user.comments.build(params[:comment])
-    current_user.add_points(10)
+    
     respond_to do |format|
       if @comment.save
+        current_user.add_points(10)
+        current_user.add_expert_role
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else

@@ -44,9 +44,11 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = current_user.questions.build(params[:question])
-    current_user.add_points(5)
+    
     respond_to do |format|
       if @question.save
+        current_user.add_points(5)
+        current_user.add_expert_role
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else

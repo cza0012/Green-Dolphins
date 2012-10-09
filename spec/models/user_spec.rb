@@ -30,7 +30,7 @@
 require 'spec_helper'
 
 describe User do
-  
+  let(:question) { FactoryGirl.create(:question) }
   before(:each) do
     @attr = { 
       :name => "Example User",
@@ -40,6 +40,20 @@ describe User do
       :school => "Auburn University",
       :sex => 1,
       :level => 1
+    }
+    @question_attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "<pre></pre>",
+      :error => "No error",
+      :anonymous => 1
+    }
+    @comment_attr = { 
+      :content  => "Good job",
+      :line  => 9,
+      :code => "<b>hi</b>",
+      :anonymous => 0,
+      :question_id => question.id
     }
   end
   
@@ -113,7 +127,6 @@ describe User do
       hash = @attr.merge(:password => short, :password_confirmation => short)
       User.new(hash).should_not be_valid
     end
-    
   end
   
   describe "password encryption" do
@@ -129,27 +142,9 @@ describe User do
     it "should set the encrypted password attribute" do
       @user.encrypted_password.should_not be_blank
     end
-
   end
   
   describe "has z-score equals" do
-    let(:question) { FactoryGirl.create(:question) }
-    before{
-      @question_attr = { 
-        :title => "What is Ruby on Rails?",
-        :content => "I did not know what is Ruby on Rails",
-        :code => "<pre></pre>",
-        :error => "No error",
-        :anonymous => 1
-      }
-      @comment_attr = { 
-        :content  => "Good job",
-        :line  => 9,
-        :code => "<b>hi</b>",
-        :anonymous => 0,
-        :question_id => question.id
-      }
-    }
     context "1 point by 0 question and 0 answer" do
       before{
         @user1 = User.create!(@attr)
@@ -201,7 +196,6 @@ describe User do
       
         it{@user4.z_score().should == 3} 
     end
-    
   end
   
   describe "has points" do 
@@ -219,7 +213,41 @@ describe User do
       }
       it{@user.points.should == 5}
     end
-    
   end
-
+  
+  describe "has added an expert role" do
+    before{
+          @user = User.create!(@attr)
+    }
+    
+   context "A user has not have an expert role" do
+      it{@user.should_not be_has_role :expert}
+   end
+   
+   context "A user has an expert role from 4 answers." do
+    before{
+      4.times do
+        @user.comments.create!(@comment_attr)
+      end
+      @user.add_expert_role
+    }
+     it{@user.should be_has_role :expert}
+     it{@user.z_scores.should == 2}
+   end
+   
+   context "A user lost an expert role from 4 additional questions." do
+     before{
+       4.times do
+         @user.comments.create!(@comment_attr)
+       end
+       @user.add_expert_role
+       4.times do
+         @user.questions.create!(@question_attr)
+       end
+       @user.add_expert_role
+     }
+      it{@user.should_not be_has_role :expert}
+      it{@user.z_scores.should == 0}
+    end
+  end
 end

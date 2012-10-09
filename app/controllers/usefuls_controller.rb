@@ -42,9 +42,10 @@ class UsefulsController < ApplicationController
   def create
     @usefulable_obj = Useful.create_useful(params)
     @useful = @usefulable_obj.usefuls.build(params[:useful])
-    current_user.add_points(2)
+    
     respond_to do |format|
       if @useful.save
+        current_user.add_points(2)
         format.html { redirect_to @useful, notice: 'Useful was successfully created.' }
         format.json { render json: @useful, status: :created, location: @useful }
       else

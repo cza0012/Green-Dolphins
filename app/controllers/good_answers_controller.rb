@@ -42,12 +42,12 @@ class GoodAnswersController < ApplicationController
   def create
     @comment = Comment.find(params[:good_answer][:comment_id])
     @good_answer = @comment.build_good_answer(params[:good_answer])
-    current_user.add_points(5)
     @answer_owner = User.find(@comment.user_id)
-    @answer_owner.add_points(10)
     
     respond_to do |format|
       if @good_answer.save
+        current_user.add_points(5)
+        @answer_owner.add_points(10)
         format.html { redirect_to @good_answer, notice: 'Good answer was successfully created.' }
         format.json { render json: @good_answer, status: :created, location: @good_answer }
       else

@@ -50,13 +50,22 @@ class User < ActiveRecord::Base
     self.z_scores ||= 0
   end
   
+  def add_expert_role
+    scores = z_score
+    if scores >= 1.65
+      add_role :expert
+    elsif (has_role? :expert) && scores < 1.65
+      remove_role :expert
+    end 
+  end
+  
   def z_score
     number_of_answer = comments.all.count
     number_of_question = questions.all.count
     if number_of_answer == 0 && number_of_question == 0
-      @z_score = 0
+      self.z_scores = 0
     else
-      @z_score = (( number_of_answer - number_of_question ) / Math.sqrt( number_of_answer + number_of_question )).round(5)
+      self.z_scores = (( number_of_answer - number_of_question ) / Math.sqrt( number_of_answer + number_of_question )).round(5)
     end
   end
   
