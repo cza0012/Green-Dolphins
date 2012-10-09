@@ -25,3 +25,4 @@ gem "rails-footnotes", ">= 3.7", :group => :development
 gem "will_paginate", ">= 3.0.3"
 gem "annotate", '>=2.5.0', :group => :development
 gem 'pry-rails', :group => :development
+gem 'delayed_job_active_record'
