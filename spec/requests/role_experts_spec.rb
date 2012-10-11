@@ -11,13 +11,13 @@ describe "RoleExperts" do
       :content => "I did not know what is Ruby on Rails",
       :code => "<pre></pre>",
       :error => "No error",
-      :anonymous => 1
+      :anonymous => true
     }
     @comment_attr = { 
       :content  => "Good job",
       :line  => 9,
       :code => "<b>hi</b>",
-      :anonymous => 0,
+      :anonymous => false,
       :question_id => @question.id
     }
     
@@ -41,7 +41,6 @@ describe "RoleExperts" do
       end
       fill_in "comment_content", with: 'Hello'
       fill_in "comment_code", with: '<h1>Hello</h1>'
-      fill_in "comment_anonymous", with: '0'
       click_button "Create Comment"
     }
     it "is assigned to a user by the fifth answers." do
@@ -60,7 +59,6 @@ describe "RoleExperts" do
       fill_in "question_content", with: 'Hello information'
       fill_in "question_code", with: '<h1>Hello</h1>'
       fill_in "question_error", with: 'Hello error'
-      fill_in "question_anonymous", with: '0'
       click_button "Create Question"
     }
     it "is removed from a user by the fifth questions." do

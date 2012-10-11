@@ -6,11 +6,11 @@
 #  content     :text
 #  line        :integer
 #  code        :text
-#  anonymous   :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #  question_id :integer
+#  anonymous   :boolean
 #
 
 require 'spec_helper'
@@ -23,7 +23,7 @@ describe Comment do
       :content  => "Good job",
       :line  => 9,
       :code => "<b>hi</b>",
-      :anonymous => 0,
+      :anonymous => false,
       :question_id => question.id
     }
     @comment = user.comments.create!(@attr)

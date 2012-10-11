@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009213046) do
+ActiveRecord::Schema.define(:version => 20121011051832) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
     t.integer  "line"
     t.text     "code"
-    t.integer  "anonymous"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
     t.integer  "question_id"
+    t.boolean  "anonymous"
   end
 
   create_table "courses", :force => true do |t|
@@ -71,15 +71,24 @@ ActiveRecord::Schema.define(:version => 20121009213046) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "sender_id"
+    t.text     "content"
+    t.boolean  "read"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "title"
     t.text     "content"
     t.text     "code"
     t.text     "error"
-    t.integer  "anonymous"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.boolean  "anonymous"
   end
 
   create_table "roles", :force => true do |t|

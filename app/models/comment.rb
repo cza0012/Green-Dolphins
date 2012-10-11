@@ -6,11 +6,11 @@
 #  content     :text
 #  line        :integer
 #  code        :text
-#  anonymous   :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #  question_id :integer
+#  anonymous   :boolean
 #
 
 class Comment < ActiveRecord::Base

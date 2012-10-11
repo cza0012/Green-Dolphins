@@ -35,7 +35,6 @@ describe "Questions" do
       fill_in "question_content", with: 'Hello information'
       fill_in "question_code", with: '<h1>Hello</h1>'
       fill_in "question_error", with: 'Hello error'
-      fill_in "question_anonymous", with: '0'
     }
 
     it "is created" do
@@ -49,7 +48,6 @@ describe "Questions" do
        fill_in "question_content", with: 'Hello information'
        fill_in "question_code", with: '<h1>Hello</h1>'
        fill_in "question_error", with: 'Hello error'
-       fill_in "question_anonymous", with: '0'
        click_button "Create Question" 
        visit user_path(@user.id)
      }

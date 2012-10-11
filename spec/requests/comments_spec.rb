@@ -29,7 +29,6 @@ describe "Comments" do
     before{ visit new_comment_path 
       fill_in "comment_content", with: 'Hello'
       fill_in "comment_code", with: '<h1>Hello</h1>'
-      fill_in "comment_anonymous", with: '0'
     }
 
     it "is created" do
@@ -42,7 +41,6 @@ describe "Comments" do
     before{ visit new_comment_path 
       fill_in "comment_content", with: 'Hello'
       fill_in "comment_code", with: '<h1>Hello</h1>'
-      fill_in "comment_anonymous", with: '0'
       click_button "Create Comment"
       visit user_path(@user.id)
     }
@@ -56,7 +54,6 @@ describe "Comments" do
     before{ visit question_path(@question.id)
       fill_in "comment_content", with: 'Hello'
       fill_in "comment_code", with: '<h1>Hello</h1>'
-      fill_in "comment_anonymous", with: '0'  
     }
 
     it "a user post a comment in a question." do

@@ -7,10 +7,10 @@
 #  content    :text
 #  code       :text
 #  error      :text
-#  anonymous  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  anonymous  :boolean
 #
 
 require 'spec_helper'
@@ -23,7 +23,7 @@ describe Question do
         :content => "I did not know what is Ruby on Rails",
         :code => "<pre></pre>",
         :error => "No error",
-        :anonymous => 1
+        :anonymous => true
       }
       @question = user.questions.build(@attr) 
     end

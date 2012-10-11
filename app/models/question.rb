@@ -7,10 +7,10 @@
 #  content    :text
 #  code       :text
 #  error      :text
-#  anonymous  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
+#  anonymous  :boolean
 #
 
 class Question < ActiveRecord::Base

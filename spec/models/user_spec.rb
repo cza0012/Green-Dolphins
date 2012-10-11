@@ -46,13 +46,13 @@ describe User do
       :content => "I did not know what is Ruby on Rails",
       :code => "<pre></pre>",
       :error => "No error",
-      :anonymous => 1
+      :anonymous => true
     }
     @comment_attr = { 
       :content  => "Good job",
       :line  => 9,
       :code => "<b>hi</b>",
-      :anonymous => 0,
+      :anonymous => false,
       :question_id => question.id
     }
   end
