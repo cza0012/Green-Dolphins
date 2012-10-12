@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011051832) do
+ActiveRecord::Schema.define(:version => 20121012044516) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -73,11 +73,12 @@ ActiveRecord::Schema.define(:version => 20121011051832) do
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "sender_id"
     t.text     "content"
     t.boolean  "read"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "sendable_id"
+    t.string   "sendable_type"
   end
 
   create_table "questions", :force => true do |t|

@@ -6,7 +6,16 @@
     = f.input :content
     = f.input :code
     = f.input :error
-    = f.input :anonymous
+    = f.input :anonymous 
 
   .form-actions
     = f.button :submit
+
+/ %table
+/   - @experts.each do |expert|
+/     %tr
+/       %td= expert.name
+
+= simple_form_for(@notification) do |g|
+  .form-inputs
+    = g.input :content

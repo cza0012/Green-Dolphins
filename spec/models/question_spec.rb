@@ -26,7 +26,7 @@ describe Question do
         :anonymous => true
       }
       @question = user.questions.build(@attr) 
-    end
+  end
   
   subject { @question }
   
