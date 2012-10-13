@@ -28,8 +28,12 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
-    @experts = User.with_role(:admin)
-    @notification = Notification.new
+    @experts = User.with_role(:expert)
+    @number_of_experts = @experts.count
+    @number_of_experts.times do
+      @question.notifications.build
+    end
+    
     
     respond_to do |format|
       format.html # new.html.erb
@@ -64,6 +68,7 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     @question = Question.find(params[:id])
+    @experts = User.with_role(:admin)
 
     respond_to do |format|
       if @question.update_attributes(params[:question])

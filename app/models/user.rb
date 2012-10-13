@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   has_many :comments, :inverse_of => :user
   has_many :notifications, :inverse_of => :user
   has_and_belongs_to_many :courses
-  after_initialize :init
+  before_create :init
   
   def init
     self.points ||= 0

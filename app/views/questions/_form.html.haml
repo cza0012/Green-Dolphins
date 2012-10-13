@@ -8,14 +8,19 @@
     = f.input :error
     = f.input :anonymous 
 
+  %table
+    %tr
+      %td Name
+      %td ID
+    - @experts.each do |expert|
+      %tr
+        %td= expert.name
+        %td= expert.id
+
+  = f.simple_fields_for(:notifications) do |g|
+    .form-inputs
+      = g.input :user_id
+      = g.input :content
+
   .form-actions
     = f.button :submit
-
-/ %table
-/   - @experts.each do |expert|
-/     %tr
-/       %td= expert.name
-
-= simple_form_for(@notification) do |g|
-  .form-inputs
-    = g.input :content

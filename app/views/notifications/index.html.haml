@@ -13,7 +13,6 @@
   - @notifications.each do |notification|
     %tr
       %td= notification.user_id
-      %td= notification.sender_id
       %td= notification.content
       %td= notification.read
       %td= link_to 'Show', notification
