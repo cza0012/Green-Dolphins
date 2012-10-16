@@ -11,7 +11,7 @@
   = @question.content
 %p
   %b Code:
-  = @question.code
+  = markdown @question.code
 %p
   %b Error:
   = @question.error
@@ -50,7 +50,7 @@
       %td= comment.id
       %td= comment.content
       %td= comment.line
-      %td= comment.code
+      %td= markdown comment.code
       %td= comment.anonymous
       %td= anonymous_user?( comment )
       %td= comment.question_id

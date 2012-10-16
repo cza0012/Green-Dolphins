@@ -44,6 +44,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    @experts = User.with_role(:expert)
+    @number_of_experts = @experts.count
+    @number_of_experts.times do
+      @question.notifications.build
+    end
   end
 
   # POST /questions
@@ -68,7 +73,6 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     @question = Question.find(params[:id])
-    @experts = User.with_role(:admin)
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
