@@ -2,6 +2,7 @@
 
 %table
   %tr
+    %th id
     %th Title
     %th Content
     %th Code
@@ -14,6 +15,7 @@
     %th
   - @questions.each do |question|
     %tr
+      %td= question.id
       %td= question.title
       %td= question.content
       %td= question.code

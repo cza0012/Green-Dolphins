@@ -21,7 +21,12 @@ describe Question do
       @attr = { 
         :title => "What is Ruby on Rails?",
         :content => "I did not know what is Ruby on Rails",
-        :code => "<pre></pre>",
+        :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+        {\r\n  public static void main(String args[]) {\r\n    List<CalendarOutput> \
+          RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+          CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+          System.out.print(\"Original contents of vals: \");\r\n    \
+          for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
         :error => "No error",
         :anonymous => true
       }
@@ -44,4 +49,9 @@ describe Question do
       before { @question.user_id = nil}
       it {should_not be_valid}
   end
+  
+  it "should return 14 roles of a code" do
+    @question.code_lines.should == 14
+  end
+  
 end

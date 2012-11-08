@@ -25,4 +25,8 @@ class Question < ActiveRecord::Base
   has_one :good_answer, :inverse_of => :question
   has_many :notifications, :as => :sendable
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
+  
+  def code_lines
+    self.code.each_line().count()
+  end
 end
