@@ -30,6 +30,13 @@ describe Question do
         :error => "No error",
         :anonymous => true
       }
+      
+      @attr_feedback = { 
+        :name => "Good test",
+        :detail => "Users has a good test.",
+        :photo_link => "www.google.com"
+      }
+
       @question = user.questions.build(@attr) 
   end
   
@@ -50,8 +57,216 @@ describe Question do
       it {should_not be_valid}
   end
   
-  it "should return 14 roles of a code" do
-    @question.code_lines.should == 14
+  it "should create a feedback for a question." do
+    @question.save
+    expect { @question.feedbacks << Feedback.find_or_create_by_name!(@attr_feedback) }.to change{ Feedback.count }.by (1)
+    @question.should have(1).feedbacks
   end
   
+  it "should use an exist feedback for a question." do
+    @question.save
+    question_code = user.questions.create!(@attr) 
+    feedback = @question.feedbacks.create!(@attr_feedback)
+    expect { question_code.feedbacks << Feedback.find_or_create_by_name!(@attr_feedback) }.not_to change{ Feedback.count }.by (1)
+    question_code.should have(1).feedbacks
+  end
+  
+  it "should have a long code and a big class feedback." do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \ 
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \ 
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n \
+        }\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.feedbacks.find_by_name("A too long code").should be_true
+    question_code.feedbacks.find_by_name("A huge class").should be_true
+  end
+  
+  it "should have no comments in a code." do
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.should have(1).feedbacks
+    question_code.feedbacks.find_by_name("No comments in a code").should be_true
+  end
+  
+  it "should detect // of a comment." do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        //CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.should have(0).feedbacks
+    question_code.feedbacks.find_by_name("No comments in a code").should be_false
+  end
+  
+  it "should detect /* of a comment." do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args[]) {\r\n    List<CalendarOutput> \
+        /*RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.should have(0).feedbacks
+    question_code.feedbacks.find_by_name("No comments in a code").should be_false
+  end
+  
+  it "should detect a too long method." do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args[]) {\r\n \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.feedbacks.find_by_name("A too long method").should be_true
+  end
+  
+  it "should not detect a two short method." do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args[]) {\r\n \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n }\r\n    \
+        public static void main(String args[]) {\r\n \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n    \
+        List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);*/\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.feedbacks.find_by_name("A too long method").should be_false
+  end
 end
