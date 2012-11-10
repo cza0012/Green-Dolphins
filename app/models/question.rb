@@ -50,12 +50,17 @@ class Question < ActiveRecord::Base
       :photo_link => "www.google.com"
     }
     @attr_class_feedback = { 
-      :name => "A huge class",
+      :name => "Large class",
       :detail => "A class is huge. It is hard to be maintananced.",
       :photo_link => "www.google.com"
     }
     @attr_method_feedback = { 
-      :name => "A too long method",
+      :name => "Long method",
+      :detail => "A method is long. It is hard to be maintananced.",
+      :photo_link => "www.google.com"
+    }
+    @attr_parameters_feedback = { 
+      :name => "Too many parameters",
       :detail => "A method is long. It is hard to be maintananced.",
       :photo_link => "www.google.com"
     }
@@ -63,6 +68,7 @@ class Question < ActiveRecord::Base
     is_huge_class_feedback = false
     is_no_comments_feedback = false
     is_huge_method_feedback = false
+    is_huge_parameters_feedback = false
     start_class = 0
     stop_class = 0
     count_class = 0
@@ -103,6 +109,11 @@ class Question < ActiveRecord::Base
           self.feedbacks << Feedback.find_or_create_by_name!(@attr_method_feedback)
         else
           start_method = index
+        end
+        
+        if !is_huge_parameters_feedback && item.index(/\s*\w+(\s+static\s+|\s+)\w+\s+\w+\s*\((\s*\w+\s+\w+(\s*,|\s*)){16,}\s*\)/i)
+           is_huge_parameters_feedback = true
+           self.feedbacks << Feedback.find_or_create_by_name!(@attr_parameters_feedback)
         end
       end
     }

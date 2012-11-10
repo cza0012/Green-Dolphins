@@ -38,6 +38,11 @@ describe Question do
       }
 
       @question = user.questions.build(@attr) 
+      @long_code = "A too long code"
+      @huge_class = "Large class"
+      @no_comment = "No comments in a code"
+      @long_method = "Long method"
+      @many_parameters = "Too many parameters"
   end
   
   subject { @question }
@@ -132,15 +137,15 @@ describe Question do
     }
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
-    question_code.feedbacks.find_by_name("A too long code").should be_true
-    question_code.feedbacks.find_by_name("A huge class").should be_true
+    question_code.feedbacks.find_by_name(@long_code).should be_true
+    question_code.feedbacks.find_by_name(@huge_class).should be_true
   end
   
   it "should have no comments in a code." do
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
     question_code.should have(1).feedbacks
-    question_code.feedbacks.find_by_name("No comments in a code").should be_true
+    question_code.feedbacks.find_by_name(@no_comment).should be_true
   end
   
   it "should detect // of a comment." do
@@ -160,7 +165,7 @@ describe Question do
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
     question_code.should have(0).feedbacks
-    question_code.feedbacks.find_by_name("No comments in a code").should be_false
+    question_code.feedbacks.find_by_name(@no_comment).should be_false
   end
   
   it "should detect /* of a comment." do
@@ -180,7 +185,7 @@ describe Question do
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
     question_code.should have(0).feedbacks
-    question_code.feedbacks.find_by_name("No comments in a code").should be_false
+    question_code.feedbacks.find_by_name(@no_comment).should be_false
   end
   
   it "should detect a too long method." do
@@ -223,7 +228,7 @@ describe Question do
     
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
-    question_code.feedbacks.find_by_name("A too long method").should be_true
+    question_code.feedbacks.find_by_name(@long_method).should be_true
   end
   
   it "should not detect a two short method." do
@@ -267,6 +272,28 @@ describe Question do
     
     question_code = user.questions.create!(@attr) 
     question_code.automatic_feedback
-    question_code.feedbacks.find_by_name("A too long method").should be_false
+    question_code.feedbacks.find_by_name(@long_method).should be_false
+  end
+  
+  it "should detect too many parameters" do
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args,) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.automatic_feedback
+    question_code.feedbacks.find_by_name(@many_parameters).should be_true
   end
 end
