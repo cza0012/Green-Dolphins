@@ -19,6 +19,7 @@ class Notification < ActiveRecord::Base
   belongs_to :sendable, :polymorphic => true 
   after_validation :init, :set_message
   
+  private
   def init
     self.read = false
   end

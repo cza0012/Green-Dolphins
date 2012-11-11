@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
     @comments = @question.comments.all
     @good_answer = @question.good_answer
     @comment = Comment.new
+    @feedback = @question.feedbacks
     
     respond_to do |format|
       format.html # show.html.erb

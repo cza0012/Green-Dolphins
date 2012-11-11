@@ -46,11 +46,6 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :courses
   before_create :init
   
-  def init
-    self.points ||= 0
-    self.z_scores ||= 0
-  end
-  
   def add_expert_role
     scores = z_score
     if scores >= 1.65
@@ -74,5 +69,11 @@ class User < ActiveRecord::Base
     self.lock!
     self.points += new_points
     self.save
+  end
+  
+  private 
+  def init
+    self.points ||= 0
+    self.z_scores ||= 0
   end
 end
