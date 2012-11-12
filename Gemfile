@@ -38,3 +38,4 @@ gem "will_paginate", ">= 3.0.3"
 gem 'delayed_job_active_record'
 gem 'redcarpet'
 gem 'pygments.rb'
+gem 'acts-as-taggable-on'
