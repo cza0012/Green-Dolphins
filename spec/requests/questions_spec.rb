@@ -1,4 +1,5 @@
 require 'spec_helper'
+Delayed::Worker.delay_jobs = false
 
 describe "Questions" do
   subject{ page }
@@ -96,4 +97,32 @@ describe "Questions" do
     end
   end
   
+  describe "Post /questions/new and automate feedback" do
+     before{ visit new_question_path 
+       fill_in "question_title", with: 'Hello'
+       fill_in "question_content", with: 'Hello information'
+       fill_in "question_code", with: '```java
+              import java.util.ArrayList;
+
+              public class MainClass {
+                public static void main(String args[]) {
+                  List<CalendarOutput> RecuringEve= Recurrent.eventView(component,begin,end);
+                  CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);
+
+                System.out.print("Original contents of vals: ");
+                  for (int v : caldavOutput)
+                    System.out.print(v + " ");
+                }
+              }
+        ```'
+       fill_in "question_error", with: 'Hello error'
+       click_button "Create Question"
+     }
+
+     it "makes a user gets points." do
+       save_and_open_page
+       should have_selector('td',  text: 'No comments in a code')
+       should have_selector('td',  text: 'A good code should have comments for description.')
+     end
+   end
 end

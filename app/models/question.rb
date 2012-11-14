@@ -12,6 +12,7 @@
 #  user_id    :integer
 #  anonymous  :boolean
 #  
+require 'delayed_job'
 
 class Question < ActiveRecord::Base
   attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes
@@ -25,13 +26,13 @@ class Question < ActiveRecord::Base
   has_one :good_answer, :inverse_of => :question
   has_many :notifications, :as => :sendable
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
-  after_save :automatic_feedback 
+  after_save :automatic_feedback
   
   private
   def automatic_feedback
     enum_code = code.each_line()
     too_long_code_feedback(enum_code)
-    delay.code_quality_feedback(enum_code)
+    code_quality_feedback(enum_code)
   end
   
   def too_long_code_feedback(enum_code)
@@ -44,7 +45,7 @@ class Question < ActiveRecord::Base
       self.feedbacks << Feedback.find_or_create_by_name(@attr_feedback)
     end
   end
-  
+
   def code_quality_feedback(enum_code)
     @attr_comment_feedback = { 
       :name => "No comments in a code",
