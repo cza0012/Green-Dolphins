@@ -1,5 +1,4 @@
 require 'spec_helper'
-Delayed::Worker.delay_jobs = false
 
 describe "Questions" do
   subject{ page }
@@ -113,8 +112,7 @@ describe "Questions" do
                   for (int v : caldavOutput)
                     System.out.print(v + " ");
                 }
-              }
-        ```'
+              }```'
        fill_in "question_error", with: 'Hello error'
        click_button "Create Question"
      }

@@ -12,7 +12,6 @@
 #  user_id    :integer
 #  anonymous  :boolean
 #  
-require 'delayed_job'
 
 class Question < ActiveRecord::Base
   attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes
