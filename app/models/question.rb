@@ -31,7 +31,7 @@ class Question < ActiveRecord::Base
   def automatic_feedback
     enum_code = code.each_line()
     too_long_code_feedback(enum_code)
-    code_quality_feedback(enum_code)
+    delay.code_quality_feedback(enum_code)
   end
   
   def too_long_code_feedback(enum_code)

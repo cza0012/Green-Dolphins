@@ -14,6 +14,7 @@
 #
 
 require 'spec_helper'
+Delayed::Worker.delay_jobs = false
 
 describe Question do
   let(:user) { FactoryGirl.create(:user) }
