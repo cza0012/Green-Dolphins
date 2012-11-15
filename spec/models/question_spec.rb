@@ -301,4 +301,89 @@ describe Question do
     question_code = user.questions.create!(@attr) 
     question_code.feedbacks.find_by_name(@many_parameters).should be_true
   end
+  
+  it "should update comment feedback" do
+    @attr_comment_feedback = { 
+      :name => "No comments in a code",
+      :detail => "A good code should have comments for description.",
+      :photo_link => "www.google.com"
+    }
+
+    @attr = { 
+      :title => "What is Ruby on Rails?",
+      :content => "I did not know what is Ruby on Rails",
+      :code => "```java\r\nimport java.util.ArrayList;\r\n\r\npublic class MainClass \
+      {\r\n  public static void main(String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args, \
+        String args, String args, String args, String args, String args,) {\r\n    List<CalendarOutput> \
+        RecuringEve= Recurrent.eventView(component,begin,end);\r\n    \
+        CalendarOutput caldavOutput = ListUtil.getReComponent(component, RecuringEve);\r\n\r\n  \
+        System.out.print(\"Original contents of vals: \");\r\n    \
+        for (int v : caldavOutput)\r\n      System.out.print(v + \" \");\r\n  }\r\n}\r\n```",
+      :error => "No error",
+      :anonymous => true
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.code = '```java correct //comments ```'
+    question_code.save
+    question_code.feedbacks.find_by_name(@attr_comment_feedback[:name]).should be_false
+  end
+  
+  it "should update class feedback" do
+    @attr_class_feedback = { 
+      :name => "Large class",
+      :detail => "A class is huge. It is hard to be maintananced.",
+      :photo_link => "www.google.com"
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.feedbacks << Feedback.find_or_create_by_name(@attr_class_feedback[:name])
+    question_code.code = '```java correct //comments ```'
+    question_code.save
+    question_code.feedbacks.find_by_name(@attr_class_feedback[:name]).should be_false
+  end
+  
+  it "should update method feedback" do
+    @attr_method_feedback = { 
+      :name => "Long method",
+      :detail => "A method is long. It is hard to be maintananced.",
+      :photo_link => "www.google.com"
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.feedbacks << Feedback.find_or_create_by_name(@attr_method_feedback[:name])
+    question_code.code = '```java correct //comments ```'
+    question_code.save
+    question_code.feedbacks.find_by_name(@attr_method_feedback[:name]).should be_false
+  end
+  
+  it "should update method feedback" do
+    @attr_feedback = { 
+      :name => "A too long code",
+      :detail => "Your code is too long. It is hard to read.",
+      :photo_link => "www.google.com"
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.feedbacks << Feedback.find_or_create_by_name(@attr_feedback[:name])
+    question_code.code = '```java correct //comments ```'
+    question_code.save
+    question_code.feedbacks.find_by_name(@attr_feedback[:name]).should be_false
+  end
+  
+  it "should update method feedback" do
+    @attr_parameters_feedback = { 
+      :name => "Too many parameters",
+      :detail => "A method is long. It is hard to be maintananced.",
+      :photo_link => "www.google.com"
+    }
+    
+    question_code = user.questions.create!(@attr) 
+    question_code.feedbacks << Feedback.find_or_create_by_name(@attr_parameters_feedback[:name])
+    question_code.code = '```java correct //comments ```'
+    question_code.save
+    question_code.feedbacks.find_by_name(@attr_parameters_feedback[:name]).should be_false
+  end
 end

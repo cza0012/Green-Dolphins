@@ -40,8 +40,13 @@ class Question < ActiveRecord::Base
       :detail => "Your code is too long. It is hard to read.",
       :photo_link => "www.google.com"
     }
-    if enum_code.count > 80
+    code_feedback = self.feedbacks.find_by_name(@attr_feedback[:name])
+    if enum_code.count > 80 && code_feedback.blank?
       self.feedbacks << Feedback.find_or_create_by_name(@attr_feedback)
+    else
+      unless code_feedback.blank?
+        self.feedbacks.delete(code_feedback)
+      end
     end
   end
 
@@ -82,6 +87,7 @@ class Question < ActiveRecord::Base
     comment_regex = //
     feedback_regex = //
     support_language = false
+    parameters_feedback = nil
     
     if enum_code.first.index(/\s*```\s*(java|c++|c#)\s*/i)
       class_regex = /\s+class\s+/i
@@ -103,7 +109,7 @@ class Question < ActiveRecord::Base
           end
           if !is_huge_class_feedback && stop_class - start_class > 80 && self.feedbacks.find_by_name(@attr_class_feedback[:name]).blank?
             is_huge_class_feedback = true
-            self.feedbacks << Feedback.find_or_create_by_name(@attr_class_feedback)
+            self.feedbacks << Feedback.find_or_create_by_name(@attr_class_feedback[:name])
           else
             start_class = index
           end
@@ -126,24 +132,42 @@ class Question < ActiveRecord::Base
           else
             start_method = index
           end
-        
-          if !is_huge_parameters_feedback && item.index(feedback_regex) && self.feedbacks.find_by_name(@attr_parameters_feedback[:name]).blank?
+          parameters_feedback = self.feedbacks.find_by_name(@attr_parameters_feedback[:name])
+          if !is_huge_parameters_feedback && item.index(feedback_regex) && parameters_feedback.blank?
              is_huge_parameters_feedback = true
-             self.feedbacks << Feedback.find_or_create_by_name(@attr_parameters_feedback)
+             self.feedbacks << Feedback.find_or_create_by_name(@attr_parameters_feedback[:name])
           end
         end
       }
-    
-      if  !is_huge_class_feedback && enum_code.count - start_class > 80 && self.feedbacks.find_by_name(@attr_class_feedback[:name]).blank?
+      
+      class_feedback = self.feedbacks.find_by_name(@attr_class_feedback[:name])    
+      if  !is_huge_class_feedback && enum_code.count - start_class > 80 && class_feedback.blank?
         is_huge_class_feedback = true
         self.feedbacks << Feedback.find_or_create_by_name(@attr_class_feedback)
+      else
+        unless class_feedback.blank?
+          self.feedbacks.delete(class_feedback)
+        end
       end
-      if !is_no_comments_feedback && self.feedbacks.find_by_name(@attr_comment_feedback[:name]).blank?
-        self.feedbacks << Feedback.find_or_create_by_name(@attr_comment_feedback) 
+      no_comment_feedback = self.feedbacks.find_by_name(@attr_comment_feedback[:name])
+      if !is_no_comments_feedback && no_comment_feedback.blank?
+          self.feedbacks << Feedback.find_or_create_by_name(@attr_comment_feedback)          
+      else
+        unless no_comment_feedback.blank?
+          self.feedbacks.delete(no_comment_feedback)
+        end
       end
-      if !is_huge_method_feedback && enum_code.count - start_method > 40 && self.feedbacks.find_by_name(@attr_method_feedback[:name]).blank?
+      method_feedback = self.feedbacks.find_by_name(@attr_method_feedback[:name])
+      if !is_huge_method_feedback && enum_code.count - start_method > 40 && method_feedback.blank?
         is_huge_method_feedback = true
-        self.feedbacks << Feedback.find_or_create_by_name(@attr_method_feedback)
+        self.feedbacks << Feedback.find_or_create_by_name(@attr_method_feedback[:name])
+      else
+        unless method_feedback.blank?
+          self.feedbacks.delete(method_feedback)
+        end
+      end
+      if !is_huge_parameters_feedback && !parameters_feedback.blank?
+        self.feedbacks.delete(method_feedback)
       end
     end
   end
