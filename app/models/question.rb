@@ -14,8 +14,8 @@
 #  
 
 class Question < ActiveRecord::Base
-  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes
-  
+  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list
+  acts_as_taggable
   validates :user_id, presence: true
   
   belongs_to :user, :inverse_of => :questions

@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b id
   = @question.id
@@ -27,17 +25,19 @@
   %b= pluralize(@question.usefuls.count, "Useful vote")
 %p
   %b Feedback:
-%table
-  %tr
-    %th ID
-    %th Name
-    %th Detail
-  - @feedback.each do |feedback|
+  %table
     %tr
-      %td= feedback.id
-      %td= feedback.name
-      %td= feedback.detail
-    %br
+      %th ID
+      %th Name
+      %th Detail
+    - @feedback.each do |feedback|
+      %tr
+        %td= feedback.id
+        %td= feedback.name
+        %td= feedback.detail
+%p
+  %b Tag list:
+  %br= raw @question.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')
 = link_to 'Useful question', useful_path(id: '', type: 'Question', question_id: @question.id, useful: {user_id: current_user.id}), method: :post
 \|
 = link_to 'Edit', edit_question_path(@question)
