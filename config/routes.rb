@@ -1,9 +1,6 @@
 GreenDophins::Application.routes.draw do
-  # get "tags/index"
 
-  #fix it later
-  get 'tags/:tag', to: 'tags#index', as: :tags
-  #resources :tags, only: [:show, :index]
+  get 'tags/:tag', to: 'tags#questions', as: :questions_tags
   
   resources :notifications
 

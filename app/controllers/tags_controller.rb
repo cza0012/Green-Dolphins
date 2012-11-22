@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  def index
+  def questions
     if params[:tag]
       @questions = Question.tagged_with(params[:tag])
     else

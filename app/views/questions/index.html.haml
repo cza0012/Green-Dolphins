@@ -2,7 +2,7 @@
 
 #tag_cloud
   - tag_cloud Question.tag_counts, %w(label) do |tag, css_class|
-    = link_to tag.name, tags_path(tag.name), class: css_class
+    = link_to tag.name, questions_tags_path(tag.name), class: css_class
 
 %table
   %tr
