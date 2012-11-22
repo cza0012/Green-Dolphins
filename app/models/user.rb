@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at, 
-                  :school, :sex, :level, :points, :z_scores
+                  :school, :sex, :level, :points, :z_scores, :tag_list
+  acts_as_taggable
   
   has_many :questions, :inverse_of => :user
   has_many :usefuls, :inverse_of => :user

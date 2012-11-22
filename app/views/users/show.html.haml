@@ -12,3 +12,5 @@
   Points: #{@user.points}
 %p
   Z-Scores: #{@user.z_scores}
+%p
+  Tag list: #{raw @user.tag_list.map { |t| link_to t, users_tags_path(t), class: "label" }.join(' ')}

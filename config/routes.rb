@@ -1,6 +1,8 @@
 GreenDophins::Application.routes.draw do
 
-  get 'tags/:tag', to: 'tags#questions', as: :questions_tags
+  get 'tags/questions/:tag', to: 'tags#questions', as: :questions_tags
+  
+  get 'tags/users/:tag', to: 'tags#users', as: :users_tags
   
   resources :notifications
 
