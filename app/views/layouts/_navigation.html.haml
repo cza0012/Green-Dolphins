@@ -1,5 +1,7 @@
 = link_to "Green Dophins", root_path, :class => 'brand'
 %ul.nav
+  = form_tag questions_path, method: :get, class: 'navbar-search pull-left' do
+    = text_field_tag :query, params[:query], class: 'search-query'
   - if user_signed_in?
     %li
       = link_to('Logout', destroy_user_session_path, :method=>'delete')

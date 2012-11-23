@@ -2,8 +2,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
-
+    @questions = Question.text_search(params[:query]).paginate(page: params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @questions }

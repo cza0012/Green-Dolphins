@@ -29,7 +29,15 @@ module ApplicationHelper
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
   
-  def anonymous_user? (question_or_answer)
+  def anonymous_user?(question_or_answer)
       question_or_answer.anonymous == true ? 'An anonymous user' : User.find(question_or_answer.user_id).name
+  end
+  
+  def tag_questions_link(tag, css_class)
+    link_to tag.name, questions_tags_path(tag.name), class: css_class
+  end
+  
+  def tag_users_link(tag, css_class)
+    link_to tag.name, users_tags_path(tag.name), class: css_class
   end
 end

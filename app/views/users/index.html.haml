@@ -1,7 +1,7 @@
 %h2 Users
 #tag_cloud
   - tag_cloud User.tag_counts, %w(label) do |tag, css_class|
-    = link_to tag.name, users_tags_path(tag.name), class: css_class
+    = tag_users_link(tag, css_class)
 
 - @users.each do |user|
   %br/

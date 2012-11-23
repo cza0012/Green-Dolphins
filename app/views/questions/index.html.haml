@@ -2,7 +2,7 @@
 
 #tag_cloud
   - tag_cloud Question.tag_counts, %w(label) do |tag, css_class|
-    = link_to tag.name, questions_tags_path(tag.name), class: css_class
+    = tag_questions_link(tag, css_class)
 
 %table
   %tr
@@ -33,4 +33,7 @@
 
 %br
 
+= will_paginate
+
 = link_to 'New Question', new_question_path
+

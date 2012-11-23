@@ -17,6 +17,8 @@ class Question < ActiveRecord::Base
   attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list
   acts_as_taggable
   validates :user_id, presence: true
+  #The number of questions per page
+  self.per_page = 10
   
   belongs_to :user, :inverse_of => :questions
   has_many :usefuls, :as => :usefulable
@@ -47,6 +49,14 @@ class Question < ActiveRecord::Base
       unless code_feedback.blank?
         self.feedbacks.delete(code_feedback)
       end
+    end
+  end
+
+  def self.text_search(query)
+    if query.present?
+      where("title @@ :q or content @@ :q", q: query)
+    else
+      scoped
     end
   end
 
