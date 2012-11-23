@@ -54,7 +54,7 @@ class Question < ActiveRecord::Base
 
   def self.text_search(query)
     if query.present?
-      where("title @@ :q or content @@ :q", q: query)
+      where("title @@ :q or content @@ :q or code @@ :q or error @@ :q", q: query)
     else
       scoped
     end
