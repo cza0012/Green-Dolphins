@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @questions = @user.questions.where(:anonymous => false).order('created_at DESC').paginate(page: params[:page])
   end
 
 end

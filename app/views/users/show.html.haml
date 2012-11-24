@@ -1,16 +1,33 @@
-%p
-  User: #{@user.name}
-%p
-  Email: #{@user.email if @user.email}
-%p
-  School: #{@user.school}
-%p
-  Sex: #{@user.sex}
-%p
-  Level: #{@user.level}
-%p
-  Points: #{@user.points}
-%p
-  Z-Scores: #{@user.z_scores}
-%p
-  Tag list: #{raw @user.tag_list.map { |t| link_to t, users_tags_path(t), class: "label" }.join(' ')}
+.row
+  .span8.offset2
+    .well
+      .row
+        .span8
+          %h4 #{@user.name}
+          - if current_user.has_role? :admin
+            %h5 #{@user.email}
+        .span4
+          %h5 School
+          #{@user.school}
+        .span3
+          %h1 #{@user.points} Points
+      .row
+        .span1
+          %h5 Sex
+          #{@user.sex}
+        .span2
+          %h5 Level 
+          #{@user.level}
+        .span2
+          %h5 Level 
+          #{@user.roles.first.name}
+        .span2
+          - if current_user.has_role? :admin
+            %h5 Z-Scores 
+            #{@user.z_scores}
+      .row
+        .span8
+          %h5 Expert tags
+          #{user_tag_list(@user)}
+=render 'questions/question_feed'
+

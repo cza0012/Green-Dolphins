@@ -40,4 +40,17 @@ module ApplicationHelper
   def tag_users_link(tag, css_class)
     link_to tag.name, users_tags_path(tag.name), class: css_class
   end
+  
+  def question_owner_link(question)
+    link_to User.find(question.user_id).name, question.user
+  end
+  
+  def question_tag_list(question)
+    raw question.tag_list.map { |t| link_to t, questions_tags_path(t), class: "label" }.join(' ')
+  end
+  
+  def user_tag_list(user)
+    raw user.tag_list.map { |t| link_to t, users_tags_path(t), class: "label" }.join(' ')
+  end
+  
 end

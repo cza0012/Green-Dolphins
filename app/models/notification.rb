@@ -11,7 +11,6 @@
 #  sendable_id   :integer
 #  sendable_type :string(255)
 #
-#  user_id is a reciever's id 
 
 class Notification < ActiveRecord::Base
   attr_accessible :content, :read, :user_id
