@@ -1,32 +1,15 @@
-%h1 Listing questions by #{params[:tag]}
+.row
+  .span2
+  .span8
+    .page-header 
+      %h1 Filter questions by #{params[:tag]}
+    .row
+      .span8
+        #tag_cloud
+          - tag_cloud Question.tag_counts, %w(label) do |tag, css_class|
+            = tag_questions_link(tag, css_class)
+        %hr
 
-%table
-  %tr
-    %th id
-    %th Title
-    %th Content
-    %th Code
-    %th Error
-    %th Anonymous
-    %th User_id
-    %th
-    %th
-    %th
-    %th
-  - @questions.each do |question|
-    %tr
-      %td= question.id
-      %td= question.title
-      %td= question.content
-      %td= question.code
-      %td= question.error
-      %td= question.anonymous
-      %td= anonymous_user?( question )
-      %td= pluralize(question.comments.count, "Answers")
-      %td= link_to 'Show', question
-      %td= link_to 'Edit', edit_question_path(question)
-      %td= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete
+    = render '/questions/question_feed'
 
-%br
-
-= link_to 'New Question', new_question_path
+    = link_to 'New Question', new_question_path
