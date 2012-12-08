@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+  before_filter :authenticate_user!
   # GET /feedbacks
   # GET /feedbacks.json
   def index

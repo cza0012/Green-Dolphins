@@ -1,4 +1,6 @@
 class UsefulsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /usefuls
   # GET /usefuls.json
   def index

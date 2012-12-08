@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  before_filter :authenticate_user!
+  
   def questions
     if params[:tag]
       @questions = Question.paginate(:page => params[:page]).tagged_with(params[:tag])
