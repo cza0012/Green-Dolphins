@@ -53,4 +53,7 @@ module ApplicationHelper
     raw user.tag_list.map { |t| link_to t, users_tags_path(t), class: "label" }.join(' ')
   end
   
+  def current_user_owner?(user)
+    user ==  current_user
+  end
 end

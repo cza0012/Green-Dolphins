@@ -12,5 +12,13 @@ FactoryGirl.define do
     level 1
     # required if the Devise Confirmable module is used
     confirmed_at Time.now
+    
+    trait :student do
+      after(:create) {|user| user.add_role(:student)}
+    end
+    
+   trait :admin do
+      after(:create) {|user| user.add_role(:admin)}
+  end
   end
 end

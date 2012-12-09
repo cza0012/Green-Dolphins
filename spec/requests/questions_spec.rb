@@ -4,7 +4,7 @@ describe "Questions" do
   subject{ page }
   before(:each) do    
             visit new_user_session_path
-            @user = FactoryGirl.create(:user)
+            @user = FactoryGirl.create(:user,:student)
             fill_in "user_email", with: @user.email
             fill_in "user_password", with: @user.password
             click_button "Sign in"
@@ -14,7 +14,7 @@ describe "Questions" do
     before{ visit questions_path }
             
     it "has a new question page." do
-      should have_selector('h1', text: 'Listing questions')
+      should have_selector('h1', text: 'Questions')
       should have_link('New Question')
       expect { click_link "New Question" }.not_to change(Question, :count)
       should have_selector('h1', text: 'New question')
@@ -53,7 +53,7 @@ describe "Questions" do
      }
 
      it "makes a user gets points." do
-       should have_selector('p',  text: 'Points: 5')
+       should have_selector('h1',  text: '5 Points')
      end
    end
   
@@ -118,9 +118,37 @@ describe "Questions" do
      }
 
      it "makes a user gets points." do
-       save_and_open_page
+       # save_and_open_page
        should have_selector('td',  text: 'No comments in a code')
        should have_selector('td',  text: 'A good code should have comments for description.')
      end
    end
+   
+   describe "Can edit a user's question" do
+     before{ 
+       @question = FactoryGirl.create(:question, user_id: @user.id, anonymous: 1)
+       visit question_path(@question.id) 
+     }
+
+     it "is created" do
+       # save_and_open_page
+       should have_selector('a',  text: '^Edit$')
+       should_not have_selector('a',  text: '^Delete$')
+     end
+   end
+   
+   describe "Cannot edit other users question" do
+     before{ 
+       user2 = FactoryGirl.create(:user,email: 'example@auburn.edu')
+       @question = FactoryGirl.create(:question, user_id: user2.id, anonymous: 1)
+       visit question_path(@question.id)
+     }
+
+     it "is created" do
+       save_and_open_page
+       should_not have_selector('a',  text: '^Edit$')
+       should_not have_selector('a',  text: '^Delete$')
+     end
+   end
+   
 end
