@@ -107,7 +107,9 @@
     = f.input :anonymous
     = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 
     = f.input :line, :as => :hidden, :input_html => { :value => 0 }
-    - if @teacher
+    - if current_user.has_role?(:ta) && !@taLimitTime.past?()
+      = f.input :hidden, :as => :hidden, :input_html => { :value => true }
+    - elsif current_user.has_role?(:instructor) && !@instructureLimitTime.past?()
       = f.input :hidden, :as => :hidden, :input_html => { :value => true }
     - else
       = f.input :hidden, :as => :hidden, :input_html => { :value => false }

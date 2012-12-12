@@ -54,7 +54,7 @@ module ApplicationHelper
   end
   
   def teacher?(user)
-    if user.has_role?(:ta) || user.has_role?(:instructor )
+    if user.has_role?(:ta) || user.has_role?(:instructor)
       true
     else
       false
