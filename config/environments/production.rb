@@ -1,6 +1,8 @@
 GreenDophins::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
+  # dj_mon
+  config.assets.precompile += %w( dj_mon/dj_mon.js dj_mon/dj_mon.css)
+  
   # Code is not reloaded between requests
   config.cache_classes = true
 
@@ -72,11 +74,11 @@ GreenDophins::Application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "example.com",
+    domain: "auburn.edu",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: "no.reply.auburn@gmail.com",
+    password: "GoS1GCH1"
   }
 
 

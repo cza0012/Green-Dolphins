@@ -1,0 +1,3 @@
+# Logfile created on 2012-12-11 22:07:46 -0600 by logger.rb/31641
+2012-12-11T22:07:46-0600: [Worker(delayed_job host:Chulakorns-MacBook-Air.local pid:7939)] Starting job worker
+2012-12-11T22:12:28-0600: [Worker(delayed_job host:Chulakorns-MacBook-Air.local pid:7939)] Exiting...

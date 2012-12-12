@@ -42,7 +42,7 @@ class Comment < ActiveRecord::Base
     self.hidden = false
     save
   end
-  handle_asynchronously :delay_ta_comment, :queue => 'comments', :run_at => Proc.new { 1.minutes.from_now }
+  handle_asynchronously :delay_ta_comment, :queue => 'comments', :run_at => Proc.new { 1.hours.from_now }
   
   def delay_instructor_comment
     self.hidden = false

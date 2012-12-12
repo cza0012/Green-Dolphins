@@ -1,4 +1,6 @@
 GreenDophins::Application.routes.draw do
+  
+  mount DjMon::Engine => 'dj_mon'
 
   get 'tags/questions/:tag', to: 'tags#questions', as: :questions_tags
   
