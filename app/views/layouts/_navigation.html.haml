@@ -9,11 +9,7 @@
       = text_field_tag :query, params[:query], class: 'search-query'
     - if user_signed_in?
       %li
-        = link_to('Logout', destroy_user_session_path, :method=>'delete')
-    - else
-      %li
-        = link_to('Login', new_user_session_path)
-    - if user_signed_in?
+        = link_to current_user.name, current_user
       %li
         = link_to('Edit account', edit_user_registration_path)
       - if current_user.has_role? :admin
@@ -22,3 +18,9 @@
     - else
       %li
         = link_to('Sign up', new_user_registration_path)
+    - if user_signed_in?
+      %li
+        = link_to('Logout', destroy_user_session_path, :method=>'delete')
+    - else
+      %li
+        = link_to('Login', new_user_session_path)

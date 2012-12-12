@@ -6,5 +6,6 @@ FactoryGirl.define do
     line 1
     code "MyText"
     anonymous false
+    hidden false
   end
 end

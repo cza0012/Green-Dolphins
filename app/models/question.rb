@@ -29,6 +29,10 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
   after_save :automatic_feedback
   
+  def question_owner? user
+    User.find(user_id) == user
+  end
+  
   private
   def automatic_feedback
     enum_code = code.each_line()

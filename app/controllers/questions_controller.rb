@@ -18,6 +18,9 @@ class QuestionsController < ApplicationController
     @good_answer = @question.good_answer
     @comment = Comment.new
     @feedback = @question.feedbacks
+    @question_owner = @question.question_owner?(current_user)
+    @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
+    @admin = current_user.has_role?(:admin)
     
     respond_to do |format|
       format.html # show.html.erb

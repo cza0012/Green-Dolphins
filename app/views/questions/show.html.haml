@@ -39,10 +39,11 @@
   %b Tag list:
   = raw @question.tag_list.map { |t| link_to t, questions_tags_path(t), class: "label" }.join(' ')
 = link_to 'Useful question', useful_path(id: '', type: 'Question', question_id: @question.id, useful: {user_id: current_user.id}), method: :post
-- if current_user_owner?(User.find(@question.user_id))
-  \|
-  = link_to 'Edit', edit_question_path(@question)
-  \|
+\|
+- if @admin || @question_owner
+  = link_to 'Edit', edit_question_path(@question) 
+\|
+- if @question_owner || @admin || @teacher
   = link_to 'Destroy', @question, :data => {:confirm => 'Are you sure?'}, :method => :delete
 \|
 = link_to 'Back', questions_path
@@ -55,6 +56,7 @@
     %th Line
     %th Code
     %th Anonymous
+    %th Hidden
     %th User_id
     %th Question_id
     %th Useful
@@ -64,34 +66,38 @@
     %th
     %th
   - @comments.each do |comment|
-    %tr
-      %td= comment.id
-      %td= comment.content
-      %td= comment.line
-      %td= markdown comment.code
-      %td= comment.anonymous
-      %td= anonymous_user?( comment )
-      %td= comment.question_id
-      %td= comment.usefuls.count
-      %td
-        = link_to 'Show', comment 
-        \|
-      %td
-        = link_to 'Edit', edit_comment_path(comment)
-        \|
-      %td
-        = link_to 'Destroy', comment, :data => {:confirm => 'Are you sure?'}, :method => :delete
-        \|
-      %td
-        = link_to 'Useful comment', useful_path( id: '', comment_id: comment.id, type: 'Comment' , useful: {user_id: current_user.id}), method: :post
-        \|
-      %td
-        / = link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
-        = good_answer_button(@good_answer, comment)
-        \|
-      %td
-        = best_answer(@good_answer, comment)
-    %br
+    - if ! (current_user.has_role?(:student) && comment.hidden)
+      %tr
+        %td= comment.id
+        %td= comment.content
+        %td= comment.line
+        %td= markdown comment.code
+        %td= comment.anonymous
+        %td= comment.hidden
+        %td= anonymous_user?( comment )
+        %td= comment.question_id
+        %td= comment.usefuls.count
+        %td
+          = link_to 'Show', comment 
+          \|
+        - owner = current_user_owner?(User.find(comment.user_id))
+        - if @admin || owner
+          %td
+            = link_to 'Edit', edit_comment_path(comment)
+            \|
+        - if @admin || @teacher || owner
+          %td
+            = link_to 'Destroy', comment, :data => {:confirm => 'Are you sure?'}, :method => :delete
+            \|
+        %td
+          = link_to 'Useful comment', useful_path( id: '', comment_id: comment.id, type: 'Comment' , useful: {user_id: current_user.id}), method: :post
+          \|
+        %td
+          / = link_to 'The best answer', good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post
+          = good_answer_button(@good_answer, comment)
+          \|
+        %td
+          = best_answer(@good_answer, comment)
 = simple_form_for(@comment) do |f|
   = f.error_notification
 
@@ -101,5 +107,9 @@
     = f.input :anonymous
     = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 
     = f.input :line, :as => :hidden, :input_html => { :value => 0 }
+    - if @teacher
+      = f.input :hidden, :as => :hidden, :input_html => { :value => true }
+    - else
+      = f.input :hidden, :as => :hidden, :input_html => { :value => false }
   .form-actions
     = f.button :submit

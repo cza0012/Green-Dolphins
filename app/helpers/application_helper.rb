@@ -53,7 +53,15 @@ module ApplicationHelper
     raw user.tag_list.map { |t| link_to t, users_tags_path(t), class: "label" }.join(' ')
   end
   
+  def teacher?(user)
+    if user.has_role?(:ta) || user.has_role?(:instructor )
+      true
+    else
+      false
+    end
+  end
+  
   def current_user_owner?(user)
-    user ==  current_user
+    current_user == user
   end
 end

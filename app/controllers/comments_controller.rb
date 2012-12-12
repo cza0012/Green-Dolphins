@@ -46,6 +46,7 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       if @comment.save
+        @comment.delay_comment(current_user)
         current_user.add_points(10)
         current_user.add_expert_role
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }

@@ -11,9 +11,11 @@
 #  user_id     :integer
 #  question_id :integer
 #  anonymous   :boolean
+#  hidden      :boolean
 #
 
 require 'spec_helper'
+Delayed::Worker.delay_jobs = false
 
 describe Comment do
   let(:user) { FactoryGirl.create(:user) }
@@ -24,7 +26,8 @@ describe Comment do
       :line  => 9,
       :code => "<b>hi</b>",
       :anonymous => false,
-      :question_id => question.id
+      :question_id => question.id,
+      :hidden => true
     }
     @comment = user.comments.create!(@attr)
   end
@@ -44,5 +47,18 @@ describe Comment do
       user.comments.create!(@attr)
       Question.find( question.id ).should have(2).comments
       user.should have(2).comments
+  end
+  
+  it "should be got by its comments" do
+      user.comments.create!(@attr)
+      Question.find( question.id ).should have(2).comments
+      user.should have(2).comments
+  end
+  
+  it "should be got by its comments" do
+      comment = user.comments.create!(@attr)
+      user.add_role :ta
+      comment.delay_comment(user)
+      comment.hidden.should == false
   end
 end
