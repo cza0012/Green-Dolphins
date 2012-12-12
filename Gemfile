@@ -7,17 +7,17 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 group :test do
-  gem "email_spec", ">= 1.2.1"
-  gem "cucumber-rails", ">= 1.3.0", :require => false
-  gem "capybara", ">= 1.1.2"
-  gem "database_cleaner", ">= 0.8.0"
-  gem "launchy", ">= 2.1.0"
-  gem "spork", "~> 1.0rc"
+  gem "email_spec"
+  gem "cucumber-rails", :require => false
+  gem "capybara"
+  gem "database_cleaner"
+  gem "launchy"
+  gem "spork"
 end 
 
 group :development do
-  gem "rails-footnotes", ">= 3.7"
-  gem "annotate", '>=2.5.0'
+  gem "rails-footnotes"
+  gem "annotate"
   gem 'pry-rails'
   gem 'hirb'
   gem 'awesome_print'
@@ -36,8 +36,10 @@ gem "rolify", ">= 3.1.0"
 gem "bootstrap-sass", ">= 2.0.4.0"
 gem "simple_form"
 gem "will_paginate", ">= 3.0.3"
+gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'redcarpet'
 gem 'pygments.rb'
 gem 'acts-as-taggable-on'
 gem 'bootstrap-will_paginate'
+gem 'dj_mon'
