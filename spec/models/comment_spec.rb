@@ -56,9 +56,11 @@ describe Comment do
   end
   
   it "should be got by its comments" do
-      comment = user.comments.create!(@attr)
       user.add_role :ta
-      comment.delay_comment(user)
+      comment = user.comments.create!(@attr)
+      question = Question.find(comment.question_id)
+      limitedTime = question.created_at + 1.hours
+      waitingTime = limitedTime - DateTime.current()
       comment.hidden.should == false
   end
 end

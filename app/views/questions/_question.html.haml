@@ -1,0 +1,39 @@
+.row
+  .span6
+    .row
+      .span6
+        = question_owner_link(question)
+        %strong= 'asked'
+        #{time_ago_in_words(question.created_at)} ago.
+      .span6
+        %h4= link_to question.title, question
+  .span1
+    %h2= question.comments.count
+    Answers
+  .span1
+    %h2= question.usefuls.count
+    Useful
+.row
+  .span8
+    %p= markdown question.content
+.row
+  .span7
+    =question_tag_list(question)
+  .span1
+    - if current_user.has_role? :admin
+      .btn-group.pull-right
+        %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %i.icon-cog
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            = link_to edit_question_path(question) do
+              %i.icon-pencil
+              Edit 
+          %li
+            = link_to question, :confirm => 'Are you sure?', :method => :delete do
+              %i.icon-trash
+              Delete         
+.row
+  .span8
+    %hr

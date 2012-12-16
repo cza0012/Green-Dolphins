@@ -21,8 +21,8 @@ class QuestionsController < ApplicationController
     @question_owner = @question.question_owner?(current_user)
     @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
     @admin = current_user.has_role?(:admin)
-    @taLimitTime = @question.created_at + 1.hours
-    @instructureLimitTime = @question.created_at + 2.hours
+    @taLimitTime = @question.created_at + 12.hours
+    @instructureLimitTime = @question.created_at + 2.days
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }

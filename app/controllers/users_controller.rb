@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class UsersController < ApplicationController
   before_filter :authenticate_user!
 
@@ -8,7 +10,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @questions = @user.questions.where(:anonymous => false).order('created_at DESC').paginate(page: params[:page])
+    @question = @user.questions.where(:anonymous => false).order('created_at DESC')
+    @comment = @user.comments.where(:anonymous => false).order('created_at DESC')
+    @user_feed = @user.user_feed(@question,@comment).paginate(page: params[:page], per_page: 10)
   end
 
 end

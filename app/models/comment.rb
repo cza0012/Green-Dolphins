@@ -31,10 +31,20 @@ class Comment < ActiveRecord::Base
   
   def delay_comment user
     if user.has_role?(:ta)
-      delay_ta_comment
+        question = Question.find(self.question_id)
+        limitedTime = question.created_at + 12.hours
+        waitingTime = limitedTime.to_time - DateTime.current().to_time
+        if waitingTime > 0
+          delay({:run_at => waitingTime.seconds.from_now}).delay_ta_comment
+        end
     end
     if user.has_role?(:instructor)
-      delay_instructor_comment
+        question = Question.find(self.question_id)
+        limitedTime = question.created_at + 1.days
+        waitingTime = limitedTime.to_time - DateTime.current().to_time
+        if waitingTime > 0
+          delay({:run_at => waitingTime.seconds.from_now}).delay_instructor_comment
+        end
     end
   end
   
@@ -42,11 +52,11 @@ class Comment < ActiveRecord::Base
     self.hidden = false
     save
   end
-  handle_asynchronously :delay_ta_comment, :queue => 'comments', :run_at => Proc.new { 1.hours.from_now }
+  # handle_asynchronously :delay_ta_comment, :queue => 'comments', :run_at => Proc.new { 1.hours.from_now }
   
   def delay_instructor_comment
     self.hidden = false
     save
   end
-  handle_asynchronously :delay_instructor_comment, :queue => 'comments', :run_at => Proc.new { 2.hours.from_now }
+  # handle_asynchronously :delay_instructor_comment, :queue => 'comments', :run_at => Proc.new { 2.hours.from_now }
 end

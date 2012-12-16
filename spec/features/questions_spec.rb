@@ -132,8 +132,8 @@ describe "Questions" do
 
      it "is created" do
        # save_and_open_page
-       should have_selector('a',  text: '^Edit$')
-       should_not have_selector('a',  text: '^Delete$')
+       should have_selector('a',  text: /\AEdit\z/)
+       should have_selector('a',  text: /\ADestroy\z/)
      end
    end
    
@@ -146,8 +146,8 @@ describe "Questions" do
 
      it "is created" do
        save_and_open_page
-       should_not have_selector('a',  text: '^Edit$')
-       should_not have_selector('a',  text: '^Delete$')
+       should_not have_selector('a',  text: /\AEdit\z/)
+       should_not have_selector('a',  text: /\ADestroy\z/)
      end
    end
    

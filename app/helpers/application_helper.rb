@@ -64,4 +64,12 @@ module ApplicationHelper
   def current_user_owner?(user)
     current_user == user
   end
+  
+  def comment_owner_link(comment)
+    link_to User.find(comment.user_id).name, comment.user
+  end
+  
+  def question_of_comment_link(comment)
+    link_to Question.find(comment.question_id).title, comment.question
+  end
 end

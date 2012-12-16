@@ -46,7 +46,7 @@ describe User do
       :content => "I did not know what is Ruby on Rails",
       :code => "<pre></pre>",
       :error => "No error",
-      :anonymous => true
+      :anonymous => false
     }
     @comment_attr = { 
       :content  => "Good job",
@@ -249,5 +249,47 @@ describe User do
       it{@user.should_not be_has_role :expert}
       it{@user.z_scores.should == 0}
     end
+  end
+  
+  describe "has added an feed" do
+    before{
+      @user = User.create!(@attr)
+    }
+    
+    context "A user have answers before questions." do
+      before{
+        4.times do
+          @user.comments.create!(@comment_attr)
+          # sleep(1)
+        end
+        4.times do
+          @user.questions.create!(@question_attr)
+          # sleep(1)
+        end
+        @questions = @user.questions.where(:anonymous => false).order('created_at DESC')
+        @comment = @user.comments.where(:anonymous => false).order('created_at DESC')
+      }
+       it{@user.user_feed(@questions, @comment).size.should == 8}
+     end
+  
+    context "A user have questions before answers." do
+      before{
+        4.times do
+          @user.questions.create!(@question_attr)
+          # sleep(1)
+        end
+        4.times do
+          @user.comments.create!(@comment_attr)
+          # sleep(1)
+        end
+        4.times do
+          @user.questions.create!(@question_attr)
+          # sleep(1)
+        end
+        @questions = @user.questions.where(:anonymous => false).order('created_at DESC')
+        @comment = @user.comments.where(:anonymous => false).order('created_at DESC')
+      }
+       it{@user.user_feed(@questions, @comment).size.should == 12}
+     end
   end
 end

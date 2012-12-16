@@ -1,0 +1,8 @@
+- @user_feed.each do |object|
+  - if  object.is_a?(Question)
+    =render 'questions/question', question: object
+  - if object.is_a?(Comment)
+    =render 'comments/comment_feed', comment: object
+.row
+  .span8
+    = will_paginate @user_feed

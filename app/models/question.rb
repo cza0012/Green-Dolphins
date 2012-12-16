@@ -35,9 +35,11 @@ class Question < ActiveRecord::Base
   
   private
   def automatic_feedback
-    enum_code = code.each_line()
-    too_long_code_feedback(enum_code)
-    code_quality_feedback(enum_code)
+    if !code.blank?
+      enum_code = code.each_line()
+      too_long_code_feedback(enum_code)
+      code_quality_feedback(enum_code)
+    end
   end
   
   def too_long_code_feedback(enum_code)
@@ -58,9 +60,9 @@ class Question < ActiveRecord::Base
 
   def self.text_search(query)
     if query.present?
-      where("title @@ :q or content @@ :q or code @@ :q or error @@ :q", q: query)
+      where("title @@ :q or content @@ :q or code @@ :q or error @@ :q", q: query).order("created_at DESC")
     else
-      scoped
+      scoped.order("created_at DESC")
     end
   end
 
@@ -121,7 +123,8 @@ class Question < ActiveRecord::Base
           else
             stop_class = index
           end
-          if !is_huge_class_feedback && stop_class - start_class > 80 && self.feedbacks.find_by_name(@attr_class_feedback[:name]).blank?
+          class_feedback = self.feedbacks.find_by_name(@attr_class_feedback[:name]) 
+          if !is_huge_class_feedback && stop_class - start_class > 80 && class_feedback.blank?
             is_huge_class_feedback = true
             self.feedbacks << Feedback.find_or_create_by_name(@attr_class_feedback[:name])
           else
@@ -140,7 +143,8 @@ class Question < ActiveRecord::Base
           else
             stop_method = index
           end
-          if !is_huge_method_feedback && stop_method - start_method > 40 && self.feedbacks.find_by_name(@attr_method_feedback[:name]).blank?
+          method_feedback = self.feedbacks.find_by_name(@attr_method_feedback[:name])
+          if !is_huge_method_feedback && stop_method - start_method > 40 && method_feedback.blank?
             is_huge_method_feedback = true
             self.feedbacks << Feedback.find_or_create_by_name(@attr_method_feedback)
           else
@@ -180,8 +184,9 @@ class Question < ActiveRecord::Base
           self.feedbacks.delete(method_feedback)
         end
       end
+      parameters_feedback = self.feedbacks.find_by_name(@attr_parameters_feedback[:name])
       if !is_huge_parameters_feedback && !parameters_feedback.blank?
-        self.feedbacks.delete(method_feedback)
+        self.feedbacks.delete(parameters_feedback)
       end
     end
   end

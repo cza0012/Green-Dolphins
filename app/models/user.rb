@@ -72,6 +72,31 @@ class User < ActiveRecord::Base
     self.save
   end
   
+  def user_feed(questionArray, commentArray)
+    questionIndex = 0
+    commentIndex = 0
+    result = Array.new
+     
+    while questionIndex < questionArray.size || commentIndex < commentArray.size
+      if questionIndex < questionArray.size && commentIndex < commentArray.size
+        if questionArray[questionIndex].created_at > commentArray[commentIndex].created_at
+          result = result << questionArray[questionIndex]
+          questionIndex = questionIndex + 1
+        else
+          result = result << commentArray[commentIndex]
+          commentIndex = commentIndex + 1
+        end
+      elsif questionIndex < questionArray.size
+        result = result << questionArray[questionIndex]
+        questionIndex  = questionIndex + 1
+      elsif commentIndex < commentArray.size
+        result = result << commentArray[commentIndex]
+        commentIndex = commentIndex + 1
+      end
+    end
+    result
+  end
+  
   private 
   def init
     self.points ||= 0

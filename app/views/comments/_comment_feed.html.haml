@@ -1,0 +1,35 @@
+- if ! (current_user.has_role?(:student) && comment.hidden)
+  .row
+    .span6
+      .row
+        .span6
+          = comment_owner_link(comment)
+          %strong= 'answered' 
+          #{time_ago_in_words(comment.created_at)} ago.
+        .span6
+          %h4= question_of_comment_link(comment)
+    .span1.offset1
+      %h2= comment.usefuls.count
+      Useful
+  .row
+    .span8
+      %p= markdown comment.content
+  .row
+    .span1.offset7
+      - if current_user.has_role? :admin
+        .btn-group.pull-right
+          %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.icon-cog
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to edit_comment_path(comment) do
+                %i.icon-pencil
+                Edit 
+            %li
+              = link_to comment, :confirm => 'Are you sure?', :method => :delete do
+                %i.icon-trash
+                Delete         
+  .row
+    .span8
+      %hr
