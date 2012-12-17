@@ -8,7 +8,13 @@
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
     = stylesheet_link_tag    "application", :media => "all"
+    %link{:href  => "http://cdn.aloha-editor.org/latest/css/aloha.css", :rel => "stylesheet", :type => "text/css"}
     = javascript_include_tag "application"
+    %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/require.js"}
+    %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/vendor/jquery-1.7.2.js"}
+    %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/aloha.js", :'data-aloha-plugins' => "common/ui, common/format,common/list,common/link,common/highlighteditables,common/table,common/characterpicker,common/image"}
+    :javascript
+      Aloha.ready( function() {var $ = Aloha.jQuery; $('.editable').aloha();});
     = csrf_meta_tags
     = yield(:head)
   %body

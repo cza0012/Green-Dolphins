@@ -13,7 +13,7 @@
       Useful
   .row
     .span8
-      %p= markdown comment.content
+      %p= raw comment.content
   .row
     .span1.offset7
       - if current_user.has_role? :admin

@@ -6,7 +6,7 @@
   = @question.title
 %p
   %b Content:
-  = @question.content
+  = raw @question.content
 %p
   %b Code:
   = markdown @question.code
@@ -69,7 +69,7 @@
     - if ! (current_user.has_role?(:student) && comment.hidden)
       %tr
         %td= comment.id
-        %td= comment.content
+        %td= raw comment.content
         %td= comment.line
         %td= markdown comment.code
         %td= comment.anonymous
@@ -102,7 +102,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :content
+    = f.input :content, :input_html => { :class => 'editable' }
     = f.input :code
     = f.input :anonymous
     = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 

@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :content
+    = f.input :content, :input_html => { :class => 'editable' }
     = f.input :code
     = f.input :anonymous
     = f.input :question_id, :as => :hidden, :input_html => { :value => @comment.question_id }
