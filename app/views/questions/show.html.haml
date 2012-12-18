@@ -38,7 +38,8 @@
 %p
   %b Tag list:
   = raw @question.tag_list.map { |t| link_to t, questions_tags_path(t), class: "label" }.join(' ')
-= link_to 'Useful question', useful_path(id: '', type: 'Question', question_id: @question.id, useful: {user_id: current_user.id}), method: :post
+- user_useful_array = @question.usefuls.where(user_id: current_user.id)
+= useful_link(user_useful_array, @question)
 \|
 - if @admin || @question_owner
   = link_to 'Edit', edit_question_path(@question) 

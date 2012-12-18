@@ -72,4 +72,12 @@ module ApplicationHelper
   def question_of_comment_link(comment)
     link_to Question.find(comment.question_id).title, comment.question
   end
+  
+  def useful_link(useful_array, useful_object)
+    if useful_array.blank?
+      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small'
+    else
+      link_to '<i class="icon-thumbs-up icon-white"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
+    end
+  end
 end
