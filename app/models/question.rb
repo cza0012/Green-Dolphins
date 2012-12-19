@@ -28,9 +28,16 @@ class Question < ActiveRecord::Base
   has_many :notifications, :as => :sendable
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
   after_save :automatic_feedback
+  before_save :tag_tokens
   
   def question_owner? user
     User.find(user_id) == user
+  end
+  
+  def tag_tokens()
+    ids = tag_list.split(',')
+    tagArray = Question.tag_counts.where(:id => ids).map(&:name)
+    self.tag_list = tagArray.join(',')
   end
   
   private

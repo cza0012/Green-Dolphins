@@ -15,3 +15,4 @@
 //= require bootstrap
 //= require jquery.tokeninput
 //= require_tree .
+

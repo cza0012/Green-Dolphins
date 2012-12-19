@@ -19,6 +19,8 @@ GreenDophins::Application.routes.draw do
   resources :courses
 
   resources :questions
+  
+  resources :tags
 
   authenticated :user do
     root :to => 'home#index'

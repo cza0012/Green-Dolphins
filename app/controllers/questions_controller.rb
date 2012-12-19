@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.text_search(params[:query]).paginate(page: params[:page])
+    @tags = [{ id: 14,name: "sorting"}]
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @questions }

@@ -6,7 +6,7 @@
     = f.input :content, :input_html => { :class => 'editable' }
     = f.input :code
     = f.input :error
-    = f.input :tag_list
+    = f.input :tag_list, input_html: { data: {load: @question.tags} }
     = f.input :anonymous 
 
   %table
