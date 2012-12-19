@@ -14,10 +14,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    @comments = @question.comments.all
+    @comments = @question.comments.find(:all, :order => 'created_at ASC')
     @good_answer = @question.good_answer
     @comment = Comment.new
-    @feedback = @question.feedbacks
+    # No code feedback
+    # @feedback = @question.feedbacks
     @question_owner = @question.question_owner?(current_user)
     @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
     @admin = current_user.has_role?(:admin)

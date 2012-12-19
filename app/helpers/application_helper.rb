@@ -73,11 +73,33 @@ module ApplicationHelper
     link_to Question.find(comment.question_id).title, comment.question
   end
   
-  def useful_link(useful_array, useful_object)
+  def useful_question_link(useful_array, useful_object)
     if useful_array.blank?
       link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small'
     else
       link_to '<i class="icon-thumbs-up icon-white"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
+    end
+  end
+  
+  def best_answer(good_answer, comment)
+      if ! good_answer.blank?
+        if good_answer.comment_id == comment.id
+          '<button type="button" class="btn btn-success btn-small" disabled="disabled"><i class="icon-ok icon-white"></i> Best answer</button>'.html_safe
+        end
+      end
+  end
+  
+  def good_answer_button(good_answer, comment)
+    if good_answer.blank?
+       link_to '<i class="icon-ok"></i> Best answer'.html_safe, good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post, class: 'btn btn-small'
+    end 
+  end
+  
+  def useful_comment_link(useful_array, useful_object)
+    if useful_array.blank?
+      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_path(id: '', type: 'Comment', comment_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small'
+    else
+      link_to '<i class="icon-thumbs-up icon-white"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
     end
   end
 end

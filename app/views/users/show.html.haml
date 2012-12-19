@@ -12,14 +12,11 @@
         .span3
           %h1 #{@user.points} Points
       .row
-        .span1
-          %h5 Sex
-          #{@user.sex}
         .span2
           %h5 Level 
           #{@user.level}
         .span2
-          %h5 Level 
+          %h5 Role 
           #{@user.roles.first.name}
         .span2
           - if current_user.has_role? :admin

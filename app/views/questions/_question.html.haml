@@ -15,7 +15,7 @@
     Useful
 .row
   .span8
-    %p= markdown question.content
+    %p= raw question.content
 .row
   .span7
     =question_tag_list(question)
@@ -30,8 +30,9 @@
             = link_to edit_question_path(question) do
               %i.icon-pencil
               Edit 
+          %li.divider
           %li
-            = link_to question, :confirm => 'Are you sure?', :method => :delete do
+            = link_to question, :data => {:confirm => 'Are you sure?'}, :method => :delete do
               %i.icon-trash
               Delete         
 .row

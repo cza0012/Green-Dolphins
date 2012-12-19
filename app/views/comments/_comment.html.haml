@@ -1,33 +1,37 @@
-.row
-  .span6
-    .row
-      .span6
-        = comment_owner_link(comment)
-        answered #{time_ago_in_words(comment.created_at)}.
-      / .span6
-      /   %h5= link_to question.title, question
-  .span1
-    %h2= comment.usefuls.count
-    Useful
-.row
-  .span8
-    %p= comment.content
-.row
-  .span1.offset7
-    - if current_user.has_role? :admin
-      .btn-group.pull-right
-        %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-          %i.icon-cog
-          %span.caret
-        %ul.dropdown-menu
-          %li
-            = link_to edit_comment_path(comment) do
-              %i.icon-pencil
-              Edit 
-          %li
-            = link_to comment, :confirm => 'Are you sure?', :method => :delete do
-              %i.icon-trash
-              Delete         
-.row
-  .span8
-    %hr
+- if ! (current_user.has_role?(:student) && comment.hidden)
+  .row
+    .span6
+      = comment_owner_link(comment)
+      %b= 'answered' 
+      #{time_ago_in_words(comment.created_at)} ago.
+    .span1.offset1
+      %h2= comment.usefuls.count
+      %p= 'Useful'
+  .row
+    .span8
+      %p= raw comment.content
+  .row
+    .span8
+      - owner = current_user_owner?(User.find(comment.user_id))
+      - user_useful_array = comment.usefuls.where(user_id: current_user.id)
+      = useful_comment_link(user_useful_array, comment)
+      = best_answer(@good_answer, comment)
+      - if @admin || @question_owner
+        = good_answer_button(@good_answer, comment)
+      - if @admin || owner
+        = link_to edit_comment_path(comment), class: 'btn btn-small' do
+          %i.icon-pencil
+          Edit
+      - if owner || @admin || @teacher
+        .btn-group.pull-right
+          %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.icon-cog
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to comment, :data => {:confirm => 'Are you sure?'}, :method => :delete do
+                %i.icon-trash
+                Delete         
+  .row
+    .span8
+      %hr

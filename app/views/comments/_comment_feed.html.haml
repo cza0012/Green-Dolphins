@@ -10,7 +10,7 @@
           %h4= question_of_comment_link(comment)
     .span1.offset1
       %h2= comment.usefuls.count
-      Useful
+      %p= 'Useful'
   .row
     .span8
       %p= raw comment.content
@@ -26,8 +26,9 @@
               = link_to edit_comment_path(comment) do
                 %i.icon-pencil
                 Edit 
+            %li.divider
             %li
-              = link_to comment, :confirm => 'Are you sure?', :method => :delete do
+              = link_to comment, :data => {:confirm => 'Are you sure?'}, :method => :delete do
                 %i.icon-trash
                 Delete         
   .row

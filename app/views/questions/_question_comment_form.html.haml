@@ -1,0 +1,15 @@
+= simple_form_for(@comment) do |f|
+  = f.error_notification
+  .form
+    = f.input :content, :label => false, :placeholder => "Please answer your friend's question",:input_html => { :class => 'editable span8'}
+    = f.input :code, :as => :hidden, :input_html => { :value => 0 }
+    = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 
+    = f.input :line, :as => :hidden, :input_html => { :value => 0 }
+    - if current_user.has_role?(:ta) && !@taLimitTime.past?()
+      = f.input :hidden, :as => :hidden, :input_html => { :value => true }
+    - elsif current_user.has_role?(:instructor) && !@instructureLimitTime.past?()
+      = f.input :hidden, :as => :hidden, :input_html => { :value => true }
+    - else
+      = f.input :hidden, :as => :hidden, :input_html => { :value => false }
+    = f.input :anonymous, :label => false, :inline_label => 'Answer anonymously'
+    = f.submit 'Answer', class: 'btn btn-primary pull-right'
