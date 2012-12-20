@@ -201,6 +201,16 @@ describe User do
   describe "has points" do 
     before{
       @user = User.create!(@attr)
+      
+      @fast_question_attr = { 
+        :title => "What is Ruby on Rails?",
+        :content => "I did not know what is Ruby on Rails",
+        :code => "<pre></pre>",
+        :error => "No error",
+        :anonymous => false,
+        :fast_answer => true
+      }
+      
     }
     
     context "A user has 0 point after initialized." do
@@ -212,6 +222,13 @@ describe User do
         @user.add_points(5)
       }
       it{@user.points.should == 5}
+    end
+    
+    context "A user has been deducted 5 points." do
+      before{
+        @user.deduct_points(5)
+      }
+      it{@user.points.should == -5}
     end
   end
   

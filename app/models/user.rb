@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
   
   def add_expert_role
     scores = z_score
-    if scores >= 1.65
+    if scores >= 1.65 && !(has_role? :expert)
       add_role :expert
-    elsif (has_role? :expert) && scores < 1.65
+    elsif (has_role? :expert) && scores < 1.65 && !(has_role? :ta) && !(has_role? :instructor)
       remove_role :expert
     end 
   end
@@ -69,6 +69,12 @@ class User < ActiveRecord::Base
   def add_points(new_points)
     self.lock!
     self.points += new_points
+    self.save
+  end
+  
+  def deduct_points(new_points)
+    self.lock!
+    self.points -= new_points
     self.save
   end
   

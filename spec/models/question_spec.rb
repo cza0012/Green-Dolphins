@@ -2,15 +2,16 @@
 #
 # Table name: questions
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  content    :text
-#  code       :text
-#  error      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  anonymous  :boolean
+#  id          :integer          not null, primary key
+#  title       :string(255)
+#  content     :text
+#  code        :text
+#  error       :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  anonymous   :boolean
+#  fast_answer :boolean
 #
 
 require 'spec_helper'

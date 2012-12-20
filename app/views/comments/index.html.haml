@@ -7,6 +7,7 @@
     %th Line
     %th Code
     %th Anonymous
+    %th Hidden
     %th User_id
     %th Question_id
     %th
@@ -20,6 +21,7 @@
       %td= comment.line
       %td= comment.code
       %td= comment.anonymous
+      %td= comment.hidden
       %td= anonymous_user?( comment )
       %td= comment.question_id
       %td= link_to 'Show', comment

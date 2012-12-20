@@ -2,19 +2,20 @@
 #
 # Table name: questions
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  content    :text
-#  code       :text
-#  error      :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer
-#  anonymous  :boolean
-#  
+#  id          :integer          not null, primary key
+#  title       :string(255)
+#  content     :text
+#  code        :text
+#  error       :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  anonymous   :boolean
+#  fast_answer :boolean
+#
 
 class Question < ActiveRecord::Base
-  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list
+  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list, :fast_answer
   acts_as_taggable
   validates :user_id, presence: true
   #The number of questions per page

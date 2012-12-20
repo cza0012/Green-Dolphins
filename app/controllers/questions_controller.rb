@@ -24,7 +24,9 @@ class QuestionsController < ApplicationController
     @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
     @admin = current_user.has_role?(:admin)
     @taLimitTime = @question.created_at + 12.hours
-    @instructureLimitTime = @question.created_at + 2.days
+    @InstructorLimitTime = @question.created_at + 2.days
+    @delayTAAnswer = current_user.has_role?(:ta) && !@taLimitTime.past?() && !@question.fast_answer
+    @delayInstructorAnswer = current_user.has_role?(:instructor) && !@InstructorLimitTime.past?() && !@question.fast_answer
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }
@@ -65,7 +67,11 @@ class QuestionsController < ApplicationController
     
     respond_to do |format|
       if @question.save
-        current_user.add_points(5)
+        if @question.fast_answer
+          current_user.deduct_points(5)
+        else
+          current_user.add_points(5)
+        end
         current_user.add_expert_role
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
