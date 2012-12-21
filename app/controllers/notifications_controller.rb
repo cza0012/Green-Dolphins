@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where('user_id = ? AND created_at > ? AND read = false', current_user.id, 1.weeks.ago).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -75,6 +75,16 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
     @notification.destroy
 
+    respond_to do |format|
+      format.html { redirect_to notifications_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def read
+    @notification = Notification.find(params[:id])
+    @notification.read_notification
+    
     respond_to do |format|
       format.html { redirect_to notifications_url }
       format.json { head :no_content }

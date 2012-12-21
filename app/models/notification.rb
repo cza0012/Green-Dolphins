@@ -16,17 +16,19 @@ class Notification < ActiveRecord::Base
   attr_accessible :content, :read, :user_id
   belongs_to :user, :inverse_of => :notifications
   belongs_to :sendable, :polymorphic => true 
-  after_validation :init, :set_message
+  after_validation :set_message
+  
+  def read_notification
+    self.lock!
+    self.read = true
+    self.save
+  end
   
   private
-  def init
-    self.read = false
-  end
-
   def set_message
     user = User.find(user_id)
     if sendable_type == 'Question'
-      self.content = "#{user.name} please helps me!"
+      self.content = "Please helps me!"
     end
   end
 end

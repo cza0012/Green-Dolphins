@@ -29,8 +29,8 @@ module ApplicationHelper
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
   
-  def anonymous_user?(question_or_answer)
-      question_or_answer.anonymous == true ? 'An anonymous user' : User.find(question_or_answer.user_id).name
+  def anonymous_user(question_or_answer)
+      question_or_answer.anonymous == true ? 'An anonymous user' : link_to(question_or_answer.user.name, question_or_answer.user) 
   end
   
   def tag_questions_link(tag, css_class)
@@ -42,7 +42,7 @@ module ApplicationHelper
   end
   
   def question_owner_link(question)
-    link_to User.find(question.user_id).name, question.user
+    link_to question.user.name, question.user
   end
   
   def question_tag_list(question)
@@ -66,11 +66,11 @@ module ApplicationHelper
   end
   
   def comment_owner_link(comment)
-    link_to User.find(comment.user_id).name, comment.user
+    link_to comment.user.name, comment.user
   end
   
   def question_of_comment_link(comment)
-    link_to Question.find(comment.question_id).title, comment.question
+    link_to comment.question.title, comment.question
   end
   
   def useful_question_link(useful_array, useful_object)
@@ -101,5 +101,9 @@ module ApplicationHelper
     else
       link_to '<i class="icon-thumbs-up icon-white"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
     end
+  end
+  
+  def current_notifications
+    @current_notifications = Notification.where('user_id = ? AND created_at > ? AND read = false', current_user.id, 1.weeks.ago)
   end
 end

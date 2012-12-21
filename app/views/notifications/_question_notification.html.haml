@@ -1,0 +1,20 @@
+.row
+  .span4
+    - question = Question.find(notification.sendable_id)
+    - user = question.user
+    %p
+      %i.icon-question-sign
+      Please help
+      = link_to user.name, user
+      to solve
+  .span2
+    = time_ago_in_words(notification.created_at) + ' ago'
+  .span2
+    = read_link(notification)
+.row
+  .span8
+    %p
+      = link_to question.title, question
+.row
+  .span8
+    %hr

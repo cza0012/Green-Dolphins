@@ -1,7 +1,7 @@
 - if ! (current_user.has_role?(:student) && comment.hidden)
   .row
     .span6
-      = comment_owner_link(comment)
+      = anonymous_user(comment)
       %b= 'answered' 
       #{time_ago_in_words(comment.created_at)} ago.
     .span1.offset1

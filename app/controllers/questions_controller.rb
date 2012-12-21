@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
     @experts = User.with_role(:expert)
     @number_of_experts = @experts.count
     @number_of_experts.times do
-      @question.notifications.build
+    @question.notifications.build
     end
     
     

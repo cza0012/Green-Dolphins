@@ -6,6 +6,8 @@ GreenDophins::Application.routes.draw do
   
   get 'tags/users/:tag', to: 'tags#users', as: :users_tags
   
+  match '/notifications/:id', :controller => 'notifications', :action => 'read', as: :notification_read
+  
   resources :notifications
 
   resources :good_answers

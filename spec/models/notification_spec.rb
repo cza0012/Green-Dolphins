@@ -37,4 +37,12 @@ describe Notification do
    it "should create an new instance." do
      expect{question.notifications.create!(@attr)}.to change{Notification.count}.by (1)
    end
+   
+   context "was read." do
+
+     before{
+       @notification.read_notification
+     }
+    it{@notification.read.should == true} 
+   end
 end

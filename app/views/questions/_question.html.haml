@@ -2,7 +2,7 @@
   .span6
     .row
       .span6
-        = question_owner_link(question)
+        = anonymous_user(question)
         %strong= 'asked'
         #{time_ago_in_words(question.created_at)} ago.
       .span6
