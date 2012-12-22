@@ -7,7 +7,7 @@
     %h4= @question.title
   .span1
     %h2= @question.comments.count
-    %p= 'Answers'
+    = good_answer? @question
   .span1
     %h2= @question.usefuls.count
     %p= 'Useful'
@@ -20,12 +20,12 @@
     %p= raw @question.content
 .row
   .span8
-    .form-actions
+    .form-actions.well
       - user_useful_array = @question.usefuls.where(user_id: current_user.id)
       = useful_question_link(user_useful_array, @question)
       - if @admin || @question_owner
         = link_to edit_question_path(@question), class: 'btn btn-small' do
-          %i.icon-pencil
+          %i.icon-edit
           Edit
       - if @question_owner || @admin || @teacher
         .btn-group.pull-right

@@ -9,7 +9,7 @@
         %h4= link_to question.title, question
   .span1
     %h2= question.comments.count
-    Answers
+    = good_answer? question
   .span1
     %h2= question.usefuls.count
     Useful
@@ -28,7 +28,7 @@
         %ul.dropdown-menu
           %li
             = link_to edit_question_path(question) do
-              %i.icon-pencil
+              %i.icon-edit
               Edit 
           %li.divider
           %li

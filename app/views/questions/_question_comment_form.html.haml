@@ -13,6 +13,6 @@
       = f.input :hidden, :as => :hidden, :input_html => { :value => true }
     - else
       = f.input :hidden, :as => :hidden, :input_html => { :value => false }
-    .form-actions
+    .form-actions.well
       = f.input :anonymous, :label => false, :inline_label => 'Answer anonymously'
-      = f.submit 'Answer', class: 'btn btn-primary pull-right'
+      = f.submit 'Answer'.html_safe, class: 'btn btn-primary pull-right'

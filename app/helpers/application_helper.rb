@@ -75,9 +75,9 @@ module ApplicationHelper
   
   def useful_question_link(useful_array, useful_object)
     if useful_array.blank?
-      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small'
+      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button"
     else
-      link_to '<i class="icon-thumbs-up icon-white"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
+      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button"
     end
   end
   
@@ -97,13 +97,21 @@ module ApplicationHelper
   
   def useful_comment_link(useful_array, useful_object)
     if useful_array.blank?
-      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_path(id: '', type: 'Comment', comment_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small'
+      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_path(id: '', type: 'Comment', comment_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button"
     else
-      link_to '<i class="icon-thumbs-up icon-white"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-success btn-small'
+      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button"
     end
   end
   
   def current_notifications
     @current_notifications = Notification.where('user_id = ? AND created_at > ? AND read = false', current_user.id, 1.weeks.ago)
   end
+  
+  def good_answer? question
+    if question.good_answer.blank?
+      'Answers'
+    else
+      '<span class="label label-success"><i class= "icon-ok icon-white"></i>Answers</span>'.html_safe
+    end
+  end 
 end

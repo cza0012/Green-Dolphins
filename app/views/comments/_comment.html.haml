@@ -20,7 +20,7 @@
         = good_answer_button(@good_answer, comment)
       - if @admin || owner
         = link_to edit_comment_path(comment), class: 'btn btn-small' do
-          %i.icon-pencil
+          %i.icon-edit
           Edit
       - if owner || @admin || @teacher
         .btn-group.pull-right
