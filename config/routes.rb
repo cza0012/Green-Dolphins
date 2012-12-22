@@ -25,7 +25,7 @@ GreenDophins::Application.routes.draw do
   resources :tags
 
   authenticated :user do
-    root :to => 'home#index'
+    root :to => 'questions#index'
   end
   root :to => "home#index"
   devise_for :users

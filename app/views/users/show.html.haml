@@ -17,7 +17,7 @@
           #{@user.level}
         .span2
           %h5 Role 
-          #{@user.roles.first.name}
+          #{user_role(@user)}
         .span2
           - if current_user.has_role? :admin
             %h5 Z-Scores 

@@ -21,10 +21,10 @@
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string(255)
 #  school                 :string(255)
-#  sex                    :integer
-#  level                  :integer
 #  points                 :integer
 #  z_scores               :integer
+#  sex                    :string(255)
+#  level                  :string(255)
 #
 
 class User < ActiveRecord::Base

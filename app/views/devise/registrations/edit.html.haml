@@ -8,13 +8,13 @@
       .well.form-horizontal
         = f.input :name
         = f.input :email
-        = f.input :password, hint: "(leave blank if you don't want to change it)"
+        = f.input :password, hint: "Leave blank if you don't want to change it"
         = f.input :password_confirmation
         = f.input :school
         = f.input :sex, :collection => ['Female','Male']
         = f.input :level, :collection => ['Freshman','Sophomore', 'Junior', 'Senior', 'Graduate']
-        = f.input :tag_list
-        = f.input :current_password, hint: '(we need your current password to confirm your changes)'
-      .form-actions
-        = f.button :submit
-        = link_to '<i class="icon-arrow-left"></i> Back'.html_safe, :back, class: 'btn'
+        = f.input :tag_list, hint: 'Each tag is separated by a semicolon. Ex: Algorithm, Student, Auburn'
+        = f.input :current_password, hint: 'We need your current password to confirm your changes', :required => true
+        .form-actions
+          = link_to 'Cancle'.html_safe, :back, class: 'btn'
+          = f.button :submit, class: 'btn btn-primary'
