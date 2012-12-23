@@ -15,9 +15,11 @@
 #
 
 require 'spec_helper'
+Delayed::Worker.delay_jobs = false
 
 describe Question do
   let(:user) { FactoryGirl.create(:user) }
+  let(:user1) { FactoryGirl.create(:user, email: 'test2@auburn.edu') }
   before(:each) do    
       @attr = { 
         :title => "What is Ruby on Rails?",
@@ -61,6 +63,18 @@ describe Question do
   describe "when user_id is not present" do
       before { @question.user_id = nil}
       it {should_not be_valid}
+  end
+  
+  describe "Notification to ta" do
+      before { 
+        user.add_role :ta 
+        user1.add_role :instructor
+        @question.save
+        @question.teacher_notification
+      }
+      it {
+        @question.should have(2).notification
+      }
   end
   
   it "should create a feedback for a question." do

@@ -41,21 +41,36 @@ class Question < ActiveRecord::Base
     self.tag_list = tagArray.join(',')
   end
   
-  private
   def teacher_notification 
-    
+    ta_limitedTime = created_at + 12.hours
+    instructor_limitedTime = created_at + 1.days
+    delay({:run_at => ta_limitedTime}).ta_notification
+    delay({:run_at => instructor_limitedTime}).instructor_notification
   end
   
+  private
   def ta_notification
-    if Question.comment.blank?
+    if self.comments.blank?
       users_ta = User.with_role(:ta)
       users_ta.each do |u|
         @attr = { 
           :user_id => u.id,
-          :content => "Please answer my question",
           :read => false,
         }
-        question.notifications.create(@attr)
+        self.notifications.create(@attr)
+      end
+    end
+  end
+  
+  def instructor_notification
+    if self.comments.blank?
+      users_ta = User.with_role(:instructor)
+      users_ta.each do |u|
+        @attr = { 
+          :user_id => u.id,
+          :read => false,
+        }
+        self.notifications.create(@attr)
       end
     end
   end

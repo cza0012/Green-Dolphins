@@ -67,6 +67,7 @@ class QuestionsController < ApplicationController
     
     respond_to do |format|
       if @question.save
+        @question.teacher_notification
         if @question.fast_answer
             current_user.deduct_points(5)
         else
