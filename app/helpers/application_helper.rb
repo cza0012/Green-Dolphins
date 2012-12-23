@@ -111,7 +111,7 @@ module ApplicationHelper
     if question.good_answer.blank?
       'Answers'
     else
-      '<span class="label label-success"><i class= "icon-ok icon-white"></i>Answers</span>'.html_safe
+      '<span class="label label-success"><i class= "icon-ok icon-white"></i> Answers</span>'.html_safe
     end
   end 
 end

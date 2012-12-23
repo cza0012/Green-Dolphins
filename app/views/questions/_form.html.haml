@@ -6,9 +6,15 @@
     = f.input :content, :input_html => { :class => 'editable' }
     = f.input :code
     = f.input :error
+    #tag_cloud
+      - tag_cloud Question.tag_counts, %w(label popular-label) do |tag, css_class|
+        %span{class: css_class}= tag 
     = f.input :tag_list, input_html: { data: {load: @question.tags} }
     = f.input :anonymous 
-    = f.input :fast_answer
+    - if current_user.points >= 5
+      = f.input :fast_answer, hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
+    - else
+      = f.input :fast_answer, hint: "You have #{current_user.points} points. You need at least 5 points to use this function.", :disabled => true
 
   %table
     %tr
@@ -18,11 +24,17 @@
       %tr
         %td= expert.name
         %td= expert.id
-
+  - points = current_user.points
   = f.simple_fields_for(:notifications) do |g|
-    .form-inputs
-      = g.association :user
-      = g.input :read, hidden: true, input_html: { input: false }
+    - if points >= 5
+      .form-inputs
+        = g.association :user, :collection => @experts, hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
+        = g.input :read, :as => :hidden, :input_html => { :value => false }
+    - else
+      .form-inputs
+        = g.association :user, :collection => @experts, hint: "You have #{current_user.points} points. You need to spend 5 points to use this function.", :disabled => true
+        = g.input :read, :as => :hidden, :input_html => { :value => false }
+    - points = points - 5
 
   .form-actions
     = f.button :submit

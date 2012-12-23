@@ -68,7 +68,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         if @question.fast_answer
-          current_user.deduct_points(5)
+            current_user.deduct_points(5)
         else
           current_user.add_points(5)
         end

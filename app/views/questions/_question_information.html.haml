@@ -13,7 +13,7 @@
     %p= 'Useful'
 .row
   .span8
-    %p= raw @question.tag_list.map { |t| link_to t, questions_tags_path(t), class: "label" }.join(' ')
+    %p= question_tag_list @question
 %hr
 .row
   .span8

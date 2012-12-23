@@ -10,6 +10,7 @@ FactoryGirl.define do
     school 'Auburn University'
     sex 1
     level 1
+    points 0
     # required if the Devise Confirmable module is used
     confirmed_at Time.now
     
@@ -17,8 +18,8 @@ FactoryGirl.define do
       after(:create) {|user| user.add_role(:student)}
     end
     
-   trait :admin do
+    trait :admin do
       after(:create) {|user| user.add_role(:admin)}
-  end
+    end
   end
 end

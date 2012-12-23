@@ -13,6 +13,10 @@
         = f.input :school
         = f.input :sex, :collection => ['Female','Male']
         = f.input :level, :collection => ['Freshman','Sophomore', 'Junior', 'Senior', 'Graduate']
+        .control-group.optional
+          #tag_cloud
+            - tag_cloud User.tag_counts, %w(label popular-label) do |tag, css_class|
+              %span{class: css_class}= tag
         = f.input :tag_list, hint: 'Each tag is separated by a semicolon. Ex: Algorithm, Student, Auburn'
         = f.input :current_password, hint: 'We need your current password to confirm your changes', :required => true
         .form-actions

@@ -42,6 +42,24 @@ class Question < ActiveRecord::Base
   end
   
   private
+  def teacher_notification 
+    
+  end
+  
+  def ta_notification
+    if Question.comment.blank?
+      users_ta = User.with_role(:ta)
+      users_ta.each do |u|
+        @attr = { 
+          :user_id => u.id,
+          :content => "Please answer my question",
+          :read => false,
+        }
+        question.notifications.create(@attr)
+      end
+    end
+  end
+  
   def automatic_feedback
     if !code.blank?
       enum_code = code.each_line()
