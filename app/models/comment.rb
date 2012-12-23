@@ -49,12 +49,14 @@ class Comment < ActiveRecord::Base
   end
   
   def delay_ta_comment
+    self.lock!
     self.hidden = false
     save
   end
   # handle_asynchronously :delay_ta_comment, :queue => 'comments', :run_at => Proc.new { 1.hours.from_now }
   
   def delay_instructor_comment
+    self.lock!
     self.hidden = false
     save
   end

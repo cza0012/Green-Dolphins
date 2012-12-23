@@ -48,7 +48,8 @@ class UsefulsController < ApplicationController
     respond_to do |format|
       if @useful.save
         current_user.add_points(2)
-        format.html { redirect_to @useful, notice: 'Useful was successfully created.' }
+        @useful_parent = @useful.useful_parent
+        format.html { redirect_to @useful_parent, notice: 'Useful was successfully created.' }
         format.json { render json: @useful, status: :created, location: @useful }
       else
         format.html { render action: "new" }
@@ -77,10 +78,11 @@ class UsefulsController < ApplicationController
   # DELETE /usefuls/1.json
   def destroy
     @useful = Useful.find(params[:id])
+    @useful_parent = @useful.useful_parent
     @useful.destroy
 
     respond_to do |format|
-      format.html { redirect_to usefuls_url }
+      format.html { redirect_to @useful_parent }
       format.json { head :no_content }
     end
   end
