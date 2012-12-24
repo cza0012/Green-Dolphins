@@ -1,0 +1,24 @@
+.row
+  .span8
+    .progress.progress-striped.active
+      = waiting_bar(@question, comment, @taLimitTime, @InstructorLimitTime)
+.row
+  .span8
+    - owner = current_user_owner?(User.find(comment.user_id))
+    - if @admin || owner
+      = link_to edit_comment_path(comment), class: 'btn btn-small' do
+        %i.icon-edit
+        Edit
+    - if owner || @admin || @teacher
+      .btn-group.pull-right
+        %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %i.icon-cog
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            = link_to comment, :data => {:confirm => 'Are you sure?'}, :method => :delete do
+              %i.icon-trash
+              Delete         
+.row
+  .span8
+    %hr

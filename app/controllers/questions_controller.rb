@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
     @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
     @admin = current_user.has_role?(:admin)
     @taLimitTime = @question.created_at + 12.hours
-    @InstructorLimitTime = @question.created_at + 2.days
+    @InstructorLimitTime = @question.created_at + 1.days
     @delayTAAnswer = current_user.has_role?(:ta) && !@taLimitTime.past?() && !@question.fast_answer
     @delayInstructorAnswer = current_user.has_role?(:instructor) && !@InstructorLimitTime.past?() && !@question.fast_answer
     respond_to do |format|

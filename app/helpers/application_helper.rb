@@ -118,5 +118,4 @@ module ApplicationHelper
       '<span class="label label-success"><i class= "icon-ok icon-white"></i> Answers</span>'.html_safe
     end
   end
-  
 end
