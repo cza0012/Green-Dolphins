@@ -107,11 +107,16 @@ module ApplicationHelper
     @current_notifications = Notification.where('user_id = ? AND created_at > ? AND read = false', current_user.id, 1.weeks.ago)
   end
   
-  def good_answer? question
+  def good_answer? question 
     if question.good_answer.blank?
-      'Answers'
+      if question.comments.blank?
+        '<span class="label label-important"><i class= "icon-exclamation-sign icon-white"></i> Answers</span>'.html_safe
+      else
+        'Answers'
+      end
     else
       '<span class="label label-success"><i class= "icon-ok icon-white"></i> Answers</span>'.html_safe
     end
-  end 
+  end
+  
 end
