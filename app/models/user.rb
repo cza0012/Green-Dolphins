@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :usefuls, :inverse_of => :user
   has_many :comments, :inverse_of => :user
   has_many :notifications, :inverse_of => :user
+  has_many :replies, :inverse_of => :user
   has_and_belongs_to_many :courses
   before_create :init
   

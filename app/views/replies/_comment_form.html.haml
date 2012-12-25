@@ -1,0 +1,12 @@
+.row
+  .span7
+    %hr
+    = simple_form_for(@reply) do |f|
+      = f.error_notification
+
+      .form-inputs
+        = f.input :content, label: false, input_html: { class: 'input-block-level', rows: '2'}
+        = f.input :comment_id, :as => :hidden, :input_html => { :value => comment.id } 
+
+      .control-group
+        = f.button :submit, 'Reply', class: 'btn btn-small pull-right'

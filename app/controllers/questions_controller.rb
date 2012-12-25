@@ -18,6 +18,7 @@ class QuestionsController < ApplicationController
     @comments = @question.comments.find(:all, :order => 'created_at ASC')
     @good_answer = @question.good_answer
     @comment = Comment.new
+    @reply = Reply.new
     # No code feedback
     # @feedback = @question.feedbacks
     @question_owner = @question.question_owner?(current_user)

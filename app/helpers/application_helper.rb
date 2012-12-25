@@ -118,4 +118,9 @@ module ApplicationHelper
       '<span class="label label-success"><i class= "icon-ok icon-white"></i> Answers</span>'.html_safe
     end
   end
+  
+  def reply_user(reply)
+      link_to(reply.user.name, reply.user) 
+  end
+  
 end

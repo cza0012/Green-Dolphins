@@ -13,3 +13,8 @@
     =render 'comments/teacher_content', comment: comment
   -else
     =render 'comments/normal_content', comment: comment
+    =render comment.replies
+    =render 'replies/comment_form', comment:  comment
+  .row
+    .span8
+      %hr
