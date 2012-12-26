@@ -5,7 +5,7 @@
       = f.error_notification
 
       .form-inputs
-        = f.input :content, label: false, input_html: { class: 'input-block-level', rows: '2'}
+        = f.input :content, label: false, input_html: { class: 'input-block-level', rows: '1'}, placeholder: 'Write a discussion'
         = f.input :comment_id, :as => :hidden, :input_html => { :value => comment.id } 
 
       .control-group

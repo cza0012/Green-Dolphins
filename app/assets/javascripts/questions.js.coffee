@@ -5,3 +5,6 @@ jQuery ->
   $('#question_tag_list').tokenInput '/tags.json'
     prePopulate: $('#question_tag_list').data('load')
     theme: 'facebook'
+  
+  $('div.controls').on 'click', '.text.optional.input-block-level', (event) ->
+    $(this).attr('rows', 2)
