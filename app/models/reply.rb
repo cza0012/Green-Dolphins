@@ -12,7 +12,7 @@
 
 class Reply < ActiveRecord::Base
   attr_accessible :comment_id, :content, :user_id
-  validates :user_id, :comment_id, presence: true
+  validates :user_id, :comment_id, :content, presence: true
   
   belongs_to :user, :inverse_of => :replies
   belongs_to :comment, :inverse_of => :replies

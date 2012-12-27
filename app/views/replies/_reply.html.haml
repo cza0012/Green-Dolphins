@@ -1,8 +1,9 @@
-.row
-  .span7
-    %hr
-    %p
-      = reply_user(reply)
-      = reply.content 
-      %small= " - #{time_ago_in_words(reply.created_at)} ago"
-      = link_to 'x',reply, class: 'close', :data => {:confirm => 'Are you sure?'}, :method => :delete
+%div{ id: "repliy_#{reply.id}"}
+  .row
+    .span7
+      %hr
+      %p
+        = reply_user(reply)
+        = reply.content 
+        %small= " - #{time_ago_in_words(reply.created_at)} ago"
+        = link_to 'x',reply, class: 'close', :data => {:confirm => 'Are you sure?'}, :method => :delete, remote: true

@@ -1,0 +1,2 @@
+$('div#replies_of_comment_<%= @reply.comment.id %>').append('<%= j render(@reply) %>');
+$('textarea#reply_content').val('');

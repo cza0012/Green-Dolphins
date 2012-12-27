@@ -48,6 +48,7 @@ class RepliesController < ApplicationController
         @question = Question.find(@reply.comment.question_id)
         format.html { redirect_to @question, notice: 'Reply was successfully created.' }
         format.json { render json: @reply, status: :created, location: @reply }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
@@ -75,12 +76,14 @@ class RepliesController < ApplicationController
   # DELETE /replies/1.json
   def destroy
     @reply = Reply.find(params[:id])
+    @reply_id = @reply.id
     @question = Question.find(@reply.comment.question_id)
     @reply.destroy
 
     respond_to do |format|
       format.html { redirect_to @question }
       format.json { head :no_content }
+      format.js
     end
   end
 end

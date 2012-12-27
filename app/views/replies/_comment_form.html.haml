@@ -1,7 +1,7 @@
 .row
   .span7
     %hr
-    = simple_form_for(@reply) do |f|
+    = simple_form_for(@reply,:remote => true) do |f|
       = f.error_notification
 
       .form-inputs
