@@ -30,6 +30,14 @@ class Useful < ActiveRecord::Base
   
   def useful_parent
     if usefulable_type == "Comment"
+      @usefulable_obj = Comment.find(usefulable_id)
+    elsif usefulable_type == "Question"
+      @usefulable_obj = Question.find(usefulable_id)
+    end
+  end
+  
+  def useful_parent_question
+    if usefulable_type == "Comment"
       @usefulable_obj = Comment.find(usefulable_id).question
     elsif usefulable_type == "Question"
       @usefulable_obj = Question.find(usefulable_id)

@@ -1,0 +1,12 @@
+if('<%= @useful.usefulable_type %>' == "Comment"){
+  var useful_number = parseInt($('h2#useful_comment_<%= @useful.usefulable_id %>').text());
+  $('h2#useful_comment_<%= @useful.usefulable_id %>').text(useful_number - 1);
+  $('a#useful_comment_button_<%= @useful.usefulable_id  %>').remove();
+  $('div#comment_control_<%= @useful.usefulable_id %>').prepend('<%= useful_comment_link(@user_useful_array, @useful_parent) %>');
+}else if('<%= @useful.usefulable_type %>' == "Question"){
+  var useful_number = parseInt($('h2#useful').text());
+  $('h2#useful').text(useful_number - 1);
+  $('a#useful_question_button').remove();
+  $('div#question_control').prepend('<%= useful_question_link(@user_useful_array, @useful_parent) %>');
+}
+

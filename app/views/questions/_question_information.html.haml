@@ -7,9 +7,9 @@
     %h4= @question.title
   .span1
     %h2= @question.comments.where('hidden = false').count
-    = good_answer? @question
+    %div#good_answer= good_answer? @question
   .span1
-    %h2= @question.usefuls.count
+    %h2#useful= @question.usefuls.count
     %p= 'Useful'
 .row
   .span8
@@ -20,7 +20,7 @@
     %p= raw @question.content
 .row
   .span8
-    .form-actions.well
+    .form-actions.well{ id: "question_control" }
       - user_useful_array = @question.usefuls.where(user_id: current_user.id)
       = useful_question_link(user_useful_array, @question)
       - if @admin || @question_owner

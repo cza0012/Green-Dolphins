@@ -5,7 +5,7 @@
       %b= 'answered' 
       #{time_ago_in_words(comment.created_at)} ago.
     .span1.offset1
-      %h2= comment.usefuls.count
+      %h2{ id: "useful_comment_#{comment.id}"}= comment.usefuls.count
       %p= 'Useful'
   -if @question_owner && comment.hidden
     =render 'comments/question_owner_content', comment: comment

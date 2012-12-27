@@ -49,8 +49,10 @@ class UsefulsController < ApplicationController
       if @useful.save
         current_user.add_points(2)
         @useful_parent = @useful.useful_parent
+        @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
         format.html { redirect_to @useful_parent, notice: 'Useful was successfully created.' }
         format.json { render json: @useful, status: :created, location: @useful }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @useful.errors, status: :unprocessable_entity }
@@ -80,10 +82,12 @@ class UsefulsController < ApplicationController
     @useful = Useful.find(params[:id])
     @useful_parent = @useful.useful_parent
     @useful.destroy
-
+    @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
+    
     respond_to do |format|
       format.html { redirect_to @useful_parent }
       format.json { head :no_content }
+      format.js
     end
   end
 end

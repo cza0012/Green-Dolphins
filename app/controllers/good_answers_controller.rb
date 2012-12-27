@@ -50,6 +50,7 @@ class GoodAnswersController < ApplicationController
         @answer_owner.add_points(10)
         format.html { redirect_to @good_answer.question, notice: 'Good answer was successfully created.' }
         format.json { render json: @good_answer, status: :created, location: @good_answer }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @good_answer.errors, status: :unprocessable_entity }
