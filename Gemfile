@@ -20,7 +20,6 @@ group :development do
   gem "annotate"
   gem 'pry-rails'
   gem 'hirb'
-  gem 'awesome_print'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
 end
@@ -44,3 +43,4 @@ gem 'acts-as-taggable-on'
 gem 'bootstrap-will_paginate'
 gem 'dj_mon'
 gem 'public_activity'
+gem 'awesome_print'
