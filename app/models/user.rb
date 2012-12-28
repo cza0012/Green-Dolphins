@@ -28,6 +28,7 @@
 #
 
 class User < ActiveRecord::Base
+  include PublicActivity::Model
 	rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -39,6 +40,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :confirmed_at, 
                   :school, :sex, :level, :points, :z_scores, :tag_list
   acts_as_taggable
+  # tracked 
+  tracked  owner: Proc.new{ |controller, model| controller.current_user }, params: { email: :email, sign_in_count: :sign_in_count, current_sign_in_at: :current_sign_in_at, current_sign_in_ip: :current_sign_in_ip, name: :name, school: :school, points: :points, z_scores: :z_scores, sex: :sex ,level: :level }
   
   has_many :questions, :inverse_of => :user
   has_many :usefuls, :inverse_of => :user
@@ -51,9 +54,13 @@ class User < ActiveRecord::Base
   def add_expert_role
     scores = z_score
     if scores >= 1.65 && !(has_role? :expert)
-      add_role :expert
+      if add_role :expert
+        self.create_activity key: 'user.add.expert'
+      end
     elsif (has_role? :expert) && scores < 1.65 && !(has_role? :ta) && !(has_role? :instructor)
-      remove_role :expert
+      if remove_role :expert
+        self.create_activity key: 'user.remove.expert'
+      end
     end 
   end
   

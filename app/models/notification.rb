@@ -13,7 +13,11 @@
 #
 
 class Notification < ActiveRecord::Base
+  include PublicActivity::Model
   attr_accessible :content, :read, :user_id
+  
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, recipient: Proc.new{|controller, model| model.user}, params: { content: :content, read: :read, sendable_id: :sendable_id, sendable_type: :sendable_type }
+  
   belongs_to :user, :inverse_of => :notifications
   belongs_to :sendable, :polymorphic => true 
   after_validation :set_message

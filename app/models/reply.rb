@@ -11,8 +11,11 @@
 #
 
 class Reply < ActiveRecord::Base
+  include PublicActivity::Model
   attr_accessible :comment_id, :content, :user_id
   validates :user_id, :comment_id, :content, presence: true
+  
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { content: :content, comment_id: :comment_id }
   
   belongs_to :user, :inverse_of => :replies
   belongs_to :comment, :inverse_of => :replies

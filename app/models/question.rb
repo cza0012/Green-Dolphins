@@ -15,11 +15,14 @@
 #
 
 class Question < ActiveRecord::Base
+  include PublicActivity::Model
   attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list, :fast_answer
   acts_as_taggable
   validates :user_id, presence: true
   #The number of questions per page
   self.per_page = 10
+  # tracked
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { title: :title, content: :content, code: :code, error: :error, anonymous: :anonymous, fast_answer: :fast_answer}
   
   belongs_to :user, :inverse_of => :questions
   has_many :usefuls, :as => :usefulable

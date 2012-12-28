@@ -252,6 +252,28 @@ describe User do
      it{@user.z_scores.should == 2}
    end
    
+   context "A user has been tracked, when an expert role added." do
+    before{
+      4.times do
+        @user.comments.create!(@comment_attr)
+      end
+    }
+     it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(1)}
+   end
+   
+    context "A user has been tracked, when an expert role removed." do
+      before{
+        4.times do
+          @user.comments.create!(@comment_attr)
+        end
+        @user.add_expert_role
+        4.times do
+          @user.questions.create!(@question_attr)
+        end
+      }
+      it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(1)}
+   end
+   
    context "A user lost an expert role from 4 additional questions." do
      before{
        4.times do

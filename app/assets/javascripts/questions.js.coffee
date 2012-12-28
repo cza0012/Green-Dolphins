@@ -6,5 +6,5 @@ jQuery ->
     prePopulate: $('#question_tag_list').data('load')
     theme: 'facebook'
   
-  $('div.controls').on 'click', '.text.optional.input-block-level', (event) ->
+  $('div.controls').on 'click', 'textarea.text.required.input-block-level', (event) ->
     $(this).attr('rows', 2)

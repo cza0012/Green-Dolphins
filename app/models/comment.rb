@@ -15,9 +15,12 @@
 #
 
 class Comment < ActiveRecord::Base
+  include PublicActivity::Model
   attr_accessible :anonymous, :code, :content, :line, :user_id, :question_id, :hidden
   
   validates :user_id, :question_id, :line, :content, presence: true
+  # tracked
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { content: :content, line: :line, code: :code, question_id: :question_id, anonymous: :anonymous, hidden: :hidden}
   
   has_many :usefuls, :as => :usefulable
   belongs_to :user, :inverse_of => :comments

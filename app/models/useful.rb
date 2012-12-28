@@ -11,14 +11,16 @@
 #
 
 class Useful < ActiveRecord::Base
+  include PublicActivity::Model
   attr_accessor :parent
   attr_accessible :usefulable_type, :user_id
   
   validates :user_id, presence: true
   
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { usefulable_id: :usefulable_id, usefulable_type: :usefulable_type }
+  
   belongs_to :usefulable, :polymorphic => true
   belongs_to :user, :inverse_of => :usefuls
-  
   
   def self.create_useful(params)
     if params[:type] == "Comment"
