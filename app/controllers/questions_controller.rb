@@ -108,7 +108,8 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question = Question.find(params[:id])
-    @question.destroy
+    @question.archive_question
+    # @question.destroy
 
     respond_to do |format|
       format.html { redirect_to questions_url }

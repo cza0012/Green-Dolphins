@@ -6,7 +6,7 @@
         %strong= 'asked'
         #{time_ago_in_words(question.created_at)} ago.
       .span6
-        %h4= link_to question.title, question
+        %h4= question_link question
   .span1
     %h2= question.comments.where('hidden = false').count
     = good_answer? question

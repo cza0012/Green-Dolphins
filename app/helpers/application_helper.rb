@@ -70,7 +70,20 @@ module ApplicationHelper
   end
   
   def question_of_comment_link(comment)
-    link_to comment.question.title, comment.question
+    question = comment.question
+    if !question.deleted_question
+      link_to question.title, question
+    else
+      question.title
+    end
+  end
+  
+  def question_link(question)
+    if !question.deleted_question
+      link_to question.title, question
+    else
+      question.title
+    end
   end
   
   def useful_question_link(useful_array, useful_object)

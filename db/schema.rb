@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227202049) do
+ActiveRecord::Schema.define(:version => 20121229193041) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -100,11 +100,12 @@ ActiveRecord::Schema.define(:version => 20121227202049) do
     t.text     "content"
     t.text     "code"
     t.text     "error"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "user_id"
     t.boolean  "anonymous"
     t.boolean  "fast_answer"
+    t.boolean  "deleted_question"
   end
 
   create_table "replies", :force => true do |t|

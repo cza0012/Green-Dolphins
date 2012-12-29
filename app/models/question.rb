@@ -2,27 +2,29 @@
 #
 # Table name: questions
 #
-#  id          :integer          not null, primary key
-#  title       :string(255)
-#  content     :text
-#  code        :text
-#  error       :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :integer
-#  anonymous   :boolean
-#  fast_answer :boolean
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  content          :text
+#  code             :text
+#  error            :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  user_id          :integer
+#  anonymous        :boolean
+#  fast_answer      :boolean
+#  deleted_question :boolean
 #
 
 class Question < ActiveRecord::Base
   include PublicActivity::Model
-  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list, :fast_answer
+  attr_accessible :anonymous, :code, :content, :error, :title, :user_id, :notifications_attributes, :tag_list, :fast_answer, :deleted_question
   acts_as_taggable
   validates :user_id, presence: true
   #The number of questions per page
   self.per_page = 10
-  # tracked
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { title: :title, content: :content, code: :code, error: :error, anonymous: :anonymous, fast_answer: :fast_answer}
+  # tracked 
+  # deleted_question should be archive_question
+  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { title: :title, content: :content, code: :code, error: :error, anonymous: :anonymous, fast_answer: :fast_answer, deleted_question: :deleted_question}
   
   belongs_to :user, :inverse_of => :questions
   has_many :usefuls, :as => :usefulable
@@ -33,6 +35,12 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
   after_save :automatic_feedback
   before_save :tag_tokens
+  
+  def archive_question
+    self.lock!
+    self.deleted_question = true
+    self.save
+  end
   
   def question_owner? user
     User.find(user_id) == user
@@ -104,9 +112,9 @@ class Question < ActiveRecord::Base
 
   def self.text_search(query)
     if query.present?
-      where("title @@ :q or content @@ :q or code @@ :q or error @@ :q", q: query).order("created_at DESC")
+      where("(title @@ :q or content @@ :q or code @@ :q or error @@ :q) and deleted_question = false", q: query).order("created_at DESC")
     else
-      scoped.order("created_at DESC")
+      scoped.where("deleted_question = false", q: query).order("created_at DESC")
     end
   end
 

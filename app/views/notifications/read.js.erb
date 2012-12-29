@@ -1,0 +1,2 @@
+$("div#notification_<%= @notification.id >").remove();
+$("div#notifications_feed").append("<%= j render(@notification) %>");
