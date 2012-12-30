@@ -48,6 +48,8 @@ class CommentsController < ApplicationController
       if @comment.save
         if @comment.hidden
           @comment.delay_comment(current_user)
+        else
+          @comment.notifications.create({ user_id: @comment.question.user_id, read: false })
         end
         current_user.add_points(10)
         current_user.add_expert_role

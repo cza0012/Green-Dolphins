@@ -1,2 +1,7 @@
-$("div#notification_<%= @notification.id >").remove();
-$("div#notifications_feed").append("<%= j render(@notification) %>");
+$('div#notification_<%= @notification.id %>').remove();
+var text = $('a#number_of_notifications').text();
+var arrayText = text.split(' ');
+var count = parseInt(arrayText[0]);
+if(count > 0){
+  $('a#number_of_notifications').text((count-1)+' '+arrayText[1]);
+}

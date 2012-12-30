@@ -1,2 +1,4 @@
 - if notification.sendable_type == 'Question'
   =render 'question_notification', notification: notification
+- elsif notification.sendable_type == 'Comment'
+  =render 'comment_notification', notification: notification

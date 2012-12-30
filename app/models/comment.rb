@@ -28,6 +28,7 @@ class Comment < ActiveRecord::Base
   belongs_to :question, :inverse_of => :comments
   has_one :good_answer, :inverse_of => :comment
   has_many :replies,  :inverse_of => :comment
+  has_many :notifications, :as => :sendable
   
   def archive_comment
     self.lock!

@@ -33,6 +33,8 @@ class Notification < ActiveRecord::Base
     user = User.find(user_id)
     if sendable_type == 'Question'
       self.content = "Please helps me!"
+    elsif sendable_type == 'Comment'
+      self.content = "You got an answer."
     end
   end
 end
