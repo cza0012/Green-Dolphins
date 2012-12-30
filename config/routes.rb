@@ -8,7 +8,7 @@ GreenDophins::Application.routes.draw do
   
   get 'tags/users/:tag', to: 'tags#users', as: :users_tags
   
-  match '/notifications/:id', :controller => 'notifications', :action => 'read', as: :read_notification, :via => :post
+  match '/notifications/:id', :controller => 'notifications', :action => 'read', as: :read_notification, :via => :put
   
   resources :notifications
 
@@ -31,5 +31,9 @@ GreenDophins::Application.routes.draw do
   end
   root :to => "home#index"
   devise_for :users
-  resources :users, :only => [:show, :index]
+  resources :users, :only => [:show, :index] do
+    collection do
+      get :leaderboard
+    end
+  end
 end

@@ -18,5 +18,9 @@ class UsersController < ApplicationController
     @user_feed = @user.user_feed(@question,@comment).paginate(page: params[:page], per_page: 10)
     @user.create_activity key: 'user.see', owner: current_user
   end
+  
+  def leaderboard
+    @users = User.order('points DESC')
+  end
 
 end

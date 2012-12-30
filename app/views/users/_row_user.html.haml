@@ -1,0 +1,12 @@
+%tr{ class: "#{rank_user( rank, length, user )}" }
+  -comments = user.comments.count()
+  -questions = user.questions.count()
+  -usefuls = user.usefuls.count()
+  -replies = user.replies.count()
+  %td=rank
+  %td=user.name
+  %td=comments
+  %td=questions
+  %td=comments + questions + usefuls + replies
+  %td=user.points
+  
