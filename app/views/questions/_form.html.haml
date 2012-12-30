@@ -15,6 +15,7 @@
       = f.input :fast_answer, hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
     - else
       = f.input :fast_answer, hint: "You have #{current_user.points} points. You need at least 5 points to use this function.", :disabled => true
+    = f.input :deleted_question, :as => :hidden, :input_html => { :value => false } 
 
   %table
     %tr

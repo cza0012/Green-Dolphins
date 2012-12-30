@@ -2,16 +2,17 @@
 #
 # Table name: comments
 #
-#  id          :integer          not null, primary key
-#  content     :text
-#  line        :integer
-#  code        :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :integer
-#  question_id :integer
-#  anonymous   :boolean
-#  hidden      :boolean
+#  id              :integer          not null, primary key
+#  content         :text
+#  line            :integer
+#  code            :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  user_id         :integer
+#  question_id     :integer
+#  anonymous       :boolean
+#  hidden          :boolean
+#  deleted_comment :boolean
 #
 
 require 'spec_helper'

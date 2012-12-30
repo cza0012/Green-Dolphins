@@ -1,12 +1,13 @@
 = simple_form_for(@comment) do |f|
   = f.error_notification
-
-  .form-inputs
-    = f.input :content, :input_html => { :class => 'editable' }
-    = f.input :code
-    = f.input :anonymous
+  .form
+    %legend 
+      Please answer your friend's question
+    = f.input :content, :label => false ,:input_html => { :class => 'editable span8'}
     = f.input :question_id, :as => :hidden, :input_html => { :value => @comment.question_id }
-    = f.input :line, :as => :hidden, :input_html => { :value => 0 }
-    = f.input :hidden, :as => :hidden, :input_html => { :value => false }
-  .form-actions
-    = f.button :submit
+    = f.input :deleted_comment, :as => :hidden, :input_html => { :value => false }
+  .form-actions.well
+    = f.input :anonymous, :label => false, :inline_label => 'Answer anonymously'
+    .control-group.pull-right
+      = link_to 'Cancel'.html_safe, :back, class: 'btn'
+      = f.submit 'Answer'.html_safe, class: 'btn btn-primary'
