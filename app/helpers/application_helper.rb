@@ -136,4 +136,14 @@ module ApplicationHelper
       link_to(reply.user.name, reply.user) 
   end
   
+  def question_content(question)
+    if question.deleted_question
+      '<div class="alert alert-info">
+            <button class="close" data-dismiss="alert" type="button">x</button>
+            <p></p><p>The question was <strong>deleted!</strong></p><p></p></div>'.html_safe
+    else
+      raw question.content
+    end
+  end
+  
 end
