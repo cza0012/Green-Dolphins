@@ -1,31 +1,43 @@
 .row
   .span8.offset2
-    .well
-      .row
-        .span8
-          %h4 #{@user.name}
-          - if current_user.has_role? :admin
-            %h5 #{@user.email}
-        .span4
-          %h5 School
-          #{@user.school}
-        .span3
-          %h1 #{@user.points} Points
-      .row
-        .span2
-          %h5 Level 
-          #{@user.level}
-        .span2
-          %h5 Role 
-          #{user_role(@user)}
-        .span2
-          - if current_user.has_role? :admin
-            %h5 Z-Scores 
-            #{@user.z_scores}
-      .row
-        .span8
-          %h5 Expert tags
-          #{user_tag_list(@user)}
+    .row.well
+      .span4
+        .row
+          .span4
+            %h4 #{@user.name}
+            - if current_user.has_role? :admin
+              %h5 #{@user.email}
+        .row
+          .span4
+            %h5 School
+            #{@user.school}
+        .row
+          .span2
+            %h5 Level 
+            #{@user.level}
+          .span2
+            %h5 Role 
+            #{user_role(@user)}
+        .row
+          .span4
+            - if current_user.has_role? :admin
+              %h5 Z-Scores 
+              #{@user.z_scores}
+      .span3
+        .row
+          .span3
+            %h5 Expert tags
+            %p
+              #{user_tag_list(@user)}
+        .row
+          .span3        
+            %h1 #{pluralize(@user.points,'Point')}
+        .row
+          .span3        
+            %h1 #{pluralize(@comment.count,'Answer')}
+        .row
+          .span3        
+            %h1 #{pluralize(@question.count,'Question')}
 .row
   .span8.offset2
     / =render 'questions/question_feed'

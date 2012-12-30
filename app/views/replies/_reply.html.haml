@@ -6,4 +6,5 @@
         = reply_user(reply)
         = reply.content 
         %small= " - #{time_ago_in_words(reply.created_at)} ago"
-        = link_to 'x',reply, class: 'close', :data => {:confirm => 'Are you sure?'}, :method => :delete, remote: true
+        -if current_user.has_role? :admin or current_user == reply.user
+          = link_to 'x',reply, class: 'close', :data => {:confirm => 'Are you sure?'}, :method => :delete, remote: true
