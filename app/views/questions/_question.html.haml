@@ -8,7 +8,7 @@
       .span6
         %h4= question_link question
   .span1
-    %h2= question.comments.where('hidden = false').count
+    %h2= number_of_answers(question)
     = good_answer? question
   .span1
     %h2= question.usefuls.count

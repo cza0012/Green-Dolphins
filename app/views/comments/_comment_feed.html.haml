@@ -13,7 +13,7 @@
       %p= 'Useful'
   .row
     .span8
-      %p= raw comment.content
+      %p= comment_content(comment)
   .row
     .span1.offset7
       - if current_user.has_role? :admin

@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
-    @comments = @question.comments.find(:all, :order => 'created_at ASC')
+    @comments = @question.comments.where('deleted_comment = false').order("created_at ASC")
     @good_answer = @question.good_answer
     @comment = Comment.new
     @reply = Reply.new

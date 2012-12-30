@@ -144,4 +144,15 @@ module ApplicationHelper
     end
   end
   
+  def comment_content(comment)
+    if comment.deleted_comment
+      '<p>The comment was <strong>deleted!</strong></p>'.html_safe
+    else
+      raw comment.content
+    end
+  end
+  
+  def number_of_answers question
+    question.comments.where('hidden = false and deleted_comment = false').count
+  end
 end

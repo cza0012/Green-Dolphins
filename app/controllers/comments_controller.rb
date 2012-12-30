@@ -81,7 +81,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @question = @comment.question
-    @comment.destroy
+    @comment.archive_comment
+    # @comment.destroy
 
     respond_to do |format|
       format.html { redirect_to @question }

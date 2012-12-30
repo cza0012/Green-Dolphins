@@ -6,7 +6,7 @@
   .span6
     %h4= @question.title
   .span1
-    %h2= @question.comments.where('hidden = false').count
+    %h2= number_of_answers(@question)
     %div#good_answer= good_answer? @question
   .span1
     %h2#useful= @question.usefuls.count
