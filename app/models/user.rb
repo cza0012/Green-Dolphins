@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
                   :school, :sex, :level, :points, :z_scores, :tag_list
   acts_as_taggable
   # tracked 
-  tracked  owner: Proc.new{ |controller, model| controller.current_user }, params: { email: :email, sign_in_count: :sign_in_count, current_sign_in_at: :current_sign_in_at, current_sign_in_ip: :current_sign_in_ip, name: :name, school: :school, points: :points, z_scores: :z_scores, sex: :sex ,level: :level }
+  tracked  owner: :owner, params: { email: :email, sign_in_count: :sign_in_count, current_sign_in_at: :current_sign_in_at, current_sign_in_ip: :current_sign_in_ip, name: :name, school: :school, points: :points, z_scores: :z_scores, sex: :sex ,level: :level }
   
   has_many :questions, :inverse_of => :user
   has_many :usefuls, :inverse_of => :user
@@ -115,5 +115,9 @@ class User < ActiveRecord::Base
   def init
     self.points ||= 0
     self.z_scores ||= 0
+  end
+  
+  def owner
+    self
   end
 end

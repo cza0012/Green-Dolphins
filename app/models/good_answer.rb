@@ -15,8 +15,19 @@ class GoodAnswer < ActiveRecord::Base
   validates_uniqueness_of :question_id, :comment_id
   validates_presence_of :question_id, :comment_id
   
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { question_id: :question_id, comment_id: :comment_id }
+  tracked owner: :owner,recipient: :recipient, params: { question_id: :question_id, comment_id: :comment_id }
   
   belongs_to :question, :inverse_of => :good_answer
   belongs_to :comment, :inverse_of => :good_answer 
+  
+  private
+  def owner
+    question = Question.find(question_id)
+    question.user
+  end
+  
+  def recipient
+    comment = Comment.find(comment_id)
+    comment.user
+  end
 end

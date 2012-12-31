@@ -21,6 +21,9 @@ class UsersController < ApplicationController
   
   def leaderboard
     @users = User.order('points DESC')
+    if !@users.blank?
+      @users.first.create_activity key: 'leaderboard.see', owner: current_user
+    end
   end
 
 end

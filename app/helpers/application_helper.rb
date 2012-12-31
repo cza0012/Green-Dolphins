@@ -120,9 +120,16 @@ module ApplicationHelper
     @current_notifications = Notification.where('user_id = ? AND created_at > ? AND read = false', current_user.id, 1.weeks.ago)
   end
   
-  def good_answer? question 
-    if question.good_answer.blank?
-      if question.comments.blank?
+  def good_answer? question
+    no_good_answer = true
+    if !question.good_answer.blank?
+        comment = question.good_answer.comment
+        if !comment.deleted_comment
+          no_good_answer = false
+        end
+    end
+    if no_good_answer
+      if question.comments.where('deleted_comment = false').blank?
         '<span class="label label-important"><i class= "icon-exclamation-sign icon-white"></i> Answers</span>'.html_safe
       else
         '<span>Answers</span>'.html_safe

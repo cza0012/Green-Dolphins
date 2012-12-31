@@ -17,7 +17,7 @@ class Useful < ActiveRecord::Base
   
   validates :user_id, presence: true
   
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { usefulable_id: :usefulable_id, usefulable_type: :usefulable_type }
+  tracked owner: :owner, params: { usefulable_id: :usefulable_id, usefulable_type: :usefulable_type }
   
   belongs_to :usefulable, :polymorphic => true
   belongs_to :user, :inverse_of => :usefuls
@@ -46,4 +46,8 @@ class Useful < ActiveRecord::Base
     end
   end
   
+  private 
+  def owner
+    User.find(user_id)
+  end
 end

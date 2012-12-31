@@ -21,7 +21,7 @@ class Comment < ActiveRecord::Base
   
   validates :user_id, :question_id, :line, :content, presence: true
   # tracked
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { content: :content, line: :line, code: :code, question_id: :question_id, anonymous: :anonymous, hidden: :hidden, deleted_comment: :deleted_comment}
+  tracked owner: :owner, params: { content: :content, line: :line, code: :code, question_id: :question_id, anonymous: :anonymous, hidden: :hidden, deleted_comment: :deleted_comment}
   
   has_many :usefuls, :as => :usefulable
   belongs_to :user, :inverse_of => :comments
@@ -72,4 +72,9 @@ class Comment < ActiveRecord::Base
     save
   end
   # handle_asynchronously :delay_instructor_comment, :queue => 'comments', :run_at => Proc.new { 2.hours.from_now }
+  
+  private
+  def owner
+    User.find(user_id)
+  end
 end

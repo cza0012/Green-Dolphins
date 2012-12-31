@@ -24,7 +24,7 @@ class Question < ActiveRecord::Base
   self.per_page = 10
   # tracked 
   # deleted_question should be archive_question
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, params: { title: :title, content: :content, code: :code, error: :error, anonymous: :anonymous, fast_answer: :fast_answer, deleted_question: :deleted_question}
+  tracked owner: :owner, params: { title: :title, content: :content, code: :code, error: :error, anonymous: :anonymous, fast_answer: :fast_answer, deleted_question: :deleted_question}
   
   belongs_to :user, :inverse_of => :questions
   has_many :usefuls, :as => :usefulable
@@ -84,6 +84,10 @@ class Question < ActiveRecord::Base
         self.notifications.create(@attr)
       end
     end
+  end
+  
+  def owner
+    User.find(user_id)
   end
   
   def automatic_feedback

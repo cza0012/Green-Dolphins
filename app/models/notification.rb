@@ -16,7 +16,7 @@ class Notification < ActiveRecord::Base
   include PublicActivity::Model
   attr_accessible :content, :read, :user_id
   
-  tracked owner: Proc.new{ |controller, model| controller.current_user }, recipient: Proc.new{|controller, model| model.user}, params: { content: :content, read: :read, sendable_id: :sendable_id, sendable_type: :sendable_type }
+  tracked owner: :owner, recipient: :recipient, params: { content: :content, read: :read, sendable_id: :sendable_id, sendable_type: :sendable_type }
   
   belongs_to :user, :inverse_of => :notifications
   belongs_to :sendable, :polymorphic => true 
@@ -30,11 +30,24 @@ class Notification < ActiveRecord::Base
   
   private
   def set_message
-    user = User.find(user_id)
     if sendable_type == 'Question'
       self.content = "Please helps me!"
     elsif sendable_type == 'Comment'
       self.content = "You got an answer."
     end
+  end
+  
+  def owner
+    if sendable_type == 'Question'
+      question = Question.find(sendable_id)
+      question.user
+    elsif sendable_type == 'Comment'
+      comment = Comment.find(sendable_id)
+      comment.user
+    end
+  end
+  
+  def recipient
+    User.find(user_id)
   end
 end
