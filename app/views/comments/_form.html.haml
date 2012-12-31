@@ -1,6 +1,6 @@
 = simple_form_for(@comment) do |f|
   = f.error_notification
-  .form
+  %fieldset
     %legend 
       Please answer your friend's question
     = f.input :content, :label => false ,:input_html => { :class => 'editable span8'}

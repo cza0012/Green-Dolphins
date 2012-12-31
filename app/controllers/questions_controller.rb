@@ -59,10 +59,11 @@ class QuestionsController < ApplicationController
   def edit
     @question = Question.find(params[:id])
     @experts = User.with_role(:expert)
-    @number_of_experts = @experts.count
-    @number_of_experts.times do
-      @question.notifications.build
-    end
+    @question.notifications.build
+    # @number_of_experts = @experts.count
+    # @number_of_experts.times do
+    #   @question.notifications.build
+    # end
   end
 
   # POST /questions

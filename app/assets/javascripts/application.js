@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery.tokeninput
+//= require raphael
+//= require morris
 //= require_tree .
 
