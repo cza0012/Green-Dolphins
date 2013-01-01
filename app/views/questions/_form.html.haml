@@ -21,7 +21,7 @@
   %legend 
     Ask experts
   =render 'question_experts'
-  - points = current_user.points
+  - points = current_user.points.to_i
   .row
     = f.simple_fields_for(:notifications) do |g|
       - if points >= 5
