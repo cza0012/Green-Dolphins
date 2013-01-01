@@ -19,16 +19,15 @@
             %h5 Role 
             #{user_role(@user)}
         .row
-          .span4
-            - if current_user.has_role? :admin
+          - if current_user.has_role? :admin
+            .span4
               %h5 Z-Scores 
               #{@user.z_scores}
-      .span3
-        .row
-          .span3
+          .span4
             %h5 Expert tags
             %p
               #{user_tag_list(@user)}
+      .span3
         .row
           .span3        
             %h1 #{pluralize(@user.points,'Point')}

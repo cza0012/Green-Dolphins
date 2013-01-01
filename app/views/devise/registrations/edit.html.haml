@@ -17,7 +17,7 @@
           #tag_cloud
             - tag_cloud User.tag_counts, %w(label popular-label) do |tag, css_class|
               %span{class: css_class}= tag
-        = f.input :tag_list, hint: 'Each tag is separated by a semicolon. Ex: Algorithm, Student, Auburn'
+        = f.input :tag_list, hint: 'Each tag is separated by a semicolon. Ex: algorithm, student, auburn'
         = f.input :current_password, hint: 'We need your current password to confirm your changes', :required => true
         .form-actions
           = link_to 'Cancel'.html_safe, :back, class: 'btn'

@@ -20,24 +20,20 @@
       = f.input :deleted_question, :as => :hidden, :input_html => { :value => false } 
   %legend 
     Ask experts
-  %table
-    %tr
-      %td Name
-      %td ID
-    - @experts.each do |expert|
-      %tr
-        %td= expert.name
-        %td= expert.id
+  =render 'question_experts'
   - points = current_user.points
-  = f.simple_fields_for(:notifications) do |g|
-    - if points >= 5
-      .form-inputs
-        = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
-    - else
-      .form-inputs
-        = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function.", :disabled => true
-    = g.input :read, :as => :hidden, :input_html => { :value => false }
-    - points = points - 5
+  .row
+    = f.simple_fields_for(:notifications) do |g|
+      - if points >= 5
+        .span4
+          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
+      - else
+        .span4
+          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function.", :disabled => true
+      = g.input :read, :as => :hidden, :input_html => { :value => false }
+      - points = points - 5
 
-  .form-actions
-    = f.button :submit
+  .form-actions.well
+    .control-group.pull-right
+      = link_to 'Cancel'.html_safe, :back, class: 'btn'
+      = f.submit 'Post'.html_safe, class: 'btn btn-primary'

@@ -1,0 +1,13 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th= 'Name'
+      %th= 'Expert tags'
+  %tbody
+    - @experts.each do |expert|
+      %tr
+        %td= expert.name
+        %td
+          %p#tag_cloud
+            - tag_cloud expert.tag_counts, %w(label popular-label) do |tag, css_class|
+              %span{class: css_class}= tag
