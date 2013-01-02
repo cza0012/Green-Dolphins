@@ -2,6 +2,7 @@
 $iconSpritePath: asset-url('glyphicons-halflings.png', image);
 $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 /*Bootstrap.min have to be loaded before bootstrap-responsive.min*/
+/*Change paths of Glyphicons in bootstrap.css*/
 @import "bootstrap";
 body { padding-top: 60px; }
 @import "bootstrap-responsive";
