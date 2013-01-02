@@ -18,9 +18,9 @@ module QuestionsHelper
   def show_time question, comment, ta_limit_time, instructor_limit_time
     user = User.find(comment.user_id)
     if user.has_role?(:ta)
-      "<p>This comment will be showed at <strong>#{ta_limit_time.getlocal.strftime("%k:%M %B %d, %Y")}</strong></P>".html_safe
+      "<p>This comment will be showed at <strong>#{ta_limit_time.in_time_zone('Central Time (US & Canada)').strftime("%k:%M %B %d, %Y")}</strong></P>".html_safe
     elsif user.has_role?(:instructor)
-      "<p>This comment will be showed at <strong>#{instructor_limit_time.getlocal.strftime("%k:%M %B %d, %Y")}</strong></P>".html_safe
+      "<p>This comment will be showed at <strong>#{instructor_limit_time.in_time_zone('Central Time (US & Canada)').strftime("%k:%M %B %d, %Y")}</strong></P>".html_safe
     end
   end
   
