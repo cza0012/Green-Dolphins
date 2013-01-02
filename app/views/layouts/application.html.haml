@@ -8,9 +8,9 @@
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
     = stylesheet_link_tag    "application", :media => "all"
-    %link{:href  => "http://cdn.aloha-editor.org/latest/css/aloha.css", :rel => "stylesheet", :type => "text/css"}
     = javascript_include_tag "application"
-    %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/require.js"}
+    = csrf_meta_tags
+    = yield(:head)
     :javascript
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-37371160-1']);
@@ -21,15 +21,6 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-
-    :javascript
-      var Aloha = window.Aloha || (window.Aloha = {});
-      Aloha.settings = {sidebar: {disabled: true}};
-    %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/aloha.js", :'data-aloha-plugins' => "common/ui, common/format,common/list,common/link,common/highlighteditables,common/table,common/characterpicker,common/image,common/contenthandler,common/undo"}
-    :javascript
-      Aloha.ready( function() {var $ = Aloha.jQuery; $('.editable').aloha();});
-    = csrf_meta_tags
-    = yield(:head)
   %body
     %header
       .navbar.navbar-fixed-top
