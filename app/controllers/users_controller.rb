@@ -21,6 +21,10 @@ class UsersController < ApplicationController
   
   def leaderboard
     @users = User.order('points DESC')
+    @numberOfAdmins = User.with_role(:admin).count
+    @numberOfInstructor = User.with_role(:instructor).count
+    @numberOfTA = User.with_role(:ta).count
+    @numberOfStudent = @users.length - (@numberOfAdmins+@numberOfInstructor+@numberOfTA)
     if !@users.blank?
       @users.first.create_activity key: 'leaderboard.see', owner: current_user
     end
