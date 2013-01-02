@@ -28,7 +28,7 @@ GreenDophins::Application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: "no.reply.auburn@gmail.com",
-    password: "GoS1GCH1"
+    password: "68260753@AU"
   }
 
 
