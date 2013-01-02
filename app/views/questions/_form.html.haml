@@ -14,22 +14,23 @@
     .control-group
       = f.input :anonymous, :label => false, :inline_label => 'Ask a question anonymously' 
       - if current_user.points >= 5
-        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
+        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question'
       - else
-        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', hint: "You have #{current_user.points} points. You need at least 5 points to use this function.", :disabled => true
+        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', :disabled => true
       = f.input :deleted_question, :as => :hidden, :input_html => { :value => false } 
   %legend 
     Ask experts
   =render 'question_experts'
   - points = current_user.points.to_i
+  %h5= "You have #{current_user.points} points. You need to spend 5 points to use this function."
   .row
     = f.simple_fields_for(:notifications) do |g|
       - if points >= 5
         .span4
-          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function."
+          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert'
       - else
         .span4
-          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', hint: "You have #{current_user.points} points. You need to spend 5 points to use this function.", :disabled => true
+          = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', :disabled => true
       = g.input :read, :as => :hidden, :input_html => { :value => false }
       - points = points - 5
 
