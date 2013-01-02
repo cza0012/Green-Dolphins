@@ -37,7 +37,7 @@ GEM
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     binding_of_caller (0.6.8)
-    bootstrap-sass (2.2.1.1)
+    bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
@@ -200,7 +200,7 @@ GEM
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
     rubyzip (0.9.9)
-    sass (3.2.3)
+    sass (3.2.4)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)

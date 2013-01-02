@@ -2,9 +2,9 @@
 $iconSpritePath: asset-url('glyphicons-halflings.png', image);
 $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 /*Bootstrap.min have to be loaded before bootstrap-responsive.min*/
-@import "bootstrap.min";
+@import "bootstrap";
 body { padding-top: 60px; }
-@import "bootstrap-responsive.min";
+@import "bootstrap-responsive";
 
 .popular-label{
   @extend .label;
