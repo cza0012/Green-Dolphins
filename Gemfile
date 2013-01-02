@@ -24,6 +24,11 @@ group :development do
   gem 'pry-debugger'
 end
 
+group :production do
+  gem 'thin'
+  gem 'newrelic_rpm'
+end
+
 gem 'jquery-rails'
 gem "haml", ">= 3.1.6"
 gem "haml-rails", ">= 0.3.4", :group => :development
