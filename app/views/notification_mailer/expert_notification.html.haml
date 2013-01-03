@@ -1,0 +1,8 @@
+/ NotificationMailer#expert_notification
+
+="Dear #{@user.name}"
+%p="Pleas help your friend! Your classmate ask you a question below."
+-if !@question.blank?
+  =link_to @question.title,question_url(@question)
+%p="Thank you"
+%p="Green Dolphin"

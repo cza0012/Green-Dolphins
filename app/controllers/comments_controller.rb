@@ -43,6 +43,7 @@ class CommentsController < ApplicationController
   def create
     # It fixs to the first line and the second question.
     @comment = current_user.comments.build(params[:comment])
+    user_points = current_user.points
     
     respond_to do |format|
       if @comment.save
@@ -53,7 +54,7 @@ class CommentsController < ApplicationController
         end
         current_user.add_points(10)
         current_user.add_expert_role
-        format.html { redirect_to @comment.question, notice: 'Comment was successfully created.' }
+        format.html { redirect_to @comment.question, notice: "Comment was successfully created." + User.points_bill(user_points, current_user.points) }
         format.json { render json: @comment, status: :created, location: @comment }
       else
         format.html { render action: "new" }

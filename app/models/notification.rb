@@ -21,6 +21,7 @@ class Notification < ActiveRecord::Base
   belongs_to :user, :inverse_of => :notifications
   belongs_to :sendable, :polymorphic => true 
   after_validation :set_message
+  after_save :pay_point, :notification_deliver 
   
   def read_notification
     self.lock!
@@ -28,7 +29,29 @@ class Notification < ActiveRecord::Base
     self.save
   end
   
+  def notification_deliver
+    user = User.find(user_id)
+    if !user.blank?
+      if sendable_type == 'Question'
+        NotificationMailer.expert_notification(user, sendable_id).deliver
+      elsif sendable_type == 'Comment'
+        sender = Comment.find(sendable_id).user
+        if !(sender.has_role?(:instructor) || sender.has_role?(:ta))
+          NotificationMailer.comment_notification(user, sendable_id).deliver
+        end
+      end
+    end
+  end
+  handle_asynchronously :notification_deliver
+  
   private
+  def pay_point
+    if sendable_type == 'Question'
+      user = Question.find(sendable_id).user
+      user.deduct_points(5)
+    end
+  end
+  
   def set_message
     if sendable_type == 'Question'
       self.content = "Please helps me!"

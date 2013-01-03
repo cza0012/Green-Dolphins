@@ -69,6 +69,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = current_user.questions.build(params[:question])
+    user_points = current_user.points
     
     respond_to do |format|
       if @question.save
@@ -79,7 +80,7 @@ class QuestionsController < ApplicationController
           current_user.add_points(5)
         end
         current_user.add_expert_role
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to @question, notice: "Question was successfully created." + User.points_bill(user_points, current_user.points)}
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -92,10 +93,15 @@ class QuestionsController < ApplicationController
   # PUT /questions/1.json
   def update
     @question = Question.find(params[:id])
-
+    previous_fast_answer = @question.fast_answer
+    user_points = current_user.points
+    
     respond_to do |format|
       if @question.update_attributes(params[:question])
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        if @question.fast_answer && !previous_fast_answer
+            current_user.deduct_points(5)
+        end
+        format.html { redirect_to @question, notice: "Question was successfully updated."  + User.points_bill(user_points, current_user.points)}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

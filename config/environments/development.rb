@@ -22,15 +22,15 @@ GreenDophins::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    domain: "auburn.edu",
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: "no.reply.auburn@gmail.com",
-    password: "68260753@AU"
-  }
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   domain: "auburn.edu",
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   user_name: "no.reply.auburn@gmail.com",
+  #   password: "68260753@AU"
+  # }
 
 
 

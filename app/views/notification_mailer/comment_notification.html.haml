@@ -1,0 +1,8 @@
+/ NotificationMailer#comment_notification
+
+%p="Dear #{@user.name}"
+%p="Your friend answered your question below."
+-if !@question.blank?
+  =link_to @question.title,question_url(@question)
+%p="Thank you"
+%p="Green Dolphin"

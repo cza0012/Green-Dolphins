@@ -51,6 +51,17 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :courses
   before_create :init
   
+  def self.points_bill(previous_points, current_points)
+    total_points = current_points - previous_points
+    if current_points > previous_points
+      " + #{total_points} points"
+    elsif current_points < previous_points
+      " #{total_points} points"
+    else
+      ""
+    end
+  end
+  
   def add_expert_role
     scores = z_score
     if scores >= 1.65 && !(has_role? :expert)
