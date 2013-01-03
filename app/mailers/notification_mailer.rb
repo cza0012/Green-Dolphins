@@ -22,7 +22,7 @@ class NotificationMailer < ActionMailer::Base
     @user = user
     @question = Comment.find(sendable_id).question
     
-    mail to: "to@example.org", subject: "Your friend answered your question"
+    mail to: user.email, subject: "Your friend answered your question"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
