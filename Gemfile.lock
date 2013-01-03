@@ -124,6 +124,8 @@ GEM
     json (1.7.5)
     launchy (2.1.2)
       addressable (~> 2.3)
+    letter_opener (1.0.0)
+      launchy (>= 2.0.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -265,6 +267,7 @@ DEPENDENCIES
   hirb
   jquery-rails
   launchy
+  letter_opener
   newrelic_rpm
   pg
   pry-debugger

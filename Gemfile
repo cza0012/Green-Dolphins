@@ -22,6 +22,7 @@ group :development do
   gem 'hirb'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
+  gem 'letter_opener'
 end
 
 group :production do
