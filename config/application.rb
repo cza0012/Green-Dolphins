@@ -77,5 +77,8 @@ module GreenDophins
     
     # This fixed Heroku compling abort by preveting the application and connecting to the database.
     config.assets.initialize_on_precompile = false
+    
+    # This makes all names of tags are lowercase.
+    ActsAsTaggableOn.force_lowercase = true
   end
 end
