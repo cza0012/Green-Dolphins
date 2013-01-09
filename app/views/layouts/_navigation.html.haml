@@ -18,7 +18,7 @@
         = link_to current_user.name, current_user
       %li.divider-vertical
       %li
-        = link_to "#{current_user.points} points", leaderboard_users_path
+        = link_to "#{current_user.points} points", leaderboard_users_path, id: "points_leaderboard"
       %li.divider-vertical
       %li.dropdown
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

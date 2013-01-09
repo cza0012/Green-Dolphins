@@ -80,6 +80,7 @@ class UsefulsController < ApplicationController
   # DELETE /usefuls/1.json
   def destroy
     @useful = Useful.find(params[:id])
+    current_user.deduct_points(2)
     @useful_parent = @useful.useful_parent
     @useful.destroy
     @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)

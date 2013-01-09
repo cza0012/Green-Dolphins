@@ -88,9 +88,9 @@ module ApplicationHelper
   
   def useful_question_link(useful_array, useful_object)
     if useful_array.blank?
-      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button", id: "useful_question_button", remote: true
+      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_path(id: '', type: 'Question', question_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button", id: "useful_question_button", remote: true, data: {'original-title'=> "+2 points"}, :rel => "tooltip nofollow"
     else
-      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button", id: "useful_question_button", remote: true
+      link_to '<i class="icon-thumbs-up"></i> Useful question'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button", id: "useful_question_button", remote: true, data: {'original-title'=> "-2 points"}, :rel => "tooltip nofollow"
     end
   end
   
@@ -104,15 +104,15 @@ module ApplicationHelper
   
   def good_answer_button(good_answer, comment)
     if good_answer.blank?
-       link_to '<i class="icon-ok"></i> Best answer'.html_safe, good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post, class: 'btn btn-small good-answer', id: "good_answer_button_#{comment.id}", remote: true
+       link_to '<i class="icon-ok"></i> Best answer'.html_safe, good_answer_path( id: '' ,good_answer: {question_id: @question.id, comment_id: comment.id} ), method: :post, class: 'btn btn-small good-answer', id: "good_answer_button_#{comment.id}", data: {'original-title'=> "+5 points"}, :rel => "tooltip nofollow", remote: true
     end 
   end
   
   def useful_comment_link(useful_array, useful_object)
     if useful_array.blank?
-      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_path(id: '', type: 'Comment', comment_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button", id: "useful_comment_button_#{useful_object.id}", remote: true
+      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_path(id: '', type: 'Comment', comment_id: useful_object.id, useful: {user_id: current_user.id}), method: :post, class: 'btn btn-small', :'data-toggle' => "button", id: "useful_comment_button_#{useful_object.id}", remote: true, data: {'original-title'=> "+2 points"}, :rel => "tooltip nofollow"
     else
-      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button", id: "useful_comment_button_#{useful_object.id}", remote: true
+      link_to '<i class="icon-thumbs-up"></i> Useful comment'.html_safe, useful_array.first, method: :delete, class: 'btn btn-small active', :'data-toggle' => "button", id: "useful_comment_button_#{useful_object.id}", remote: true, data: {'original-title'=> "-2 points"}, :rel => "tooltip nofollow"
     end
   end
   

@@ -1,3 +1,6 @@
 $('div#good_answer').html('<span class="label label-success""><i class= "icon-ok icon-white"></i> Answers</span>');
+var points = parseInt($('a#points_leaderboard').text());
+$('a#points_leaderboard').text(points + 5 + ' points');
 $('a#good_answer_button_<%= @good_answer.comment_id %>').before('<button type="button" class="btn btn-success btn-small" disabled="disabled"><i class="icon-ok icon-white"></i> Best answer</button>');
+$('a#good_answer_button_<%= @good_answer.comment_id %>').parent().before('<div class="span8"><div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>+5 points</strong></div></div>');
 $('a.btn.btn-small.good-answer').remove();

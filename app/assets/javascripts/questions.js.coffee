@@ -8,3 +8,5 @@ jQuery ->
   
   $('div.controls').on 'click', 'textarea.text.required.input-block-level', (event) ->
     $(this).attr('rows', 2)
+    
+  $("[rel='tooltip nofollow']").tooltip()
