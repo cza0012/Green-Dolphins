@@ -1,0 +1,17 @@
+%div{ id: "notification_#{notification.id}"}
+  .row
+    .span4
+      %p
+        %i.icon-info-sign
+        = link_to current_user.name, current_user
+    .span2
+      = time_ago_in_words(notification.created_at) + ' ago'
+    .span2
+      = read_link(notification)
+  .row
+    .span8
+      %p
+        You are not an expert student anymore.
+  .row
+    .span8
+      %hr

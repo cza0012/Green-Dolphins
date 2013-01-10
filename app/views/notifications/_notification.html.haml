@@ -2,3 +2,7 @@
   =render 'question_notification', notification: notification
 - elsif notification.sendable_type == 'Comment'
   =render 'comment_notification', notification: notification
+- elsif notification.sendable_type.blank? and notification.content == 'Expert'
+  =render 'expert_notification', notification: notification
+- elsif notification.sendable_type.blank? and notification.content == 'NotExpert'
+  =render 'unexpert_notification', notification: notification

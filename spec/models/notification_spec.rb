@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Notification do
   let(:sender) { FactoryGirl.create(:user) }
-  let(:question) { FactoryGirl.create(:question) }
+  let(:question) { FactoryGirl.create(:question, user_id: sender.id) }
   before(:each) do    
       @attr = { 
         :user_id => sender.id,
@@ -36,6 +36,10 @@ describe Notification do
    
    it "should create an new instance." do
      expect{question.notifications.create!(@attr)}.to change{Notification.count}.by (1)
+   end
+   
+   it "should create an new instance." do
+     expect{sender.notifications.create!(@attr)}.to change{Notification.count}.by (1)
    end
    
    context "was read." do

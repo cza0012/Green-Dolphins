@@ -30,7 +30,8 @@
 require 'spec_helper'
 
 describe User do
-  let(:question) { FactoryGirl.create(:question) }
+  let(:asker) { FactoryGirl.create(:user) }
+  let(:question) { FactoryGirl.create(:question, user_id: asker.id) }
   before(:each) do
     @attr = { 
       :name => "Example User",
@@ -234,7 +235,7 @@ describe User do
   
   describe "has added an expert role" do
     before{
-          @user = User.create!(@attr)
+          @user = User.create(@attr)
     }
     
    context "A user has not have an expert role" do
@@ -258,7 +259,7 @@ describe User do
         @user.comments.create!(@comment_attr)
       end
     }
-     it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(1)}
+     it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(2)}
    end
    
     context "A user has been tracked, when an expert role removed." do
@@ -271,7 +272,57 @@ describe User do
           @user.questions.create!(@question_attr)
         end
       }
-      it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(1)}
+      it{expect { @user.add_expert_role }.to change{ PublicActivity::Activity.count }.by(2)}
+   end
+   
+   context "A user got a notification, when an expert role added." do
+    before{
+      4.times do
+        @user.comments.create!(@comment_attr)
+      end
+    }
+     it{expect { @user.add_expert_role }.to change{ Notification.count }.by(1)}
+   end
+   
+    context "A user witdraw an expert, when an expert role removed." do
+      before{
+        4.times do
+          @user.comments.create!(@comment_attr)
+        end
+        @user.add_expert_role
+        4.times do
+          @user.questions.create!(@question_attr)
+        end
+      }
+      it{expect { @user.add_expert_role }.to change{ Notification.count }.by(1)}
+   end
+   
+   context "A user got a notification message for his unexpert, when an expert role added." do
+    before{
+      4.times do
+        @user.comments.create!(@comment_attr)
+      end
+      @user.add_expert_role
+      4.times do
+        @user.questions.create!(@question_attr)
+      end
+      @user.add_expert_role
+      @notification = Notification.last
+    }
+    it{ @notification.user_id.should == @user.id }
+    it{ @notification.content.should == 'NotExpert' }
+   end
+   
+   context "A user got a notification message for his expert, when an expert role added." do
+    before{
+      4.times do
+        @user.comments.create!(@comment_attr)
+      end
+      @user.add_expert_role
+      @notification = Notification.last
+    }
+    it{ @notification.user_id.should == @user.id }
+    it{ @notification.content.should == 'Expert' }
    end
    
    context "A user lost an expert role from 4 additional questions." do
