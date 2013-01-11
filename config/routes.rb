@@ -34,6 +34,7 @@ GreenDophins::Application.routes.draw do
   resources :users, :only => [:show, :index] do
     collection do
       get :leaderboard
+      get :performance
     end
   end
 end

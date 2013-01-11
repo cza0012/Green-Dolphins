@@ -1,0 +1,12 @@
+- content_for :head do
+  = javascript_include_tag "individual_require/graphs"
+.row
+  .span8.offset2
+    %ul.nav.nav-tabs
+      %li
+        = link_to "Leaderboard", leaderboard_users_path, id: "points_leaderboard"
+      %li.active
+        = link_to "Performance", performance_users_path
+    .row
+      .span8
+        = content_tag :div, "", id: "queston_answer_chart", data: {answers: answers_questions_chart} 

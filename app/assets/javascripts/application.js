@@ -15,5 +15,5 @@
 //= require bootstrap
 //= require jquery.tokeninput
 //= require raphael
-//= require morris
-//= require_tree .
+//= require morris.min.js
+// = require_directory .

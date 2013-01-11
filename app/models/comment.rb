@@ -73,6 +73,13 @@ class Comment < ActiveRecord::Base
   end
   # handle_asynchronously :delay_instructor_comment, :queue => 'comments', :run_at => Proc.new { 2.hours.from_now }
   
+  def self.total_grouped_by_day
+    answers = group("date(created_at)").order("date(created_at) ASC").count
+    # answers = group("date(created_at)")
+    # answers = answers.select("date(created_at) as created_at ,count(*) as total")
+    # answers.group_by { |o| o.created_at.to_date }
+  end
+  
   private
   def owner
     User.find(user_id)

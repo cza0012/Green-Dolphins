@@ -29,5 +29,13 @@ class UsersController < ApplicationController
       @users.first.create_activity key: 'leaderboard.see', owner: current_user
     end
   end
+  
+  def performance
+    @answers = Comment.all
+
+    if !@users.blank?
+      current_user.create_activity key: 'leaderboard.see', owner: current_user
+    end
+  end
 
 end

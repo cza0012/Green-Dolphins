@@ -1,7 +1,10 @@
 .row
   .span8.offset2
-    %legend
-      %h1='Leader Board'
+    %ul.nav.nav-tabs
+      %li.active
+        = link_to "Leaderboard", leaderboard_users_path, id: "points_leaderboard"
+      %li
+        = link_to "Performance", performance_users_path
     .row
       .span8
         %table.table.table-hover
