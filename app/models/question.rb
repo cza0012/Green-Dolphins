@@ -59,6 +59,10 @@ class Question < ActiveRecord::Base
     delay({:run_at => instructor_limitedTime}).instructor_notification
   end
   
+  def self.total_grouped_by_day
+    questions = group("date(created_at)").order("date(created_at) ASC").count
+  end
+  
   private
   def ta_notification
     if self.comments.blank?

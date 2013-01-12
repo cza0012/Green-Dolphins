@@ -9,4 +9,5 @@
         = link_to "Performance", performance_users_path
     .row
       .span8
+        %h1="Total answers and questions"
         = content_tag :div, "", id: "queston_answer_chart", data: {answers: answers_questions_chart} 

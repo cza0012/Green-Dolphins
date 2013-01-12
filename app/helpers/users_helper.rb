@@ -33,19 +33,54 @@ module UsersHelper
   
   def answers_questions_chart
     answers_by_day = Comment.total_grouped_by_day   
+    questions_by_day = Question.total_grouped_by_day   
     start_date = Date.parse(answers_by_day.first[0])
+    answers_by_day = to_cumulative(start_date, answers_by_day)
+    questions_by_day = to_cumulative(start_date, questions_by_day)
     
-    answers_by_day.map do |date, value|
-    {
-        created_at: date,
-        total: value || 0
-    }
-    
-    # (start_date..Date.today).map do |date|
-    # {
-    #     created_at: date,
-    #     total: answers_by_day[date.to_s] || 0
-    # }
+    previous_date_answer = start_date
+    previous_date_question = start_date
+    (start_date..Date.today).reject {|date| answers_by_day[date.to_s].blank? and questions_by_day[date.to_s].blank?}.map do |date|
+        if !answers_by_day[date.to_s].blank? and !questions_by_day[date.to_s].blank?
+          previous_date_answer = date
+          previous_date_question = date
+          {
+                created_at: date,
+                total_answers: answers_by_day[date.to_s],
+                total_questions: questions_by_day[date.to_s]
+          }
+      elsif answers_by_day[date.to_s].blank? and !questions_by_day[date.to_s].blank?
+          previous_date_question = date
+          {
+                created_at: date,
+                total_answers: answers_by_day[previous_date_answer.to_s],
+                total_questions: questions_by_day[date.to_s]
+          }
+      elsif !answers_by_day[date.to_s].blank? and questions_by_day[date.to_s].blank?
+          previous_date_answer = date
+          {
+                created_at: date,
+                total_answers: answers_by_day[date.to_s],
+                total_questions: questions_by_day[previous_date_question.to_s]
+          }
+      else
+          {
+                created_at: date,
+                total_answers: answers_by_day[previous_date_answer.to_s],
+                total_questions: questions_by_day[previous_date_question.to_s]
+          }
+      end
     end
+  end
+  
+  def to_cumulative(start_date, hash_data)
+    cumulative_answers = 0
+    (start_date..Date.today).each { |date| 
+      if !hash_data[date.to_s].blank?
+        cumulative_answers = cumulative_answers + hash_data[date.to_s]
+        hash_data[date.to_s] = cumulative_answers
+      end
+    }
+    hash_data
   end
 end
