@@ -16,6 +16,5 @@
 //= require jquery.tokeninput
 //= require raphael
 //= require morris.min.js
-
 // = require_directory .
 
