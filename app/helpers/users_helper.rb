@@ -73,6 +73,21 @@ module UsersHelper
     end
   end
   
+  def user_activities
+    [ 
+      {label: "Answers", value: @number_answers}, 
+      {label: "Questions", value: @number_questions}, 
+      {label: "Useful", value: @number_usefuls},
+      {label: "Replies", value: @number_replies},
+    ]
+  end
+  
+  def answer_performance
+    users_answers = Comment.group("user_id").count()
+    max_answers = users_answers.max_by{|row| row[1]}
+    average_answers = average_hash(users_answers)
+  end
+  
   def to_cumulative(start_date, hash_data)
     cumulative_answers = 0
     (start_date..Date.today).each { |date| 
@@ -82,5 +97,44 @@ module UsersHelper
       end
     }
     hash_data
+  end
+  
+  def average_hash(hash)
+    sum = 0
+    n = hash.size
+    hash.each do |data|
+      sum = sum + data[1]
+    end
+    sum.to_f / n
+  end
+  
+  def stack_progress_bar(current_data, average_data, maximum)
+    average = average_data/maximum.to_f * 100
+    current = current_data/maximum.to_f * 100
+    if average < current
+      "<div class='progress'>
+        <div class='bar bar-warning' style='width: #{average}%;'>#{average_data.to_int}</div>
+        <div class='bar' style='width: #{current-average}%;'>#{current_data}</div>
+      </div>".html_safe
+    elsif average > current
+
+      "<div class='progress'>
+        <div class='bar' style='width: #{current}%;'>#{current_data}</div>
+        <div class='bar bar-warning' style='width: #{average-current}%;'>#{average_data.to_int}</div>
+      </div>".html_safe
+    else
+      "<div class='progress'>
+        <div class='bar bar-warning' style='width: #{average}%;'>#{average_data.to_int}</div>
+        <div class='bar' style='width: #{current}%;'>#{current_data}</div> #{maximum}
+      </div>".html_safe
+    end
+  end
+  
+  def question_statistic
+    answered_questions = Question.joins(:comments).where(:questions => {:deleted_question => false}, :comments => {:deleted_comment => false}).uniq
+    progress_result = (answered_questions.to_a.size/@exist_questions.to_f*100).round(2)
+    "<div class='progress'>
+      <div class='bar bar-success' style='width: #{progress_result}%;'>#{answered_questions.size}</div>
+    </div>".html_safe
   end
 end

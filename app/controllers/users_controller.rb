@@ -32,9 +32,14 @@ class UsersController < ApplicationController
   
   def performance
     @answers = Comment.all
+    @exist_questions = Question.where("deleted_question = false").count
+    @number_answers = current_user.comments.count
+    @number_questions = current_user.questions.count
+    @number_usefuls = current_user.usefuls.count
+    @number_replies = current_user.replies.count
 
-    if !@users.blank?
-      current_user.create_activity key: 'leaderboard.see', owner: current_user
+    if !@answers.blank?
+      current_user.create_activity key: 'performance.see', owner: current_user
     end
   end
 

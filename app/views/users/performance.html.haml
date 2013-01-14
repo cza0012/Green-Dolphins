@@ -9,5 +9,90 @@
         = link_to "Performance", performance_users_path
     .row
       .span8
-        %h1="Total answers and questions"
-        = content_tag :div, "", id: "queston_answer_chart", data: {answers: answers_questions_chart} 
+        %h3="Total answers and questions"
+        = content_tag :div, "", id: "queston_answer_chart", data: { answers_questions: answers_questions_chart}
+    .row
+      .span8
+        %h3="Total answered questions"
+        .row
+          .span7
+            = question_statistic
+          .span1
+            = @exist_questions
+    .row
+      .span4
+        %h3="Your activities"
+        = content_tag :div, "", id: "user_activities", data: { activities: user_activities}
+      .span4
+        .row
+          .span4
+            .row
+              .span4
+                %h4= "Your had #{@number_answers} answers.".html_safe
+                - users_answers = Comment.group("user_id").count()
+                - maximum_answers = users_answers.max_by{|row| row[1]}[1]
+                - average_answers = average_hash(users_answers)
+                .row
+                  .span3
+                    = stack_progress_bar(@number_answers, average_answers, maximum_answers)
+                  .span1
+                    = maximum_answers
+            .row
+              .span2
+                = "Average: #{average_answers.round(2)}"
+              .span2
+                = "Maximum: #{maximum_answers}"
+        .row
+          .span4
+            .row
+              .span4
+                %h4= "Your had <strong>#{@number_questions}</strong> questions.".html_safe
+                - users_questions = Question.group("user_id").count()
+                - maximum_questions = users_questions.max_by{|row| row[1]}[1]
+                - average_questions = average_hash(users_questions)
+                .row
+                  .span3
+                    = stack_progress_bar(@number_questions, average_questions, maximum_questions)
+                  .span1
+                    = maximum_questions
+            .row
+              .span2
+                = "Average: #{average_questions.round(2)}"
+              .span2
+                = "Maximum: #{maximum_questions}"
+        .row
+          .span4
+            .row
+              .span4
+                %h4= "Your had <strong>#{@number_usefuls}</strong> useful responds.".html_safe
+                - users_usefuls = Useful.group("user_id").count()
+                - maximum_usefuls = users_usefuls.max_by{|row| row[1]}[1]
+                - average_usefuls = average_hash(users_usefuls)
+                .row
+                  .span3
+                    = stack_progress_bar(@number_usefuls, average_usefuls, maximum_usefuls)
+                  .span1
+                    = maximum_usefuls
+            .row
+              .span2
+                = "Average: #{average_usefuls.round(2)}"
+              .span2
+                = "Maximum: #{maximum_usefuls}"
+      .row
+        .span4
+          .row
+            .span4
+              %h4= "Your had <strong>#{@number_replies}</strong> useful responds.".html_safe
+              - users_replies = Reply.group("user_id").count()
+              - maximum_replies = users_replies.max_by{|row| row[1]}[1]
+              - average_replies = average_hash(users_replies)
+              .row
+                .span3
+                  = stack_progress_bar(@number_replies, average_replies, maximum_replies)
+                .span1
+                  = maximum_replies
+          .row
+            .span2
+              = "Average: #{average_replies.round(2)}"
+            .span2
+              = "Maximum: #{maximum_replies}"
