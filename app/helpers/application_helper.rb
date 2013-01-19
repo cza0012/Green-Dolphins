@@ -162,4 +162,16 @@ module ApplicationHelper
   def number_of_answers question
     question.comments.where('hidden = false and deleted_comment = false').count
   end
+  
+  def user_gravatar(user, size)
+    gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}?s=#{size}"
+  end
+  
+  def anonymous_user_gravatar(question_or_answer)
+      if question_or_answer.anonymous == false
+        user = User.find(question_or_answer.user_id)
+        image_tag user_gravatar(user, 34) 
+      end
+  end
 end

@@ -29,6 +29,9 @@
               #{user_tag_list(@user)}
       .span3
         .row
+          .span3
+            = image_tag user_gravatar(@user, 144), :class => "img-polaroid"
+        .row
           .span3        
             %h1 #{pluralize(@user.points,'Point')}
         .row

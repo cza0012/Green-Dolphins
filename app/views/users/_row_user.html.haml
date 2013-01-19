@@ -4,6 +4,7 @@
   -usefuls = user.usefuls.count()
   -replies = user.replies.count()
   %td=rank
+  %td= image_tag user_gravatar(user, 34)
   %td=user.name
   %td=comments
   %td=questions
