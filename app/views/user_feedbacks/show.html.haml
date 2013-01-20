@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @user_feedback.title
+%p
+  %b Content:
+  = @user_feedback.content
+%p
+  %b Type:
+  = @user_feedback.type_feedback
+%p
+  %b User:
+  = @user_feedback.user_id
+
+= link_to 'Edit', edit_user_feedback_path(@user_feedback)
+\|
+= link_to 'Back', user_feedbacks_path

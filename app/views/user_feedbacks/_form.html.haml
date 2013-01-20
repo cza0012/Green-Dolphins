@@ -1,0 +1,12 @@
+= simple_form_for(@user_feedback) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :content
+    = f.input :type_feedback, :collection => ['Bug','Enhancement']
+    = f.input :user_id
+    = f.input :close
+
+  .form-actions
+    = f.button :submit

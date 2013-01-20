@@ -1,0 +1,48 @@
+.row
+  .span2
+  .span8
+    .page-header 
+      %h1 Users' feedback
+    .row
+      .span8
+        %h4= "There are #{@user_feedbacks.count} feedbacks." 
+    .row
+      .span8
+        %table.table.table-hover
+          %thead
+            %tr
+              %th ID
+              %th Title
+              %th Type
+              %th User
+              %th Status
+              %th
+
+          - @user_feedbacks.each do |user_feedback|
+            %tr
+              - user = User.find(user_feedback.user_id)
+              - owner = current_user_owner?(user)
+              %td= user_feedback.id
+              %td= link_to user_feedback.title, user_feedback
+              %td= user_feedback.type_feedback
+              %td= link_to user.name, user
+              %td= user_feedback.close
+              %td
+                - if current_user.has_role? :admin || owner
+                  .btn-group.pull-right
+                    %a.btn.btn-mini.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                      %i.icon-cog
+                      %span.caret
+                    %ul.dropdown-menu
+                      %li
+                        = link_to edit_user_feedback_path(user_feedback) do
+                          %i.icon-edit
+                          Edit 
+                      %li.divider
+                      %li
+                        = link_to user_feedback, :data => {:confirm => 'Are you sure?'}, :method => :delete do
+                          %i.icon-trash
+                          Delete
+    %hr
+    = link_to 'Writ feedback', new_user_feedback_path, class: 'btn btn-primary'
+

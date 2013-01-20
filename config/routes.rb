@@ -1,5 +1,11 @@
 GreenDophins::Application.routes.draw do
   
+  resources :user_feedback_replies
+
+
+  resources :user_feedbacks
+
+
   resources :replies
 
   mount DjMon::Engine => 'dj_mon'

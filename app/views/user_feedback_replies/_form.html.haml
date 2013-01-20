@@ -1,0 +1,10 @@
+= simple_form_for(@user_feedback_reply) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :user_feedback_id
+    = f.input :user_id
+    = f.input :content
+
+  .form-actions
+    = f.button :submit

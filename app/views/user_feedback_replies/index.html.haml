@@ -1,0 +1,23 @@
+%h1 Listing user_feedback_replies
+
+%table
+  %tr
+    %th User feedback
+    %th User
+    %th Content
+    %th
+    %th
+    %th
+
+  - @user_feedback_replies.each do |user_feedback_reply|
+    %tr
+      %td= user_feedback_reply.user_feedback_id
+      %td= user_feedback_reply.user_id
+      %td= user_feedback_reply.content
+      %td= link_to 'Show', user_feedback_reply
+      %td= link_to 'Edit', edit_user_feedback_reply_path(user_feedback_reply)
+      %td= link_to 'Destroy', user_feedback_reply, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New User feedback reply', new_user_feedback_reply_path
