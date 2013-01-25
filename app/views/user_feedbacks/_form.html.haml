@@ -1,12 +1,14 @@
 = simple_form_for(@user_feedback) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :title
-    = f.input :content
-    = f.input :type_feedback, :collection => ['Bug','Enhancement']
-    = f.input :user_id
-    = f.input :close
+  .form-horizontal.well
+    .control-group
+      = f.input :title, :input_html => { :class => 'span4' }
+      = f.input :content, :input_html => { :class => 'span4' }
+      = f.input :type_feedback, :collection => ['Bug','Enhancement'], :label => 'A type of a feedback'
+      = f.input :close, :label => 'Close a feedback'
 
-  .form-actions
-    = f.button :submit
+  .form-actions.well
+    .control-group.pull-right
+      = link_to 'Cancel'.html_safe, :back, class: 'btn'
+      = f.submit 'Post'.html_safe, class: 'btn btn-primary'

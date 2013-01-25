@@ -14,6 +14,8 @@
 
 class UserFeedback < ActiveRecord::Base
   attr_accessible :content, :title, :type_feedback, :user_id, :close
+  validates :content, :title, :type_feedback, presence: true
   belongs_to :user, :inverse_of => :user_feedbacks
   has_many :user_feedback_replies, :inverse_of => :user_feedbacks
+  self.per_page = 25
 end

@@ -43,6 +43,8 @@
                         = link_to user_feedback, :data => {:confirm => 'Are you sure?'}, :method => :delete do
                           %i.icon-trash
                           Delete
-    %hr
+    .row
+      .span8
+        = will_paginate @user_feedbacks
     = link_to 'Writ feedback', new_user_feedback_path, class: 'btn btn-primary'
 

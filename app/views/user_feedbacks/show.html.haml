@@ -1,18 +1,25 @@
-%p#notice= notice
-
-%p
-  %b Title:
-  = @user_feedback.title
-%p
-  %b Content:
-  = @user_feedback.content
-%p
-  %b Type:
-  = @user_feedback.type_feedback
-%p
-  %b User:
-  = @user_feedback.user_id
-
-= link_to 'Edit', edit_user_feedback_path(@user_feedback)
-\|
-= link_to 'Back', user_feedbacks_path
+.row
+  .span2
+  .span8
+    .page-header 
+      %h1= @user_feedback.title
+    .row
+      .span8
+        %p
+          = @user_feedback.content
+    .row 
+      .span1
+        = show_type_feedback @user_feedback.type_feedback
+      .span1
+        = close_status @user_feedback.type_feedback
+      .span5
+        - user = User.find(@user_feedback.user_id)
+        = image_tag user_gravatar(user, 34) 
+        = user.name
+        %strong= 'posted'
+        #{time_ago_in_words(@user_feedback.created_at)} ago.
+    .row
+      .span8
+        %hr
+    .form-inline
+      = link_to 'Back'.html_safe, :back, class: 'btn'

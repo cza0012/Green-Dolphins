@@ -4,7 +4,7 @@ class UserFeedbacksController < ApplicationController
   # GET /user_feedbacks
   # GET /user_feedbacks.json
   def index
-    @user_feedbacks = UserFeedback.all
+    @user_feedbacks = UserFeedback.paginate(page: params[:page]).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,7 +42,7 @@ class UserFeedbacksController < ApplicationController
   # POST /user_feedbacks
   # POST /user_feedbacks.json
   def create
-    @user_feedback = UserFeedback.new(params[:user_feedback])
+    @user_feedback = current_user.user_feedbacks.build(params[:user_feedback])
 
     respond_to do |format|
       if @user_feedback.save

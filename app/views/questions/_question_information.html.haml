@@ -3,6 +3,7 @@
     = anonymous_user_gravatar(@question)
     = anonymous_user(@question)
     %b asked
+    #{time_ago_in_words(@question.created_at)} ago.
 .row
   .span6
     %h4= @question.title
