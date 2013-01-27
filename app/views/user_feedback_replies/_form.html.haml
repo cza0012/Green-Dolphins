@@ -1,10 +1,12 @@
-= simple_form_for(@user_feedback_reply) do |f|
-  = f.error_notification
+.row
+  .span7
+    %hr
+    = simple_form_for(@user_feedback_reply) do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.input :user_feedback_id
-    = f.input :user_id
-    = f.input :content
+      .form-inputs
+        = f.input :user_feedback_id, :as => :hidden, :input_html => { :value => @user_feedback.id }
+        = f.input :content, label: false, input_html: { class: 'input-block-level', rows: '3'}
 
-  .form-actions
-    = f.button :submit
+      .control-group
+        = f.button :submit, 'Reply', class: 'btn btn-small pull-right'

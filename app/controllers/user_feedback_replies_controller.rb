@@ -42,11 +42,12 @@ class UserFeedbackRepliesController < ApplicationController
   # POST /user_feedback_replies
   # POST /user_feedback_replies.json
   def create
-    @user_feedback_reply = UserFeedbackReply.new(params[:user_feedback_reply])
+    @user_feedback_reply = current_user.user_feedback_replies.new(params[:user_feedback_reply])
 
     respond_to do |format|
       if @user_feedback_reply.save
-        format.html { redirect_to @user_feedback_reply, notice: 'User feedback reply was successfully created.' }
+        @user_feedback = UserFeedback.find(@user_feedback_reply.user_feedback_id)
+        format.html { redirect_to @user_feedback, notice: 'User feedback reply was successfully created.' }
         format.json { render json: @user_feedback_reply, status: :created, location: @user_feedback_reply }
       else
         format.html { render action: "new" }
@@ -75,10 +76,11 @@ class UserFeedbackRepliesController < ApplicationController
   # DELETE /user_feedback_replies/1.json
   def destroy
     @user_feedback_reply = UserFeedbackReply.find(params[:id])
+    @user_feedback = UserFeedback.find(@user_feedback_reply.user_feedback_id)
     @user_feedback_reply.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_feedback_replies_url }
+      format.html { redirect_to @user_feedback }
       format.json { head :no_content }
     end
   end

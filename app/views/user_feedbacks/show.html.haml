@@ -20,6 +20,5 @@
         #{time_ago_in_words(@user_feedback.created_at)} ago.
     .row
       .span8
-        %hr
-    .form-inline
-      = link_to 'Back'.html_safe, :back, class: 'btn'
+        =render @user_replies
+        =render 'user_feedback_replies/form'

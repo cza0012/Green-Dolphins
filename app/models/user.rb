@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   has_many :replies, :inverse_of => :user
   has_many :questions, :inverse_of => :user
   has_and_belongs_to_many :courses
+  has_many :user_feedback_replies, :inverse_of => :user
   before_create :init
   
   def self.points_bill(previous_points, current_points)

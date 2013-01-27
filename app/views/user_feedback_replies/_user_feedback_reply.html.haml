@@ -1,0 +1,9 @@
+.row
+  .span7
+    %hr
+    %p
+      %strong= User.find(user_feedback_reply.user_id).name
+      = user_feedback_reply.content 
+      %small= " - #{time_ago_in_words(user_feedback_reply.created_at)} ago"
+      -if current_user.has_role? :admin or current_user == user_feedback_reply.user
+        = link_to 'x',user_feedback_reply, class: 'close', :data => {:confirm => 'Are you sure?'}, :method => :delete

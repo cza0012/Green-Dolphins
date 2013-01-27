@@ -16,6 +16,8 @@ class UserFeedbacksController < ApplicationController
   # GET /user_feedbacks/1.json
   def show
     @user_feedback = UserFeedback.find(params[:id])
+    @user_replies = @user_feedback.user_feedback_replies.order("created_at ASC")
+    @user_feedback_reply = UserFeedbackReply.new
 
     respond_to do |format|
       format.html # show.html.erb
