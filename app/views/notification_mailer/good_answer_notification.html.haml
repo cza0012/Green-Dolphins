@@ -1,3 +1,8 @@
-NotificationMailer#good_answer_notification
+/NotificationMailer#good_answer_notification
 
-= @greeting + ", find me in app/views/notification_mailer/good_answer_notification.text.haml"
+%p="Dear #{@user.name}"
+%p="Your answer of the question below was selected to be the best answer."
+-if !@question.blank?
+  =link_to @question.title,question_url(@question)
+%p="Thank you"
+%p="Green Dolphin"

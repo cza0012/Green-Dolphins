@@ -39,6 +39,10 @@ class Notification < ActiveRecord::Base
         if !(sender.has_role?(:instructor) || sender.has_role?(:ta))
           NotificationMailer.comment_notification(user, sendable_id).deliver
         end
+      elsif sendable_type == 'GoodAnswer'
+        NotificationMailer.good_answer_notification(user, sendable_id).deliver
+      elsif sendable_type == 'Reply'
+        NotificationMailer.reply_notification(user, sendable_id).deliver
       end
     end
   end

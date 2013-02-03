@@ -30,10 +30,12 @@ class NotificationMailer < ActionMailer::Base
   #
   #   en.notification_mailer.reply_notification.subject
   #
-  def reply_notification
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+  def reply_notification(user, sendable_id)
+    @user = user 
+    @reply = Reply.find(sendable_id)
+    @question = @reply.comment.question
+    
+    mail to: @user.email, subject: "Your friend replied your comment."
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -41,9 +43,11 @@ class NotificationMailer < ActionMailer::Base
   #
   #   en.notification_mailer.good_answer_notification.subject
   #
-  def good_answer_notification
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+  def good_answer_notification(user, sendable_id)
+    @user = user 
+    @good_answer = GoodAnswer.find(sendable_id)
+    @question = @good_answer.question
+    
+    mail to: @user.email, subject: "Your answer was selected to be the best answer."
   end
 end

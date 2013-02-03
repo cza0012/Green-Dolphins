@@ -19,6 +19,7 @@ class GoodAnswer < ActiveRecord::Base
   
   belongs_to :question, :inverse_of => :good_answer
   belongs_to :comment, :inverse_of => :good_answer 
+  has_many :notifications, :as => :sendable
   
   private
   def owner

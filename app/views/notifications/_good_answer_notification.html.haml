@@ -1,0 +1,19 @@
+%div{ id: "notification_#{notification.id}"}
+  .row
+    .span4
+      - good_answer = GoodAnswer.find(notification.sendable_id)
+      - question = good_answer.question
+      %p
+        %i.icon-question-sign
+        Your answer in the question below was selected to be the best answer.
+    .span2
+      = time_ago_in_words(notification.created_at) + ' ago'
+    .span2
+      = read_link(notification)
+  .row
+    .span8
+      %p
+        = link_to question.title, question
+  .row
+    .span8
+      %hr

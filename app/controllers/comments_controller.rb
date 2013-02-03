@@ -52,6 +52,9 @@ class CommentsController < ApplicationController
         else
           @comment.notifications.create({ user_id: @comment.question.user_id, read: false })
         end
+        if !Notification.where("user_id= ? and sendable_type = 'Question' and sendable_id = ?", current_user.id, @comment.question_id).blank?
+          current_user.add_points(10)
+        end
         current_user.add_points(10)
         current_user.add_expert_role
         format.html { redirect_to @comment.question, notice: "Comment was successfully created." + User.points_bill(user_points, current_user.points) }
