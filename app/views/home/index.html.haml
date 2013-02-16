@@ -1,7 +1,9 @@
-%h3 Home
-#tag_cloud
-  - tag_cloud User.tag_counts, %w(label) do |tag, css_class|
-    = link_to tag.name, users_tags_path(tag.name), class: css_class
-
-- @users.each do |user|
-  %p User: #{link_to user.name, user}
+.row
+  .span6
+    %ul.thumbnails
+      %li.span6
+        =image_tag 'GreenDolphin.gif', class: 'thumbnail'
+  .span6
+    %p
+      %h1 Green Dolphin
+      %h1 Learning by answering
