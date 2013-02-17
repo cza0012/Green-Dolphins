@@ -1,13 +1,12 @@
-- if Reply.exists?(notification.sendable_id)
+- if Useful.exists?(notification.sendable_id)
   %div{ id: "notification_#{notification.id}"}
     .row
       .span4
-        - reply = Reply.find(notification.sendable_id)
-        - question = reply.comment.question
-        - user = reply.comment.user
+        - useful = Useful.find(notification.sendable_id)
+        - question = useful.useful_parent_question
         %p
-          %i.icon-exclamation-sign
-          Your friend replied in the question below.
+          %i.icon-question-sign
+          Your friend votes your response to be useful in the question below.
       .span2
         = time_ago_in_words(notification.created_at) + ' ago'
       .span2

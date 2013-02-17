@@ -8,3 +8,5 @@
   =render 'unexpert_notification', notification: notification
 - elsif notification.sendable_type == 'Reply'
   =render 'reply_notification', notification: notification
+- elsif notification.sendable_type == 'Useful'
+  =render 'useful_notification', notification: notification

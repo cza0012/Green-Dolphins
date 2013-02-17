@@ -43,6 +43,8 @@ class Notification < ActiveRecord::Base
         NotificationMailer.good_answer_notification(user, sendable_id).deliver
       elsif sendable_type == 'Reply'
         NotificationMailer.reply_notification(user, sendable_id).deliver
+      elsif sendable_type == 'Useful'
+        NotificationMailer.useful_notification(user, sendable_id).deliver
       end
     end
   end

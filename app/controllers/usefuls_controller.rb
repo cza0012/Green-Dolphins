@@ -50,6 +50,7 @@ class UsefulsController < ApplicationController
         current_user.add_points(2)
         @useful_parent = @useful.useful_parent
         @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
+        @useful.notifications.create({ user_id: @useful.useful_parent.user_id, read: false })
         format.html { redirect_to @useful_parent, notice: 'Useful was successfully created.' }
         format.json { render json: @useful, status: :created, location: @useful }
         format.js

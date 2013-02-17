@@ -50,4 +50,12 @@ class NotificationMailer < ActionMailer::Base
     
     mail to: @user.email, subject: "Your answer was selected to be the best answer."
   end
+  
+  def useful_notification(user, sendable_id)
+    @user = user 
+    @useful = Useful.find(sendable_id)
+    @question = @useful.useful_parent_question
+    
+    mail to: @user.email, subject: "Your friend votes your response to be useful in the question below."
+  end
 end

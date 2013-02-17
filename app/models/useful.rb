@@ -21,6 +21,7 @@ class Useful < ActiveRecord::Base
   
   belongs_to :usefulable, :polymorphic => true
   belongs_to :user, :inverse_of => :usefuls
+  has_many :notifications, :as => :sendable, :dependent => :destroy 
   
   def self.create_useful(params)
     if params[:type] == "Comment"

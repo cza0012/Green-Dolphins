@@ -19,7 +19,7 @@ class Reply < ActiveRecord::Base
   
   belongs_to :user, :inverse_of => :replies
   belongs_to :comment, :inverse_of => :replies
-  has_many :notifications, :as => :sendable
+  has_many :notifications, :as => :sendable, :dependent => :destroy 
   
   private
   def owner

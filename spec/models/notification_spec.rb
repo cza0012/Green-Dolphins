@@ -17,6 +17,7 @@ require 'spec_helper'
 describe Notification do
   let(:sender) { FactoryGirl.create(:user) }
   let(:question) { FactoryGirl.create(:question, user_id: sender.id) }
+  let(:useful) { FactoryGirl.create(:useful) }
   before(:each) do    
       @attr = { 
         :user_id => sender.id,

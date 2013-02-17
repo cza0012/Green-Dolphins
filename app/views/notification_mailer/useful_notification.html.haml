@@ -1,0 +1,6 @@
+%p="Dear #{@user.name}"
+%p="Your friend votes your response to be useful in the question below."
+-if !@question.blank?
+  =link_to @question.title,question_url(@question)
+%p="Thank you"
+%p="Green Dolphin"
