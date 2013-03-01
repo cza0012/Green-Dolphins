@@ -15,7 +15,7 @@
     .control-group
       = f.input :anonymous, :label => false, :inline_label => 'Ask a question anonymously' 
       - if current_user.points >= 5 && !@question.fast_answer
-        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question'
+        = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question (You need to spend 5 points to use this function.)'
       - else
         = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', :disabled => true
       = f.input :deleted_question, :as => :hidden, :input_html => { :value => false } 
