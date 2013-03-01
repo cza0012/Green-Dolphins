@@ -26,7 +26,7 @@
               %td= link_to user_feedback.title, user_feedback
               %td= user_feedback.type_feedback
               %td= link_to user.name, user
-              %td= user_feedback.close
+              %td= close_status user_feedback.close
               %td
                 - if current_user.has_role? :admin || owner
                   .btn-group.pull-right
