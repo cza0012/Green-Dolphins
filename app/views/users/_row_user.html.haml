@@ -5,7 +5,7 @@
   -replies = user.replies.count()
   %td=rank
   %td= image_tag user_gravatar(user, 34)
-  %td=user.name
+  %td= link_to(user.name, user)
   %td=comments
   %td=questions
   %td=comments + questions + usefuls + replies
