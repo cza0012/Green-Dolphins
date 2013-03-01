@@ -33,8 +33,21 @@ module UsersHelper
   
   def answers_questions_chart
     answers_by_day = Comment.total_grouped_by_day   
-    questions_by_day = Question.total_grouped_by_day   
-    start_date = Date.parse(answers_by_day.first[0])
+    questions_by_day = Question.total_grouped_by_day
+    start_date = current_user.created_at.to_date
+    if !answers_by_day.blank? and !questions_by_day.blank?
+         date_first_question = Date.parse(questions_by_day.first[0])
+         date_first_answer = Date.parse(answers_by_day.first[0])
+         if date_first_question > date_first_answer
+           start_date = date_first_answer
+         else
+           start_date = date_first_question
+         end
+       elsif !questions_by_day.blank?
+         start_date = Date.parse(questions_by_day.first[0])
+       elsif !answers_by_day.blank?
+         start_date = Date.parse(answers_by_day.first[0])
+       end
     answers_by_day = to_cumulative(start_date, answers_by_day)
     questions_by_day = to_cumulative(start_date, questions_by_day)
     
