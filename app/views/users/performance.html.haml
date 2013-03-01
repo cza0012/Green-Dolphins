@@ -30,8 +30,11 @@
               .span4
                 %h4= "Your had #{@number_answers} answers.".html_safe
                 - users_answers = Comment.group("user_id").count()
-                - maximum_answers = users_answers.max_by{|row| row[1]}[1]
-                - average_answers = average_hash(users_answers)
+                - maximum_answers = 0
+                - average_answers = 0
+                - if !users_answers.blank?
+                  - maximum_answers = users_answers.max_by{|row| row[1]}[1]
+                  - average_answers = average_hash(users_answers)
                 .row
                   .span3
                     = stack_progress_bar(@number_answers, average_answers, maximum_answers)
@@ -48,8 +51,11 @@
               .span4
                 %h4= "Your had <strong>#{@number_questions}</strong> questions.".html_safe
                 - users_questions = Question.group("user_id").count()
-                - maximum_questions = users_questions.max_by{|row| row[1]}[1]
-                - average_questions = average_hash(users_questions)
+                - maximum_questions = 0
+                - average_questions = 0
+                - if !users_questions.blank?
+                  - maximum_questions = users_questions.max_by{|row| row[1]}[1]
+                  - average_questions = average_hash(users_questions)
                 .row
                   .span3
                     = stack_progress_bar(@number_questions, average_questions, maximum_questions)
@@ -66,8 +72,11 @@
               .span4
                 %h4= "Your had <strong>#{@number_usefuls}</strong> useful responds.".html_safe
                 - users_usefuls = Useful.group("user_id").count()
-                - maximum_usefuls = users_usefuls.max_by{|row| row[1]}[1]
-                - average_usefuls = average_hash(users_usefuls)
+                - maximum_usefuls = 0
+                - average_usefuls = 0
+                - if !users_usefuls.blank?
+                  - maximum_usefuls = users_usefuls.max_by{|row| row[1]}[1]
+                  - average_usefuls = average_hash(users_usefuls)
                 .row
                   .span3
                     = stack_progress_bar(@number_usefuls, average_usefuls, maximum_usefuls)
@@ -84,8 +93,11 @@
             .span4
               %h4= "Your had <strong>#{@number_replies}</strong> useful responds.".html_safe
               - users_replies = Reply.group("user_id").count()
-              - maximum_replies = users_replies.max_by{|row| row[1]}[1]
-              - average_replies = average_hash(users_replies)
+              - maximum_replies = 0
+              - average_replies = 0
+              - if !users_replies.blank?
+                - maximum_replies = users_replies.max_by{|row| row[1]}[1]
+                - average_replies = average_hash(users_replies)
               .row
                 .span3
                   = stack_progress_bar(@number_replies, average_replies, maximum_replies)
