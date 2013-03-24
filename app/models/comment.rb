@@ -43,7 +43,7 @@ class Comment < ActiveRecord::Base
   def delay_comment user
     if user.has_role?(:ta)
         question = Question.find(self.question_id)
-        limitedTime = question.created_at + 12.hours
+        limitedTime = question.created_at + 3.hours
         waitingTime = limitedTime.to_time - DateTime.current().to_time
         if waitingTime > 0
           delay({:run_at => waitingTime.seconds.from_now}).delay_ta_comment
@@ -51,7 +51,7 @@ class Comment < ActiveRecord::Base
     end
     if user.has_role?(:instructor)
         question = Question.find(self.question_id)
-        limitedTime = question.created_at + 1.days
+        limitedTime = question.created_at + 6.hours
         waitingTime = limitedTime.to_time - DateTime.current().to_time
         if waitingTime > 0
           delay({:run_at => waitingTime.seconds.from_now}).delay_instructor_comment

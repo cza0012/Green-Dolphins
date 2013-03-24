@@ -53,8 +53,8 @@ class Question < ActiveRecord::Base
   end
   
   def teacher_notification 
-    ta_limitedTime = created_at + 12.hours
-    instructor_limitedTime = created_at + 1.days
+    ta_limitedTime = created_at + 3.hours
+    instructor_limitedTime = created_at + 6.hours
     delay({:run_at => ta_limitedTime}).ta_notification
     delay({:run_at => instructor_limitedTime}).instructor_notification
   end

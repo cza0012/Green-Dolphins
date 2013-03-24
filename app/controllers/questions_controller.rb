@@ -27,8 +27,8 @@ class QuestionsController < ApplicationController
     @question_owner = @question.question_owner?(current_user)
     @teacher = current_user.has_role?(:ta) || current_user.has_role?(:instructor)
     @admin = current_user.has_role?(:admin)
-    @taLimitTime = @question.created_at + 12.hours
-    @InstructorLimitTime = @question.created_at + 1.days
+    @taLimitTime = @question.created_at + 3.hours
+    @InstructorLimitTime = @question.created_at + 6.hours
     @delayTAAnswer = current_user.has_role?(:ta) && !@taLimitTime.past?() && !@question.fast_answer
     @delayInstructorAnswer = current_user.has_role?(:instructor) && !@InstructorLimitTime.past?() && !@question.fast_answer
     @question.create_activity key: 'question.read', owner: current_user
