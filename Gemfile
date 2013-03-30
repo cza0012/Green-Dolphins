@@ -29,7 +29,7 @@ end
 
 group :production do
   gem 'thin'
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', ">= 3.6.0.78"
 end
 
 gem 'jquery-rails'
