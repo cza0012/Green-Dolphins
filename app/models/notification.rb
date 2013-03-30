@@ -31,7 +31,7 @@ class Notification < ActiveRecord::Base
   
   def notification_deliver
     user = User.find(user_id)
-    if !user.blank?
+    if !user.blank? and !read
       if sendable_type == 'Question'
         NotificationMailer.expert_notification(user, sendable_id).deliver
       elsif sendable_type == 'Comment'
