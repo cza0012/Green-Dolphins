@@ -2,6 +2,7 @@ require 'will_paginate/array'
 
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  caches_page :help
 
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'
@@ -42,5 +43,8 @@ class UsersController < ApplicationController
       current_user.create_activity key: 'performance.see', owner: current_user
     end
   end
-
+  
+  def help
+    
+  end
 end

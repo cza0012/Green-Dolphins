@@ -41,6 +41,7 @@ GreenDophins::Application.routes.draw do
     collection do
       get :leaderboard
       get :performance
+      get :help
     end
   end
 end
