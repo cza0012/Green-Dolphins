@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   
   def add_expert_role
     scores = z_score
-    self.save
+    
     if scores >= 1.65 && !(has_role? :expert)
       if add_role :expert
         self.create_activity key: 'user.add.expert'
@@ -80,6 +80,7 @@ class User < ActiveRecord::Base
       end
     end 
     
+    self.save
   end
   
   def z_score
