@@ -22,9 +22,9 @@
 #  unconfirmed_email      :string(255)
 #  school                 :string(255)
 #  points                 :integer
-#  z_scores               :integer
 #  sex                    :string(255)
 #  level                  :string(255)
+#  z_scores               :float
 #
 
 class User < ActiveRecord::Base
@@ -67,6 +67,7 @@ class User < ActiveRecord::Base
   
   def add_expert_role
     scores = z_score
+    self.save
     if scores >= 1.65 && !(has_role? :expert)
       if add_role :expert
         self.create_activity key: 'user.add.expert'
@@ -78,6 +79,7 @@ class User < ActiveRecord::Base
         notifications.create({user_id: id, content: 'NotExpert', read: false})
       end
     end 
+    
   end
   
   def z_score

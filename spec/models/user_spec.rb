@@ -22,9 +22,9 @@
 #  unconfirmed_email      :string(255)
 #  school                 :string(255)
 #  points                 :integer
-#  z_scores               :integer
 #  sex                    :string(255)
 #  level                  :string(255)
+#  z_scores               :float
 #
 
 require 'spec_helper'

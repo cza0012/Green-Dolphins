@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120051118) do
+ActiveRecord::Schema.define(:version => 20130331063010) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -191,9 +191,9 @@ ActiveRecord::Schema.define(:version => 20130120051118) do
     t.string   "unconfirmed_email"
     t.string   "school"
     t.integer  "points"
-    t.integer  "z_scores"
     t.string   "sex"
     t.string   "level"
+    t.float    "z_scores"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
