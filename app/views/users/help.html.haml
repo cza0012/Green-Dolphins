@@ -15,7 +15,10 @@
       %li
         %a(href='#Points') Points System
       %li
+        %a(href='#Performance') Your performance
+      %li
         %a(href='#Feedbacks') Feedbacks
+
   .span9
     .page-header
       %section#Devises
@@ -137,12 +140,20 @@
               A student asks a expert student. 
             %td
               ='-5'
-
       .page-header
         %h2
           Expert tags
-      %p      
+      %p#Performance      
         You can add tags to yourself to show your expertise or show an identity of your group.
+      .page-header
+        %h2
+          Your Performance
+      %p      
+        You can check your statistics at 
+        = link_to "the Performance page", performance_users_path
+        or check your a position in the leader board at 
+        = link_to "the Leaderboard page", leaderboard_users_path
+        ='.'
       %section#Feedbacks
         .page-header
           %h2
