@@ -68,12 +68,12 @@ class User < ActiveRecord::Base
   def add_expert_role
     scores = z_score
     
-    if scores >= 1.65 && !(has_role? :expert)
+    if scores >= 1.29 && !(has_role? :expert)
       if add_role :expert
         self.create_activity key: 'user.add.expert'
         notifications.create({user_id: id, content: 'Expert', read: false})
       end
-    elsif (has_role? :expert) && scores < 1.65 && !(has_role? :ta) && !(has_role? :instructor)
+    elsif (has_role? :expert) && scores < 1.29 && !(has_role? :ta) && !(has_role? :instructor)
       if remove_role :expert
         self.create_activity key: 'user.remove.expert'
         notifications.create({user_id: id, content: 'NotExpert', read: false})
