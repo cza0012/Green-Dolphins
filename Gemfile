@@ -30,6 +30,7 @@ end
 group :production do
   gem 'thin'
   gem 'newrelic_rpm', '~> 3.6.0.78'
+  gem "unicorn"
 end
 
 gem 'jquery-rails'
