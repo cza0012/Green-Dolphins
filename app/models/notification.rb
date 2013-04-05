@@ -20,7 +20,6 @@ class Notification < ActiveRecord::Base
   
   belongs_to :user, :inverse_of => :notifications
   belongs_to :sendable, :polymorphic => true 
-  after_validation :set_message
   after_save :pay_point, :notification_deliver 
   
   def read_notification
@@ -52,17 +51,9 @@ class Notification < ActiveRecord::Base
   
   private
   def pay_point
-    if sendable_type == 'Question'
+    if sendable_type == 'Question' and content == 'Pay 5 points'
       user = Question.find(sendable_id).user
       user.deduct_points(5)
-    end
-  end
-  
-  def set_message
-    if sendable_type == 'Question'
-      self.content = "Please helps me!"
-    elsif sendable_type == 'Comment'
-      self.content = "You got an answer."
     end
   end
   

@@ -44,8 +44,9 @@ class QuestionsController < ApplicationController
     @question = Question.new
     @experts = User.with_role(:expert)
     # @number_of_experts = @experts.count
+
     2.times do
-      @question.notifications.build
+      @question.notifications.build()
     end
     
     
@@ -60,8 +61,9 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @experts = User.with_role(:expert)
     # @number_of_experts = @experts.count
+    
     2.times do
-      @question.notifications.build
+      @question.notifications.build()
     end
   end
 
@@ -77,7 +79,7 @@ class QuestionsController < ApplicationController
         if @question.fast_answer
             current_user.deduct_points(5)
         else
-          current_user.add_points(5)
+            current_user.add_points(5)
         end
         current_user.add_expert_role
         format.html { redirect_to @question, notice: "Question was successfully created." + User.points_bill(user_points, current_user.points)}

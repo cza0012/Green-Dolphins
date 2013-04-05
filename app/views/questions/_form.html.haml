@@ -33,6 +33,7 @@
         .span4
           = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert', :disabled => true
       = g.input :read, :as => :hidden, :input_html => { :value => false }
+      = g.input :content, :as => :hidden, :input_html => { :value => 'Pay 5 points' }
       - points = points - 5
 
   .form-actions.well
