@@ -55,8 +55,10 @@ class Question < ActiveRecord::Base
   def teacher_notification 
     ta_limitedTime = created_at + 3.hours
     instructor_limitedTime = created_at + 6.hours
+    student_limitedTime = created_at + 30.minutes
     delay({:run_at => ta_limitedTime}).ta_notification
     delay({:run_at => instructor_limitedTime}).instructor_notification
+    delay({:run_at => student_limitedTime}).student_notification
   end
   
   def self.total_grouped_by_day
@@ -79,13 +81,28 @@ class Question < ActiveRecord::Base
   
   def instructor_notification
     if self.comments.blank?
-      users_ta = User.with_role(:instructor)
-      users_ta.each do |u|
+      users_instructor = User.with_role(:instructor)
+      users_instructor.each do |u|
         @attr = { 
           :user_id => u.id,
           :read => false,
         }
         self.notifications.create(@attr)
+      end
+    end
+  end
+  
+  def student_notification
+    if self.comments.blank?
+      users_student = User.with_role(:student)
+      users_student.each do |u|
+        if u.id != user_id
+          @attr = { 
+            :user_id => u.id,
+            :read => false,
+          }
+          self.notifications.create(@attr)
+        end
       end
     end
   end
