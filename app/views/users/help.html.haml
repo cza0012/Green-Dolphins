@@ -11,6 +11,8 @@
       %li
         %a(href='#Answer') Answer a Question
       %li
+        %a(href='#Notification') Notification
+      %li
         %a(href='#Expert') Expert Students
       %li
         %a(href='#Points') Points System
@@ -35,7 +37,7 @@
           .thumbnail
             =image_tag 'Ask_question.png'
       %p
-        You can ask your friend any question you would like to ask. 
+        You can ask your friend any question you would like to ask.
       %p
         1. Write your question in a titile 
       %p
@@ -73,10 +75,45 @@
         1. Select a question
       %p
         2. You can answer the question anonymously by checking the checkbox
-      %p#Expert
+      %p#Notification
         3. Write your answer and post it, 
         %b 
           you will get 10 points from answering a question. You will get 10 points when your answer is selected to be the best answer from an asker. The asker will get 5 points after you choose the best answer. 
+    %section
+    .page-header
+      %h2
+        Notifications
+    %p
+      Green Dolphin will send emails to students in 
+      %b 
+        a hour 
+      after students post a question. 
+      Green Dolphin sends emails to TAs after 
+      %b 
+        3 hours 
+      and instructors after 
+      %b
+        6 hours.
+    %p
+      %b
+        Fast Answer
+      %p
+        If a student selects Fast Answer, Green Dolphin will send emails to TAs and instructor 
+        %b
+          immediately. 
+        Green Dolphin will send emails to students in 
+        %b
+          a half hour.
+      %p
+        %b
+          Selects Experts
+        %p#Expert
+          If a student selects an expert, Green Dolphin will send emails to the selected expert 
+          %b
+            immediately. 
+          Green Dolphin will send emails to students in 
+          %b
+            a half hour.
     %section
     .page-header
       %h2
