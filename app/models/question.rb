@@ -59,9 +59,15 @@ class Question < ActiveRecord::Base
     if fast_answer or self.notifications.where("content = 'Pay 5 points'").count > 0
       student_limitedTime = created_at + 30.minutes
     end
-    delay({:run_at => ta_limitedTime}).ta_notification
-    delay({:run_at => instructor_limitedTime}).instructor_notification
     delay({:run_at => student_limitedTime}).student_notification
+    
+    if fast_answer
+      ta_notification
+      instructor_notification
+    else
+      delay({:run_at => ta_limitedTime}).ta_notification
+      delay({:run_at => instructor_limitedTime}).instructor_notification
+    end
   end
   
   def self.total_grouped_by_day
