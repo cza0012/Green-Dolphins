@@ -55,7 +55,10 @@ class Question < ActiveRecord::Base
   def teacher_notification 
     ta_limitedTime = created_at + 3.hours
     instructor_limitedTime = created_at + 6.hours
-    student_limitedTime = created_at + 30.minutes
+    student_limitedTime = created_at + 1.hours
+    if fast_answer or self.notifications.where("content = 'Pay 5 points'").count > 0
+      student_limitedTime = created_at + 30.minutes
+    end
     delay({:run_at => ta_limitedTime}).ta_notification
     delay({:run_at => instructor_limitedTime}).instructor_notification
     delay({:run_at => student_limitedTime}).student_notification
@@ -67,7 +70,8 @@ class Question < ActiveRecord::Base
   
   private
   def ta_notification
-    if self.comments.blank?
+    # It check that there are any answers before sending emails to TAs. 
+    # if self.comments.blank?
       users_ta = User.with_role(:ta)
       users_ta.each do |u|
         @attr = { 
@@ -76,11 +80,12 @@ class Question < ActiveRecord::Base
         }
         self.notifications.create(@attr)
       end
-    end
+    # end
   end
   
   def instructor_notification
-    if self.comments.blank?
+    # It check that there are any answers before sending emails to instructors. 
+    # if self.comments.blank?
       users_instructor = User.with_role(:instructor)
       users_instructor.each do |u|
         @attr = { 
@@ -89,11 +94,10 @@ class Question < ActiveRecord::Base
         }
         self.notifications.create(@attr)
       end
-    end
+    # end
   end
   
-  def student_notification
-    if self.comments.blank?
+  def student_notification 
       users_student = User.with_role(:student)
       users_student.each do |u|
         if u.id != user_id
@@ -104,7 +108,6 @@ class Question < ActiveRecord::Base
           self.notifications.create(@attr)
         end
       end
-    end
   end
   
   def owner

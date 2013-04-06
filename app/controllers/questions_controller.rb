@@ -77,7 +77,7 @@ class QuestionsController < ApplicationController
       if @question.save
         @question.teacher_notification
         if @question.fast_answer
-            current_user.deduct_points(5)
+            current_user.deduct_points(10)
         else
             current_user.add_points(5)
         end

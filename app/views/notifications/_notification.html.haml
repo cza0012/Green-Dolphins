@@ -10,3 +10,5 @@
   =render 'reply_notification', notification: notification
 - elsif notification.sendable_type == 'Useful'
   =render 'useful_notification', notification: notification
+- elsif notification.sendable_type == 'GoodAnswer'
+  =render 'good_answer_notification', notification: notification
