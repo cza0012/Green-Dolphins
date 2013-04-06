@@ -14,7 +14,7 @@
       = f.input_field :tag_list, input_html: { data: {load: @question.tags} }
     .control-group
       = f.input :anonymous, :label => false, :inline_label => 'Ask a question anonymously' 
-      - if current_user.points >= 5 && !@question.fast_answer
+      - if current_user.points >= 10 && !@question.fast_answer
         = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question (You need to spend 10 points to use this function.)'
       - else
         = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', :disabled => true
