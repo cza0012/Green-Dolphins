@@ -70,7 +70,7 @@
           .span4
             .row
               .span4
-                %h4= "You had <strong>#{@number_usefuls}</strong> useful responds.".html_safe
+                %h4= "You had <strong>#{@number_usefuls}</strong> useful responses.".html_safe
                 - users_usefuls = Useful.group("user_id").count()
                 - maximum_usefuls = 0
                 - average_usefuls = 0
@@ -91,7 +91,7 @@
         .span4
           .row
             .span4
-              %h4= "You had <strong>#{@number_replies}</strong> replies responds.".html_safe
+              %h4= "You had <strong>#{@number_replies}</strong> replies.".html_safe
               - users_replies = Reply.group("user_id").count()
               - maximum_replies = 0
               - average_replies = 0
