@@ -117,6 +117,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     @question.archive_question
+    @question.user.deduct_points(5)
     # @question.destroy
 
     respond_to do |format|

@@ -87,6 +87,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @question = @comment.question
+    @comment.user.deduct_points(10)
     @comment.archive_comment
     # @comment.destroy
 

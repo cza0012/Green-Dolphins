@@ -46,7 +46,6 @@ class RepliesController < ApplicationController
     respond_to do |format|
       if @reply.save
         @question = Question.find(@reply.comment.question_id)
-        @reply.notifications.create({ user_id: @reply.comment.user_id, read: false })
         format.html { redirect_to @question, notice: 'Reply was successfully created.' }
         format.json { render json: @reply, status: :created, location: @reply }
         format.js
