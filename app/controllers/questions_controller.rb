@@ -44,9 +44,10 @@ class QuestionsController < ApplicationController
     @question = Question.new
     @experts = User.with_role(:expert)
     # @number_of_experts = @experts.count
-
+    @notifications = Array.new
+    
     2.times do
-      @question.notifications.build()
+      @notifications.push(@question.notifications.build())
     end
     
     
@@ -61,9 +62,10 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @experts = User.with_role(:expert)
     # @number_of_experts = @experts.count
+    @notifications = Array.new
     
     2.times do
-      @question.notifications.build()
+      @notifications.push(@question.notifications.build())
     end
   end
 

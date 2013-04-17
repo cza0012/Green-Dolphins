@@ -25,7 +25,7 @@
   - points = current_user.points.to_i
   %h5= "You have #{current_user.points} points. You need to spend 5 points to use this function."
   .row
-    = f.simple_fields_for(:notifications) do |g|
+    = f.simple_fields_for(:notifications, @notifications) do |g|
       - if points >= 5
         .span4
           = g.association :user, :collection => @experts, :prompt => "Choose a expert", :label => 'Ask an expert'
