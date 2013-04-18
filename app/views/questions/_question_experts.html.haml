@@ -2,11 +2,16 @@
   %thead
     %tr
       %th= 'Name'
+      %th= 'Asked'
       %th= 'Expert tags'
   %tbody
     - @experts.each do |expert|
       %tr
         %td= expert.name
+        - if !@question.id.blank?
+          %td= Notification.where("content = 'Pay 5 points' and sendable_id = #{@question.id} and sendable_type = 'Question' and user_id = #{expert.id} ").count
+        - else 
+          %td= '0'
         %td
           %p#tag_cloud
             - tag_cloud expert.tag_counts, %w(label popular-label) do |tag, css_class|
