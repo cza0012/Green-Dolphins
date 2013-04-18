@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   def add_expert_role
     scores = z_score
     
-    if scores >= 1.29 && !(has_role? :expert)
+    if scores >= 1.29 && !(has_role? :expert) && !(has_role? :ta) && !(has_role? :instructor)
       if add_role :expert
         self.create_activity key: 'user.add.expert'
         notifications.create({user_id: id, content: 'Expert', read: false})

@@ -2,11 +2,10 @@
   .row
     .span4
       - question = Question.find(notification.sendable_id)
-      - user = question.user
       %p
         %i.icon-question-sign
         Please help
-        = link_to user.name, user
+        = anonymous_user(question)
         to solve
     .span2
       = time_ago_in_words(notification.created_at) + ' ago'

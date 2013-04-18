@@ -2,11 +2,11 @@
   .row
     .span4
       - comment = Comment.find(notification.sendable_id)
-      - user = comment.user
+
       %p
         %i.icon-exclamation-sign
         You got an answer from 
-        = link_to user.name, user
+        = anonymous_user(comment)
     .span2
       = time_ago_in_words(notification.created_at) + ' ago'
     .span2
