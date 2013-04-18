@@ -6,7 +6,7 @@
     .row
       .span8
         %p
-          = @user_feedback.content
+          = raw @user_feedback.content
     .row 
       .span1
         = show_type_feedback @user_feedback.type_feedback

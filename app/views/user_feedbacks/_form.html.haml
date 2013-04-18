@@ -1,10 +1,11 @@
+=render 'comments/aloha'
 = simple_form_for(@user_feedback) do |f|
   = f.error_notification
 
   .form-horizontal.well
     .control-group
       = f.input :title, :input_html => { :class => 'span4' }
-      = f.input :content, :input_html => { :class => 'span4' }
+      = f.input :content, :input_html => { :class => 'editable span4' }
       = f.input :type_feedback, :collection => ['Bug','Enhancement'], :label => 'A type of a feedback'
       = f.input :close, :label => 'Close a feedback'
 
