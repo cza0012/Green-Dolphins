@@ -83,6 +83,7 @@ class QuestionsController < ApplicationController
         else
             current_user.add_points(5)
         end
+        expire_page leaderboard_users_path
         current_user.add_expert_role
         format.html { redirect_to @question, notice: "Question was successfully created." + User.points_bill(user_points, current_user.points)}
         format.json { render json: @question, status: :created, location: @question }

@@ -3,7 +3,11 @@
   %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/require.js"}
   :javascript
     var Aloha = window.Aloha || (window.Aloha = {});
-    Aloha.settings = {sidebar: {disabled: true}};
+    Aloha.settings = {plugins: {
+    				format: {
+    					config: [  'b', 'i', 'p', 'sub', 'sup','del', 'title', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat' ]
+    				}
+    			},sidebar: {disabled: true}};
   %script{:type => "text/javascript", :src  => "http://cdn.aloha-editor.org/latest/lib/aloha.js", :'data-aloha-plugins' => "common/ui, common/format,common/list,common/link,common/highlighteditables,common/table,common/characterpicker,common/image,common/contenthandler,common/undo"}
   :javascript
     Aloha.ready( function() {var $ = Aloha.jQuery; $('.editable').aloha();});

@@ -48,6 +48,7 @@ class UsefulsController < ApplicationController
     respond_to do |format|
       if @useful.save
         current_user.add_points(2)
+        expire_page leaderboard_users_path
         @useful_parent = @useful.useful_parent
         @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
         @useful.notifications.create({ user_id: @useful.useful_parent.user_id, read: false })
