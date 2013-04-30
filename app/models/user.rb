@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   end
   
   def add_expert_role
+    self.lock!
     scores = z_score
     
     if scores >= 1.29 && !(has_role? :expert) && !(has_role? :ta) && !(has_role? :instructor)
