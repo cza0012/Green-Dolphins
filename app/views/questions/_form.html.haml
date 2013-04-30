@@ -18,7 +18,8 @@
         = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question (You need to spend 10 points to use this function.)'
       - else
         = f.input :fast_answer, :label => false, :inline_label => 'Ask a fast question', :disabled => true
-        = f.input :fast_answer, :as => :hidden, :input_html => { :value => false } 
+        -if !@question.fast_answer
+          = f.input :fast_answer, :as => :hidden, :input_html => { :value => false } 
       = f.input :deleted_question, :as => :hidden, :input_html => { :value => false } 
   %legend 
     Ask experts
