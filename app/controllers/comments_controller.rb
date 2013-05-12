@@ -55,7 +55,7 @@ class CommentsController < ApplicationController
         if !Notification.where("user_id= ? and sendable_type = 'Question' and sendable_id = ? and content = 'Pay 5 points'", current_user.id, @comment.question_id).blank?
           current_user.add_points(10)
         end
-        current_user.add_points(10)
+        current_user.add_points(3)
         current_user.add_expert_role
         expire_page leaderboard_users_path
         format.html { redirect_to @comment.question, notice: "Comment was successfully created." + User.points_bill(user_points, current_user.points) }
@@ -88,7 +88,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @question = @comment.question
-    @comment.user.deduct_points(10)
+    @comment.user.deduct_points(3)
     @comment.archive_comment
     # @comment.destroy
 

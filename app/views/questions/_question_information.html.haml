@@ -24,7 +24,8 @@
   .span8
     .form-actions.well{ id: "question_control" }
       - user_useful_array = @question.usefuls.where(user_id: current_user.id)
-      = useful_question_link(user_useful_array, @question)
+      - if !@question_owner
+        = useful_question_link(user_useful_array, @question)
       - if @admin || @question_owner
         = link_to edit_question_path(@question), class: 'btn btn-small' do
           %i.icon-edit

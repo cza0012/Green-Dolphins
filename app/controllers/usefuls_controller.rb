@@ -47,11 +47,13 @@ class UsefulsController < ApplicationController
     
     respond_to do |format|
       if @useful.save
-        current_user.add_points(2)
+        current_user.add_points(3)
         expire_page leaderboard_users_path
         @useful_parent = @useful.useful_parent
         @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
-        @useful.notifications.create({ user_id: @useful.useful_parent.user_id, read: false })
+        @usefulable_owner_id = @useful.useful_parent.user_id
+        User.find(@usefulable_owner_id).add_points(5)
+        @useful.notifications.create({ user_id: @usefulable_owner_id, read: false })
         format.html { redirect_to @useful_parent, notice: 'Useful was successfully created.' }
         format.json { render json: @useful, status: :created, location: @useful }
         format.js
@@ -82,8 +84,10 @@ class UsefulsController < ApplicationController
   # DELETE /usefuls/1.json
   def destroy
     @useful = Useful.find(params[:id])
-    current_user.deduct_points(2)
+    current_user.deduct_points(3)
     @useful_parent = @useful.useful_parent
+    @usefulable_owner_id = @useful.useful_parent.user_id
+    User.find(@usefulable_owner_id).deduct_points(5)
     @useful.destroy
     @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
     

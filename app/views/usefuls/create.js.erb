@@ -2,16 +2,16 @@ if('<%= @useful.usefulable_type %>' == "Comment"){
   var useful_number = parseInt($('h2#useful_comment_<%= @useful.usefulable_id %>').text());
   var points = parseInt($('a#points_leaderboard').text());
   $('h2#useful_comment_<%= @useful.usefulable_id %>').text(useful_number + 1);
-  $('a#points_leaderboard').text(points + 2 + ' points');
+  $('a#points_leaderboard').text(points + 3 + ' points');
   $('a#useful_comment_button_<%= @useful.usefulable_id  %>').remove();
   $('div#comment_control_<%= @useful.usefulable_id %>').prepend('<%= useful_comment_link(@user_useful_array, @useful_parent) %>');
-  $('div#comment_control_<%= @useful.usefulable_id %>').before('<div class="span8"><div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>+2 points</strong></div></div>');
+  $('div#comment_control_<%= @useful.usefulable_id %>').before('<div class="span8"><div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>+3 points</strong></div></div>');
 }else if('<%= @useful.usefulable_type %>' == "Question"){
   var useful_number = parseInt($('h2#useful').text());
   var points = parseInt($('a#points_leaderboard').text());
   $('h2#useful').text(useful_number + 1);
-  $('a#points_leaderboard').text(points + 2 + ' points');
+  $('a#points_leaderboard').text(points + 3 + ' points');
   $('a#useful_question_button').remove();
   $('div#question_control').prepend('<%= useful_question_link(@user_useful_array, @useful_parent) %>');
-  $('div#question_control').before('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>+2 points</strong></div>');
+  $('div#question_control').before('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>+3 points</strong></div>');
 }

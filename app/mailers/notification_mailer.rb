@@ -10,8 +10,11 @@ class NotificationMailer < ActionMailer::Base
     attachments["greendolphin_logo.png"] = File.read("#{Rails.root}/app/assets/images/greendolphin_logo.png")
     @user = user
     @question = Question.find(sendable_id)
-    
-    mail to: user.email, subject: "Your friend asked you a question."
+    if (@user.has_role?(:ta) || @user.has_role?(:instructor)) && @question.fast_answer
+      mail to: user.email, subject: "[Need a Fast Answer] Your friend asked you a question."
+    else
+      mail to: user.email, subject: "Your friend asked you a question."
+    end
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -61,6 +64,6 @@ class NotificationMailer < ActionMailer::Base
     @useful = Useful.find(sendable_id)
     @question = @useful.useful_parent_question
     
-    mail to: @user.email, subject: "Your friend votes your response to be useful in the question below."
+    mail to: @user.email, subject: "Your friend votes your response to be useful."
   end
 end
