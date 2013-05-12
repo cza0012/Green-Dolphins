@@ -20,6 +20,10 @@
 .row
   .span8
     %p= raw @question.content
+-if !@question.code.blank?
+  .row
+    .span8
+      %p= java_code_highlight(@question.code)
 .row
   .span8
     .form-actions.well{ id: "question_control" }

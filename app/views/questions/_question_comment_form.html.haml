@@ -3,7 +3,7 @@
   = f.error_notification
   .form
     %legend 
-      Please answer your friend's question and get 10 points
+      Please answer your friend's question and get 3 points
     = f.input :content, :label => false ,:input_html => { :class => 'editable span8'}
     = f.input :code, :as => :hidden, :input_html => { :value => 0 }
     = f.input :question_id, :as => :hidden, :input_html => { :value => @question.id } 

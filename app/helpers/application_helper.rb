@@ -29,6 +29,14 @@ module ApplicationHelper
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
   
+  def java_code_highlight(code)
+    sha = Digest::SHA1.hexdigest(code)
+    
+    Rails.cache.fetch ["code", "java", sha].join('-') do
+      raw Pygments.highlight(code, lexer: 'java')
+    end
+  end
+  
   def anonymous_user(question_or_answer)
       question_or_answer.anonymous == true ? 'An anonymous user' : link_to(question_or_answer.user.name, question_or_answer.user) 
   end

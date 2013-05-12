@@ -33,7 +33,7 @@ class Question < ActiveRecord::Base
   has_one :good_answer, :inverse_of => :question
   has_many :notifications, :as => :sendable
   accepts_nested_attributes_for :notifications, :reject_if => lambda { |a| a[:user_id].blank? }
-  after_save :automatic_feedback
+  # after_save :automatic_feedback
   before_save :tag_tokens
   
   def archive_question

@@ -6,6 +6,7 @@
     .control-group
       = f.input :title, :input_html => { :class => 'span8' }
       = f.input :content, :input_html => { :class => 'editable span8' }
+      = f.input :code, :input_html => { :class => 'span8', rows: '1' }
     .control-group
       = f.label :tag_list
       %p#tag_cloud
