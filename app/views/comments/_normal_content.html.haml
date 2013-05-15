@@ -7,7 +7,7 @@
     - user_useful_array = comment.usefuls.where(user_id: current_user.id)
     - if !owner
       = useful_comment_link(user_useful_array, comment)
-    = best_answer(@good_answer, comment)
+      = best_answer(@good_answer, comment)
     - if @admin || @question_owner
       = good_answer_button(@good_answer, comment)
     - if @admin || owner
