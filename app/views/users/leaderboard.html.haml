@@ -1,25 +1,26 @@
-.row
-  .span8.offset2
-    %ul.nav.nav-tabs
-      %li.active
-        = link_to "Leaderboard", leaderboard_users_path, id: "points_leaderboard"
-      %li
-        = link_to "Performance", performance_users_path
-    .row
-      .span8
-        %table.table.table-hover
-          %thead
-            %tr
-              %th='#'
-              %th='Avatar'
-              %th='Name'
-              %th='Answers'
-              %th='Questions'
-              %th='Contributions'
-              %th='Points'
-          -rank = 0
-          -@users.each do |user|
-            - if !(user.has_role?(:admin) || user.has_role?(:ta) || user.has_role?(:instructor))
-              -rank = rank +  1
-              =render 'row_user', user: user, rank: rank, length: @numberOfStudent
+- cache "recent_leaderboard" do
+  .row
+    .span8.offset2
+      %ul.nav.nav-tabs
+        %li.active
+          = link_to "Leaderboard", leaderboard_users_path, id: "points_leaderboard"
+        %li
+          = link_to "Performance", performance_users_path
+      .row
+        .span8
+          %table.table.table-hover
+            %thead
+              %tr
+                %th='#'
+                %th='Avatar'
+                %th='Name'
+                %th='Answers'
+                %th='Questions'
+                %th='Contributions'
+                %th='Points'
+            -rank = 0
+            -@users.each do |user|
+              - if !(user.has_role?(:admin) || user.has_role?(:ta) || user.has_role?(:instructor))
+                -rank = rank +  1
+                =render 'row_user', user: user, rank: rank, length: @numberOfStudent
             

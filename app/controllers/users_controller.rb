@@ -2,7 +2,7 @@ require 'will_paginate/array'
 
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  caches_page :help, :leaderboard
+  caches_page :help
 
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'

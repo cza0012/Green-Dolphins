@@ -57,7 +57,7 @@ class CommentsController < ApplicationController
         end
         current_user.add_points(3)
         current_user.add_expert_role
-        expire_page leaderboard_users_path
+        expire_fragment("recent_leaderboard")
         format.html { redirect_to @comment.question, notice: "Comment was successfully created." + User.points_bill(user_points, current_user.points) }
         format.json { render json: @comment, status: :created, location: @comment }
       else

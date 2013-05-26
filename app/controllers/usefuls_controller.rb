@@ -48,7 +48,7 @@ class UsefulsController < ApplicationController
     respond_to do |format|
       if @useful.save
         current_user.add_points(3)
-        expire_page leaderboard_users_path
+        expire_fragment("recent_leaderboard")
         @useful_parent = @useful.useful_parent
         @user_useful_array = @useful_parent.usefuls.where(user_id: current_user.id)
         @usefulable_owner_id = @useful.useful_parent.user_id
